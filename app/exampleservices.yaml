@@ -1,0 +1,9 @@
+#copy data below, change to your key and create file services.yaml
+parameters:
+  youtube.key:
+    key: AIzaSyDvQTE5DVqpz9hLh6Y-rM_8T9DUrQf4wL0
+
+services:
+  youtube:
+    class:     Madcoda\Youtube
+    arguments: ['%youtube.key%']
