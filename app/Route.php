@@ -8,7 +8,13 @@ class Route {
      */
     const ROUTE = [
         '' => ['FrontPageController', 'index'],
-
+//        'buy@index' => ['BuyallController', 'index'],
+//        'course@index' => ['CourseController', 'index'],
+//        'invoice@index' => ['InvoiceController', 'index'],
+//        'lecture@index' => ['LectureController', 'index'],
+//        'offer@index' => ['OfferController', 'index'],
+//        'order@index' => ['OrderController', 'index'],
+//        'auth@index' => ['AuthentificationController', 'index'],
     ];
 
     /**
