@@ -23,6 +23,7 @@ $sql = "CREATE TABLE `courses` (
   `status` varchar(26) NOT NULL,
   `picture` varchar(26) NOT NULL,
   `created_on` date NOT NULL,
+  `edited_on` date NULL,
   `lecture_id` int(11) NOT NULL
 )";
 $db->exec($sql);
@@ -37,17 +38,19 @@ $db->exec($sql);
 $sql = "CREATE TABLE `offer` (
   `ID` int(11) NOT NULL,
   `price` int(11) NOT NULL,
-  `valid_to` int(11) NOT NULL,
+  `valid_from` DATE,
+  `valid_to` DATE,
   `discount_offer` int(11) NOT NULL,
   `created_on` date NOT NULL,
-  `user_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL
 )";
 $db->exec($sql);
-$sql = "CREATE TABLE `payments` (
+$sql = "CREATE TABLE `orders` (
   `ID` int(11) NOT NULL,
   `offer_id` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
+    `user_id` int(11) NOT NULL,
+    `course_id` int(26) NOT NULL,
+    `invoice_id` int(26) NOT NULL,
   `created_on` date NOT NULL
 )";
 $db->exec($sql);
@@ -57,14 +60,27 @@ $sql = "CREATE TABLE `user` (
   `surname` varchar(26) NOT NULL,
   `email` varchar(26) NOT NULL,
   `password` varchar(26) NOT NULL,
-  `role` int(26) NOT NULL,
-  `curse_id` int(11) NOT NULL,
+  `password_reminder` varchar(26) NOT NULL,
+  `role` int(11) NOT NULL,
   `created_on` date NOT NULL,
   `last_log` date NOT NULL,
   `user_discount` int(11) NOT NULL
 )";
 $db->exec($sql);
-
+    $sql = "CREATE TABLE `all` (
+  `ID` int(11) NOT NULL,
+    `name` varchar(26) NOT NULL,
+  `description` varchar(26) NOT NULL,
+    `price` int(11) NOT NULL,
+    `created_on` date NOT NULL
+)";
+    $db->exec($sql);
+    $sql = "CREATE TABLE `invoices` (
+  `ID` int(11) NOT NULL,
+    `price` int(11) NOT NULL,
+    `created_on` date NOT NULL
+)";
+    $db->exec($sql);
 
 
 ////ALTER
@@ -79,19 +95,22 @@ $sql = "ALTER TABLE `lectures`
 $db->exec($sql);
 $sql = "ALTER TABLE `offer`
   ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `user_id` (`user_id`),
   ADD UNIQUE KEY `course_id` (`course_id`);
 ";
 $db->exec($sql);
-$sql = "ALTER TABLE `payments`
+$sql = "ALTER TABLE `orders`
   ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `user_id` (`offer_id`);";
+  ADD UNIQUE KEY `course_id` (`course_id`),
+  ADD UNIQUE KEY `invoice_id` (`invoice_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);";
 $db->exec($sql);
 $sql = "ALTER TABLE `user`
   ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `user_disc_id` (`user_discount`),
-  ADD KEY `curse_id` (`curse_id`);";
+  ADD UNIQUE KEY `user_disc_id` (`user_discount`);";
 $db->exec($sql);
+    $sql = "ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`ID`);";
+    $db->exec($sql);
 
 $sql = "ALTER TABLE `courses`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
@@ -99,9 +118,11 @@ $sql .= "ALTER TABLE `lectures`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
 $sql .= "ALTER TABLE `offer`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
-$sql .= "ALTER TABLE `payments`
+$sql .= "ALTER TABLE `orders`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
 $sql .= "ALTER TABLE `user`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
+    $sql .= "ALTER TABLE `invoices`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
 $db->exec($sql);
 
@@ -113,19 +134,17 @@ $sql = "ALTER TABLE `lectures`
   ADD CONSTRAINT `lectures_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `courses` (`lecture_id`);";
 $db->exec($sql);
 $sql = "ALTER TABLE `offer`
-  ADD CONSTRAINT `offer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `offer_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`ID`);
 ";
 $db->exec($sql);
-$sql = "ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`offer_id`) REFERENCES `offer` (`ID`);
+$sql = "ALTER TABLE `orders`
+    ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`ID`),
+        ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`ID`),
+    ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`course_id`) REFERENCES `courses` (`ID`),
+  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`offer_id`) REFERENCES `offer` (`ID`);
 ";
 $db->exec($sql);
-$sql = "ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `payments` (`offer_id`),
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`curse_id`) REFERENCES `courses` (`ID`);
-";
-$db->exec($sql);
+
 
 
 //    INSERT YOUR TABLES HERE
