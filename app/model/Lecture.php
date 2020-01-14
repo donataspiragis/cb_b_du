@@ -5,7 +5,7 @@ namespace App\Model;
 use App\Model\Model;
 
 
-class User extends Model
+class Lecture extends Model
 {
     //
 }
