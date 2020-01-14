@@ -1,1 +1,8 @@
-<h1>erorpage</h1>
+{% extends 'frontlayout.php' %}
+{% block title %}Home{% endblock %}
+{% block body %}
+
+<h1>Eror page</h1>
+
+{% endblock %}
+
