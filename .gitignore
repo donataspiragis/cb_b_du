@@ -60,3 +60,5 @@ package.json
 /node_modules/
 config.php
 services.yaml
+
+composer.lock
