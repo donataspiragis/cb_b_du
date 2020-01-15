@@ -19,11 +19,6 @@ class BaseController{
         $this->db = new Connection();
     }
 
-    public static function carbonTime(){
-        self::$carb = Carbon::now()->setTimezone('Europe/Vilnius');
-        return self::$carb;
-    }
-
     public function render($templateName, array $parameters = array())
     {
         $templateName = !empty($templateName) ? $templateName : 'error404';
@@ -35,16 +30,6 @@ class BaseController{
     {
         $twig = new Environment(new FilesystemLoader('../src/views'), array('autoescape' => false));
         echo $twig->render('error404.php', $parameters);
-    }
-    public function getData($string){
-
-
-        $data = [];
-        foreach ($this->db->openConnection()->query($string) as $row) {
-            $data[] = $row;
-        }
-        $this->db->closeConnection();
-        return $data;
     }
 }
 
