@@ -23,18 +23,21 @@ $sql = "CREATE TABLE `courses` (
   `status` varchar(26) NOT NULL,
   `picture` varchar(26) NOT NULL,
   `created_on` date NOT NULL,
-  `edited_on` date NULL,
-  `lecture_id` int(11) NOT NULL
+  `edited_on` date NULL
 )";
 $db->exec($sql);
 $sql = "CREATE TABLE `lectures` (
   `ID` int(11) NOT NULL,
   `video_url` varchar(26) NOT NULL,
-  `order` varchar(26) NOT NULL,
-  `created_on` date NOT NULL,
-  `some` int(11) NOT NULL
+  `created_on` date NOT NULL
 )";
 $db->exec($sql);
+    $sql = "CREATE TABLE `lectureslist` (
+  `ID` int(11) NOT NULL,
+`lecture_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL
+)";
+    $db->exec($sql);
 $sql = "CREATE TABLE `offer` (
   `ID` int(11) NOT NULL,
   `price` int(11) NOT NULL,
@@ -86,13 +89,17 @@ $db->exec($sql);
 ////ALTER
 
 $sql = "ALTER TABLE `courses`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `lecture_id` (`lecture_id`);";
+  ADD PRIMARY KEY (`ID`);";
 $db->exec($sql);
 
 $sql = "ALTER TABLE `lectures`
   ADD PRIMARY KEY (`ID`);";
 $db->exec($sql);
+    $sql = "ALTER TABLE `lectureslist`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `course_id` (`course_id`),
+  ADD UNIQUE KEY `lecture_id` (`lecture_id`);";
+    $db->exec($sql);
 $sql = "ALTER TABLE `offer`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `course_id` (`course_id`);
@@ -116,6 +123,8 @@ $sql = "ALTER TABLE `courses`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
 $sql .= "ALTER TABLE `lectures`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
+    $sql .= "ALTER TABLE `lectureslist`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
 $sql .= "ALTER TABLE `offer`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
 $sql .= "ALTER TABLE `orders`
@@ -127,12 +136,10 @@ $sql .= "ALTER TABLE `user`
 $db->exec($sql);
 
 
-$sql = "ALTER TABLE `courses`
-  ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`lecture_id`) REFERENCES `lectures` (`ID`);";
-$db->exec($sql);
-$sql = "ALTER TABLE `lectures`
-  ADD CONSTRAINT `lectures_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `courses` (`lecture_id`);";
-$db->exec($sql);
+    $sql = "ALTER TABLE `lectureslist`
+  ADD CONSTRAINT `lectureslist_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`ID`),
+  ADD CONSTRAINT `lectureslist_ibfk_2` FOREIGN KEY (`lecture_id`) REFERENCES `lectures` (`ID`);";
+    $db->exec($sql);
 $sql = "ALTER TABLE `offer`
   ADD CONSTRAINT `offer_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`ID`);
 ";

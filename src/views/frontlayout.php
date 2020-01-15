@@ -23,10 +23,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/login">Prisijungti</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/register">Registruotis</a>
-                </li>
             </ul>
         </div>
     </div>
