@@ -96,9 +96,7 @@ $sql = "ALTER TABLE `lectures`
   ADD PRIMARY KEY (`ID`);";
 $db->exec($sql);
     $sql = "ALTER TABLE `lectureslist`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `course_id` (`course_id`),
-  ADD UNIQUE KEY `lecture_id` (`lecture_id`);";
+  ADD PRIMARY KEY (`ID`);";
     $db->exec($sql);
 $sql = "ALTER TABLE `offer`
   ADD PRIMARY KEY (`ID`),
