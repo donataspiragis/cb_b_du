@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ constant('App\\App::INSTALL_FOLDER') }}/css/style.css">
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -32,7 +33,34 @@
     </div>
 </nav>
 
-{% block body %}{% endblock %}
+
+
+<div class="row">
+    <div class="side">
+        <h2>Statistika</h2>
+        <ul>
+            <li><a href="#statistic">Video statistika</a></li>
+            <li><a href="#info">Mokiniai + informacija</a></li>
+            <li><a href="#turnover">Apyvarta</a></li>
+        </ul>
+        <h2>Video</h2>
+        <ul>
+            <li><a href="#replace">Patalpinti naują video</a></li>
+            <li><a href="#create">Sukurti naują kursą</a></li>
+            <li><a href="#edit">Redaguoti esamą kursą</a></li>
+        </ul>
+
+    </div>
+    <div class="main">
+        <h2>Sukurti kursą:</h2>
+        {% block newCourseForm %}
+        {% endblock %}
+    </div>
+</div>
+
+
+
+
 
 <footer class="footer">
     <div class="container">
