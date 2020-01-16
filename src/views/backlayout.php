@@ -51,11 +51,10 @@
         </ul>
 
     </div>
-    <div class="main">
+    <div class="main flex-row justify-content-around">
         <h2>Sukurti kursą:</h2>
         {% block newCourseForm %}
         {% endblock %}
-        <br>
         {% block videosAdd %}
         {% endblock %}
     </div>

@@ -5,6 +5,7 @@ use App\App;
 use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Model\Model;
+use function Composer\Autoload\includeFile;
 
 class LectureController extends BaseController  {
     public function index($id){
@@ -12,6 +13,7 @@ class LectureController extends BaseController  {
 //        return $this->render('forms/videosAdd',['video' => $id]);
     }
     public function getAllVideosFromChanel(){
+        $new_course_form = new \App\Objects\NewCourseForm();
         $channelId = 'UCeTVoczn9NOZA9blls3YgUg';
         $maxResults = 3;
 //        $API_key = 'AIzaSyC2bzQLTHYtXj7R1TSvlZ-1HyY_OxB1xnI';
@@ -21,7 +23,11 @@ class LectureController extends BaseController  {
         for($i = 0; $i < $max; $i++) {
             $videoList[]='https://www.youtube.com/embed/'.$listOfVideoKey[$i];
         }
-        return $this->render('forms/videosAdd',['lecture' =>$videoList]);
+//        return $this->render('forms/videosAdd',['lecture' =>$videoList]);
+        return $this->render('forms/videosAdd',[
+            'newcourseform' => $new_course_form->getData(),
+            'lecture' => $videoList
+        ]);
     }
     public function  getAllVideosListFromChanel($channelId, $maxResults, $API_key){
         $video_list = file_get_contents('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId='.$channelId.'&maxResults='.$maxResults.'&key='.$API_key.'');
