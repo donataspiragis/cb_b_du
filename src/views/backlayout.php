@@ -53,7 +53,7 @@
     </div>
     <div class="main">
         <h2>Sukurti kursą:</h2>
-        {% block body %}
+        {% block newCourseForm %}
         {% endblock %}
     </div>
 </div>
