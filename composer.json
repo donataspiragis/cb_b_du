@@ -5,6 +5,8 @@
     "psr-4": {
       "App\\Controller\\": "app/controller",
       "App\\Model\\": "app/model",
+      "App\\Objects\\": "app/objects",
+      "App\\View\\": "app/view",
       "App\\": "app",
       "DataBase\\": "DataBase"
     }
