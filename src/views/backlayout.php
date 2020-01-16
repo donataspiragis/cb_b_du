@@ -1,3 +1,5 @@
+
+{% block body %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,9 +56,11 @@
     <div class="main">
         <h2>Sukurti kursą:</h2>
         {% block newCourseForm %}
+
         {% endblock %}
         <br>
         {% block videosAdd %}
+             {{include('forms/videosAdd.php')}}
         {% endblock %}
     </div>
 </div>
@@ -76,3 +80,4 @@
 </body>
 
 </html>
+{% endblock %}
