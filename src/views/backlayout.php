@@ -55,6 +55,8 @@
         <h2>Sukurti kursą:</h2>
         {% block newCourseForm %}
         {% endblock %}
+        {% block videosAdd %}
+        {% endblock %}
     </div>
 </div>
 
