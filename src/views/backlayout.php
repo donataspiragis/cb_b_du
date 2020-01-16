@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/">Home</a>
+                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/">Pradinis</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/logof">Atsijungti</a>
@@ -55,6 +55,7 @@
         <h2>Sukurti kursą:</h2>
         {% block newCourseForm %}
         {% endblock %}
+        <br>
         {% block videosAdd %}
         {% endblock %}
     </div>

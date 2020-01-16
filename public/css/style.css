@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,500i,700,700i&amp;display=swap&amp;subset=latin-ext" rel="stylesheet');
 body, body * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     vertical-align: top;
+    font-family: 'Montserrat', 'Roboto', sans-serif;
 }
 html, body {
     scroll-behavior: smooth;
@@ -64,4 +66,157 @@ li a {
 li a:hover {
     background-color: #555;
     color: white;
+}
+
+
+
+
+.front-header-section {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.front-header-section * {
+    margin: 4px 0;
+}
+.front-header-section > h1 {
+    font-size: 2.3rem;
+    line-height: 3rem;
+    padding: 5px;
+    text-align: center;
+}
+.front-header-section > h2 {
+    font-size: 2rem;
+    line-height: 3rem;
+    padding: 5px;
+    text-align: center;
+}
+.front-video-container {
+    width: 1140px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /*background-color: #134347;*/
+    padding: 40px 10px;
+}
+.front-video-container > .course-front {
+    width: 30%;
+    margin: 10px 10px 75px 10px;
+    box-shadow: 0 2px 5px #fff;
+    position: relative;
+}
+
+.course-front > img {
+    max-width: 100%;
+}
+.course-front-title {
+    position: absolute;
+    width: 100%;
+    top: 40%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.course-front-title > h1 {
+    color: #ffffff;
+    font-size: 33px;
+    line-height: 35px;
+    width: 65%;
+    background-color: rgba(20, 20, 20, 0.5);
+}
+
+.bnt-buy-holder {
+    width: 100%;
+    position: absolute;
+    bottom: -50px;
+    text-align: center;
+}
+.btn-buy {
+    text-decoration: none;
+    color: #F3F3F3;
+    padding: 7px 37px;
+    background-color: #5BB95B;
+    border-radius: 20px;
+    font-size: 18px;
+    line-height: 25px;
+    transition: all 1s;
+}
+.btn-buy:hover {
+    text-decoration: none;
+    background-color: #992337;
+    color: #F3F3F3;
+}
+.front-aside {
+    position: absolute;
+    left: 30px;
+    top: 24%;
+    width: 250px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px #fff;
+    border-radius: 10px;
+    padding: 35px 7px;
+    text-align: center;
+}
+.front-aside * {
+    margin: 7px 0;
+}
+.discount-one {
+    position: relative;
+    width: 100%;
+}
+.front-aside > .discount-one > img {
+    max-width: 100%;
+}
+.course-discount-title {
+    position: absolute;
+    width: 100%;
+    top: 10%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.course-discount-title > h1 {
+    color: #ffffff;
+    font-size: 33px;
+    line-height: 35px;
+    width: 65%;
+    background-color: rgba(20, 20, 20, 0.5);
+}
+.buy-all-container {
+    width: 100%;
+    padding: 10px;
+    margin: 30px 0;
+    text-align: center;
+}
+.btn-buy-me
+{
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    text-align: center;
+    background: rgba(30, 144, 255, 0.6);
+    animation: pulse 1s infinite;
+    font-size: 20px;
+    padding: 9px 12px;
+    border-radius: 20px;
+    transition: 1s all;
+}
+.btn-buy-me:hover {
+    text-decoration: none;
+    color: #F3F3F3;
+}
+@keyframes pulse
+{
+    0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 0 35px rgba(0, 0, 0, 0);
+    }
 }
