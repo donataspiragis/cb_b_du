@@ -16,6 +16,7 @@
 
 
 <section id="video" class="front-content-holder">
+
     <aside class="front-aside">
         <h2>Specialūs pasiūlymai</h2>
         <p>Nuolaida kursui:</p>
@@ -40,14 +41,24 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ discount.picture }}" alt="" style="max-width: 100%">
-                            <div class="course-discount-title">
-                                <h1>{{ discount.name }}</h1>
+                            <div class="modal-bod-custom">
+                                <div class="discount-pop-left">
+                                    <h1>{{ discount.name }}</h1>
+                                </div>
+                                <div class="modal-bod-content">
+                                    {% for offer in offer %}
+                                   <p>Pasiūlymas galioja iki: <span id="timer"></span> </p>
+                                    <h2>Kurso aprašymas:</h2>
+                                    <span>{{ discount.about }}</span>
+                                    <span>{{ offer.price }} EUR</span>
+                                    <span>{{ offer.discount_offer }} EUR</span>
+                                    {% endfor %}
+                                    <a href="#">Pirkti kursą</a>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
-                            <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/special" class="btn-buy">Pirkti</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nenoriu pasiūlymo</button>
                         </div>
                     </div>
                 </div>
@@ -59,20 +70,27 @@
                 <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/buyall/all" class="btn-buy-me">PIRK VISKA</a>
             </div>
     </aside>
-    <div class="front-video-container">
-        {% for course in courses %}
-        <div class="course-front">
-            <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ course.picture }}" alt="">
-            <div class="course-front-title">
-                <h1>{{ course.name }}</h1>
-            </div>
-            <div class="bnt-buy-holder">
-                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/index" class="btn-buy">Pirkti</a>
-            </div>
-        </div>
-        {% endfor %}
+    <div>
+        <h1 class="section-heading">Visi kursai</h1>
+        <div class="front-video-container">
 
+            {% for course in courses %}
+            <div class="course-front">
+
+                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ course.picture }}" alt="">
+                <div class="course-front-title">
+                    <h1>{{ course.name }}</h1>
+                </div>
+                <div class="course-front-about">{{ course.about|slice(0, 60) }}</div>
+                <div class="bnt-buy-holder">
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/index" class="btn-buy">Pirkti</a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
     </div>
+
 </section>
 {% endblock %}
 

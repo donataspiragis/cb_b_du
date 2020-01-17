@@ -11,7 +11,6 @@ html, body {
 }
 body {
     padding-bottom: 50px;
-    padding-top: 56px;
     min-height: 100vh;
     position: relative;
 }
@@ -133,6 +132,14 @@ li a:hover {
         position: relative;
         width: 100%;
     }
+    .section-heading {
+        width: 100%;
+        text-align: center;
+        font-size: 25px;
+        line-height: 25px;
+        letter-spacing: 1px;
+        margin: 25px 0 15px 0;
+    }
 .front-video-container {
     width: 1140px;
     margin: 10px auto;
@@ -157,10 +164,10 @@ li a:hover {
 .course-front-title {
     position: absolute;
     width: 100%;
-    top: 40%;
+    top: 10%;
     left: 0;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
 }
 .course-front-title > h1 {
@@ -169,8 +176,16 @@ li a:hover {
     line-height: 35px;
     width: 65%;
     background-color: rgba(20, 20, 20, 0.5);
+    border-top-right-radius: 20px;
 }
-
+.course-front-about {
+    border: 1px solid #767676;
+    border-top: none;
+    font-size: 15px;
+    color: #767676;
+    padding: 7px 13px;
+    box-shadow: 1px 1px 1px #5BB95B;
+}
 .bnt-buy-holder {
     width: 100%;
     position: absolute;
@@ -182,29 +197,35 @@ li a:hover {
     color: #F3F3F3;
     padding: 7px 37px;
     background-color: #5BB95B;
-    border-radius: 20px;
+    border-radius: 5px;
     font-size: 18px;
     line-height: 25px;
     transition: all 1s;
+    margin: 15px 0;
 }
 .btn-buy:hover {
     text-decoration: none;
     background-color: #992337;
     color: #F3F3F3;
 }
+
 .front-aside {
     position: absolute;
     left: 30px;
-    top: 1%;
+    top: 10%;
     width: 250px;
-    background-color: #ffffff;
-    box-shadow: 0 1px 2px #fff;
+    background-color: #f3f3f3;
+    box-shadow: 2px 2px 2px #f3f3f3;
     border-radius: 10px;
     padding: 35px 7px;
     text-align: center;
 }
-.front-aside * {
-    margin: 7px 0;
+.front-aside > h2 {
+    margin: 8px 0;
+    font-weight: 700;
+    color: #ec5252;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 .discount-one {
     position: relative;
@@ -228,6 +249,56 @@ li a:hover {
     line-height: 35px;
     width: 65%;
     background-color: rgba(20, 20, 20, 0.5);
+}
+
+.modal-dialog {
+    max-width: 700px !important;
+}
+.modal-content {
+    height: 515px!important;
+}
+.modal-bod-custom {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100%;
+}
+.modal-bod-content {
+    text-align: center;
+}
+.modal-bod-content > p {
+    background-color: #FF914C;
+    padding: 10px;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.modal-bod-content > h2 {
+    background-color: #767676;
+    padding: 10px;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+.modal-bod-content > span {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    font-size: 22px;
+    display: inline-block;
+}
+.modal-bod-content > a {
+    display: inline-block;
+    text-align: center;
+    padding: 8px 20px;
+    background-color: #5BB95B;
+}
+.discount-pop-left {
+    width: 50%;
+    border: 5px solid #FF914C;
+    background-color: #F8F7F0;
 }
 .buy-all-container {
     width: 100%;
@@ -261,3 +332,5 @@ li a:hover {
         box-shadow: 0 0 0 35px rgba(0, 0, 0, 0);
     }
 }
+
+
