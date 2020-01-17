@@ -36,8 +36,6 @@
 
 
 <main class="d-flex p-2 bd-highlight justify-content-center">
-
-
     <div class="row" style="width: 100rem">
         <div class="col-lg-2 col-md-4 col-sm-12">
             <div class="card" style="height: 35rem;">
@@ -74,17 +72,15 @@
             <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%); height: 35rem;">
                 <div class="card-body">
                     <h5 class="card-title">Sukurti naują kursą</h5>
-                    <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                    {% block newCourseForm %}
+                    {% endblock %}
+                    {% block videosAdd %}
+                    {% endblock %}
                 </div>
             </div>
         </div>
     </div>
-
 </main>
-
-
-
-
 
 <footer class="footer">
     <div class="container">
