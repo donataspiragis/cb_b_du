@@ -35,34 +35,52 @@
 
 
 
-<div class="row">
-    <div class="side">
-        <h2>Statistika</h2>
-        <ul>
-            <li><a href="#statistic">Video statistika</a></li>
-            <li><a href="#info">Mokiniai + informacija</a></li>
-            <li><a href="#turnover">Apyvarta</a></li>
-        </ul>
-        <h2>Video</h2>
-        <ul>
-            <li><a href="#replace">Patalpinti naują video</a></li>
-            <li><a href="#create">Sukurti naują kursą</a></li>
-            <li><a href="#edit">Redaguoti esamą kursą</a></li>
-        </ul>
-
+<main class="d-flex p-2 bd-highlight justify-content-center">
+    <div class="row" style="width: 100rem">
+        <div class="col-lg-2 col-md-4 col-sm-12">
+            <div class="card" style="height: 35rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Statistika</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">Video statistika</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">Mokiniai + informacija</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">Apyvarta</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <h5 class="card-title">Video</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">Patalpinti naują video</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">Sukurti naują kursą</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">Redaguoti esamą kursą</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-8 col-sm-12">
+            <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%); height: 35rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Sukurti naują kursą</h5>
+                    {% block newCourseForm %}
+                    {% endblock %}
+                    {% block videosAdd %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="main flex-row justify-content-around">
-        <h2>Sukurti kursą:</h2>
-        {% block newCourseForm %}
-        {% endblock %}
-        {% block videosAdd %}
-        {% endblock %}
-    </div>
-</div>
-
-
-
-
+</main>
 
 <footer class="footer">
     <div class="container">
