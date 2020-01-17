@@ -11,6 +11,7 @@ class CourseController extends BaseController  {
     public function create(){
         //this one will be changed in service
         $videosService=new LectureController;
+//        $videosService->test();
         $videoList=$videosService->getVideos();
         return $this->render('newcourseformlayout',['lecture' =>$videoList]);
 

@@ -36,14 +36,13 @@ class LectureController extends BaseController  {
         $videosKeyList=$matches[2];
         return  $videosKeyList;
     }
-
-
-
-
-    public function addCursesVideos(){
-
+    public function test(){
+        $youtube = App::$containerBuilder->get('youtube');
+        $channelId = 'UCeTVoczn9NOZA9blls3YgUg';
+        $videoList = $youtube->searchChannelVideos('', '$channelId', 5);
+        echo '<pre>';
+        var_dump($videoList);
     }
-
 
 
 }
