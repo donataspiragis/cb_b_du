@@ -27,12 +27,12 @@ Class Connection {
             echo "There is some problem in connection: " . $e->getMessage();
         }
     }
-    public function all($model,$limit){
+    public function all($model,$limit,$addition){
         $table = $model->getTable();
         if($limit == ""){
-            $sql ="SELECT * FROM $table";
+            $sql ="SELECT * FROM $table $addition";
         }else {
-            $sql ="SELECT * FROM $table limit $limit";
+            $sql ="SELECT * FROM $table limit $limit $addition";
         }
         $stmt = $this->openConnection()->query($sql);
         $users = array();

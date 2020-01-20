@@ -36,9 +36,9 @@ class Model {
      * Get the table information  associated with the model.
      * @return array
      */
-     public static function getAll($limit = ""){
+     public static function getAll($limit = "",$addition=""){
 
-        return (new Connection())->all(new static(),$limit);
+        return (new Connection())->all(new static(),$limit,$addition);
         //return new static();
 
     }
