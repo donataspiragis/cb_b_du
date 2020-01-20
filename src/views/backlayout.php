@@ -38,7 +38,7 @@
 <main class="d-flex p-2 bd-highlight justify-content-center">
     <div class="row" style="width: 100rem">
         <div class="col-lg-2 col-md-4 col-sm-12">
-            <div class="card" style="height: 35rem;">
+            <div class="card" >
                 <div class="card-body">
                     <h5 class="card-title">Statistika</h5>
                     <ul class="nav flex-column">
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="col-lg-10 col-md-8 col-sm-12">
-            <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%); height: 35rem;">
+            <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%);">
                 <div class="card-body">
                     <h5 class="card-title">Sukurti naują kursą</h5>
                     {% block newCourseForm %}
