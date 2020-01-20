@@ -48,7 +48,8 @@ class NewCourseForm extends Form {
                     'fieldset' => 'd-inline-block mb-3',
                     'label' => 'd-block'
                 ],
-                'type' => 'number'
+                'type' => 'number',
+                'value' => 50
             ],
             [
                 'label' => 'Kaina su nuolaida',
@@ -58,7 +59,8 @@ class NewCourseForm extends Form {
                     'fieldset' => 'd-inline-block mb-3',
                     'label' => 'd-block'
                 ],
-                'type' => 'number'
+                'type' => 'number',
+                'value' => 100,
             ],
             [
                 'label' => 'Galioja iki:',

@@ -9,4 +9,5 @@ class Lecture extends Model
 {
     public static $videoTitle;
     public static $video;
+    protected $table = 'lectures';
 }

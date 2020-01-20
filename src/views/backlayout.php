@@ -71,13 +71,7 @@
         <div class="col-lg-10 col-md-8 col-sm-12">
             <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%);">
                 <div class="card-body">
-                    <h5 class="card-title">Sukurti naują kursą</h5>
-                    {% block newCourseForm %}
-                        {{include('newcourseformlayout.php')}}
-                    {% endblock %}
-                    {% block videosAdd %}
-                        {{include('forms/videosAdd.php')}}
-                    {% endblock %}
+                    {{ newCourseForm }}
                 </div>
             </div>
         </div>

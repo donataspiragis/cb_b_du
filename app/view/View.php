@@ -13,7 +13,7 @@ class View
         $templateName = !empty($templateName) ? $templateName : 'error404';
         $twig = new Environment(new FilesystemLoader('../src/views'), array('autoescape' => false, 'debug' => true));
         $twig->addExtension(new DebugExtension());
-        echo $twig->render($templateName.'.php', $parameters);
+        return $twig->render($templateName.'.php', $parameters);
     }
     public function error($templateName, array $parameters = array())
     {

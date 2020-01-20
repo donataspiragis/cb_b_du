@@ -17,4 +17,24 @@ class Form extends View {
     public function getData() {
         return $this->form;
     }
+
+    public function addCheckboxInputs(string $field_name, array $inputs) {
+        if (!in_array($field_name, array_column($this->form['fields'], 'name'))) {
+            $options = [];
+
+            foreach ($inputs as $index => $value) {
+                $options[] = [
+                    'value' => $index,
+                    'label' => $value
+                ];
+            }
+
+            $this->form['fields'][] = [
+                'name' => $field_name,
+                'id' => 'checkbox_inputs_group_' . $field_name,
+                'type' => 'checkbox',
+                'options' => $options
+            ];
+        }
+    }
 }
