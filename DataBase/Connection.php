@@ -27,9 +27,13 @@ Class Connection {
             echo "There is some problem in connection: " . $e->getMessage();
         }
     }
-    public function all($model){
+    public function all($model,$limit){
         $table = $model->getTable();
-        $sql ="SELECT * FROM $table";
+        if($limit == ""){
+            $sql ="SELECT * FROM $table";
+        }else {
+            $sql ="SELECT * FROM $table limit $limit";
+        }
         $stmt = $this->openConnection()->query($sql);
         $users = array();
         while ($user = $stmt->fetchObject(get_class($model))) {

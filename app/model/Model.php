@@ -36,9 +36,9 @@ class Model {
      * Get the table information  associated with the model.
      * @return array
      */
-    public static function getAll(){
+     public static function getAll($limit = ""){
 
-        return (new Connection())->all(new static());
+        return (new Connection())->all(new static(),$limit);
         //return new static();
 
     }
@@ -156,6 +156,10 @@ class Model {
         $this->atributes[ $key ] = $value;
     }
 
+    public function __isset($key)
+    {
+        return $this->atributes[ $key ];
+    }
     private function getAllatributes(){
                 $data_array = (new Connection())->getTableNames($this->table);
         foreach ($data_array as $value) {
