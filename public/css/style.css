@@ -97,7 +97,7 @@ li a:hover {
     padding: 5px;
     text-align: center;
     color: #ffffff;
-    margin-top: 8px;
+    margin-top: 35px;
 }
 .front-header-content > h2 {
     font-size: 2rem;
@@ -107,12 +107,13 @@ li a:hover {
     color: #ffffff;
 }
 .front-header-content > p {
-    margin: 15px 0;
-    text-align: left;
+    margin: 25px auto;
+    text-align: center;
     font-size: 16px;
     line-height: 20px;
     color: #d3d3d3;
     padding: 5px 35px;
+    width: 80%;
 }
 .front-header-content > a {
     text-align: center;
@@ -127,11 +128,33 @@ li a:hover {
         background-color: #992337;
         color: #F3F3F3;
     }
-
-    .front-content-holder {
+    .banner {
+        width: 100%;
+        background-color: #f3f3f3;
+        padding: 105px 0;
+    }
+        .banner > div {
+            width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+        }
+    .banner-font-awsemoe {
+        display: flex;
+        flex-direction: column;
+        width: 33%;
+        text-align: center;
+        justify-content: center;
+    }
+        .banner-font-awsemoe > i {
+            font-size: 40px;
+            color: #134347;
+        }
+.front-content-holder {
         position: relative;
         width: 100%;
     }
+
     .section-heading {
         width: 100%;
         text-align: center;
@@ -153,7 +176,7 @@ li a:hover {
 }
 .front-video-container > .course-front {
     width: 30%;
-    margin: 10px 10px 75px 10px;
+    margin: 10px 10px 40px 10px;
     box-shadow: 0 2px 5px #fff;
     position: relative;
 }
@@ -185,6 +208,65 @@ li a:hover {
     color: #767676;
     padding: 7px 13px;
     box-shadow: 1px 1px 1px #5BB95B;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.coure-card-price {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: right;
+}
+.showall-btn {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: -20px;
+}
+.tooler {
+    display: none;
+    color: #134347;
+}
+.front-video-container > .course-front:hover > .course-front-title {
+    opacity: 0.7;
+}
+.front-video-container > .course-front:hover >  img {
+    opacity: 0.6;
+  }
+.front-video-container > .course-front:hover > .course-front-about {
+    opacity: 0.6;
+}
+.front-video-container > .course-front:hover > .tooler {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: -270px;
+    top: -60px;
+    z-index: 100;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    width: 270px;
+    border: 2px solid #5BB95B;
+    background-color: #ffffff;
+    opacity: 1 !important;
+}
+.front-video-container > .course-front:hover > .tooler > h1 {
+    width: 100%;
+    font-size: 25px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    color: #5BB95B;
+    font-weight: 700;
+}
+.front-video-container > .course-front:hover > .tooler > p {
+    width: 100%;
+    font-size: 17px;
+    text-align: left;
+    margin-bottom: 15px;
+    padding: 5px;
+    color: #A5A5A5;
 }
 .bnt-buy-holder {
     width: 100%;
@@ -273,6 +355,7 @@ li a:hover {
     width: 80%;
     margin: 0 auto;
     margin-bottom: 20px;
+    color: #f3f3f3;
 }
 .modal-bod-content > h2 {
     background-color: #767676;
@@ -281,6 +364,7 @@ li a:hover {
     margin: 0 auto;
     margin-bottom: 20px;
     font-size: 22px;
+    color: #f3f3f3;
 }
 .modal-bod-content > span {
     width: 80%;
@@ -289,16 +373,44 @@ li a:hover {
     font-size: 22px;
     display: inline-block;
 }
+.original-price {
+    text-decoration: line-through;
+    font-size: 18px;
+    color: #ec5252;
+}
+.offer-price {
+    font-size: 29px!important;
+    font-weight: 700;
+}
 .modal-bod-content > a {
     display: inline-block;
     text-align: center;
     padding: 8px 20px;
     background-color: #5BB95B;
+    text-decoration: none;
+    color: #f3f3f3;
+}
+.modal-bod-content > a:hover {
+    text-decoration: none;
+    background-color: #992337;
+    color: #F3F3F3;
 }
 .discount-pop-left {
     width: 50%;
     border: 5px solid #FF914C;
     background-color: #F8F7F0;
+    position: relative;
+}
+.discount-pop-left > div {
+    width: 100%;
+    position: absolute;
+    bottom: 25px;
+    text-align: center;
+    font-size: 30px;
+    color: #1A087C;
+}
+.discount-pop-left > div > h1 {
+    margin-bottom: 10px;
 }
 .buy-all-container {
     width: 100%;

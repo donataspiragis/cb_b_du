@@ -1,7 +1,10 @@
 {% extends 'frontlayout.php' %}
 {% block title %}Home{% endblock %}
 {% block body %}
-
+{% for offer in offer %}
+<div id="valid_from" style="display: none;">{{ offer.valid_from }}</div>
+<div id="valid_to" style="display: none;">{{ offer.valid_to }}</div>
+{% endfor %}
 <div class="front-header-section">
     <div class="front-header-content">
         <h1>CB_B_DU E-Mokymasis</h1>
@@ -13,6 +16,39 @@
     </div>
 </div>
 
+<section class="banner">
+    <div>
+        <div class="banner-font-awsemoe">
+            <i class="fas fa-infinity"></i>
+            <div>
+                <h3>"Neribotas kiekis"</h3>
+                <p>
+                    Gerų kursų daugybė, kad pagalvosi jog jie nesibaigia.
+                </p>
+            </div>
+        </div>
+
+        <div class="banner-font-awsemoe">
+            <i class="fas fa-school"></i>
+            <div>
+                <h3>Mokytojai ekspertai</h3>
+                <p>
+                    Kursai vedami mokytojų turinčių didžiulę patirtį savo srityje ir dėstyme.
+                </p>
+            </div>
+        </div>
+
+        <div class="banner-font-awsemoe">
+            <i class="fas fa-laptop-medical"></i>
+            <div>
+                <h3>Mokykis betkur</h3>
+                <p>
+                    Neprisirišk prie įrenginio ir mokykis bet kur ir bet kada.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <section id="video" class="front-content-holder">
@@ -30,6 +66,7 @@
                 Pasižiūrėti
             </button>
 
+
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -43,15 +80,24 @@
                         <div class="modal-body">
                             <div class="modal-bod-custom">
                                 <div class="discount-pop-left">
-                                    <h1>{{ discount.name }}</h1>
+                                    <div>
+                                        <h1>{{ discount.name }}</h1>
+                                        <p>
+                                        {% for offer in offer %}
+                                            ({{ offer.valid_from }}
+                                        -
+                                        {{ offer.valid_to }})
+                                        {% endfor %}
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="modal-bod-content">
                                     {% for offer in offer %}
                                    <p>Pasiūlymas galioja iki: <span id="timer"></span> </p>
                                     <h2>Kurso aprašymas:</h2>
                                     <span>{{ discount.about }}</span>
-                                    <span>{{ offer.price }} EUR</span>
-                                    <span>{{ offer.discount_offer }} EUR</span>
+                                    <span class="original-price">{{ offer.price }} EUR</span>
+                                    <span class="offer-price">{{ offer.discount_offer }} EUR</span>
                                     {% endfor %}
                                     <a href="#">Pirkti kursą</a>
                                 </div>
@@ -76,18 +122,37 @@
 
             {% for course in courses %}
             <div class="course-front">
+                <div class="tooler">
+                    <h1>{{ course.name }}</h1>
+                    <p>{{ course.about }}</p>
 
+                    {% for price in all %}
+                    {% if price.course_id ==  course.ID %}
+                    <span class="coure-card-price">{{ price.price }} EUR</span>
+                    {% endif%}
+                    {% endfor %}
+
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/index" class="btn-buy">Pirkti</a>
+                </div>
                 <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ course.picture }}" alt="">
                 <div class="course-front-title">
                     <h1>{{ course.name }}</h1>
                 </div>
-                <div class="course-front-about">{{ course.about|slice(0, 60) }}</div>
-                <div class="bnt-buy-holder">
-                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/index" class="btn-buy">Pirkti</a>
+                <div class="course-front-about">
+                    {{ course.about|slice(0, 60) }}
+
+                    {% for offer in all %}
+                    {% if offer.course_id ==  course.ID %}
+                    <span class="coure-card-price">{{ offer.price }} EUR</span>
+                    {% endif%}
+                    {% endfor %}
+
                 </div>
             </div>
             {% endfor %}
-
+        </div>
+        <div class="showall-btn">
+            <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/front/showall" class="btn-buy">Visos pamokos</a>
         </div>
     </div>
 
