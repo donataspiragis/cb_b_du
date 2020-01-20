@@ -1,4 +1,4 @@
-{% extends 'backlayout.php' %}
+
 
 {% block newCourseForm %}
 <div class="container">
