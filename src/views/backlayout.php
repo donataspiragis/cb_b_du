@@ -36,7 +36,7 @@
 
 
 <main class="d-flex p-2 bd-highlight justify-content-center">
-    <div class="row" style="width: 100rem">
+    <div class="row" style="padding-top: 60px;">
         <div class="col-lg-2 col-md-4 col-sm-12">
             <div class="card" >
                 <div class="card-body">

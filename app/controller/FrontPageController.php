@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\App;
 use App\Controller\BaseController;
+use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
 use DataBase\Connection;
 use App\Model\Course;
@@ -14,7 +15,8 @@ class FrontPageController extends BaseController  {
         $offer = Offer::getWere('course_id=2' );
         $discounted = Course::getAll(1);
         $all = Offer::getAll();
-        return $this->render('index', ['courses' => $raw, 'offer' => $offer, 'discount' => $discounted, 'all' => $all]);
+        $time = Carbon::now();
+        return $this->render('index', ['courses' => $raw, 'offer' => $offer, 'discount' => $discounted, 'all' => $all, 'time'=>$time]);
     }
     public function showall(){
         $raw = (new Connection)->getData("SELECT * FROM courses");

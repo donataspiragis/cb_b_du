@@ -2,7 +2,7 @@
 {% block title %}Home{% endblock %}
 {% block body %}
 
-<div id="valid_from" style="display: none;">{{ offer.valid_from }}</div>
+<div id="valid_from" style="display: none;">{{ time }}</div>
 <div id="valid_to" style="display: none;">{{ offer.valid_to }}</div>
 
 <div class="front-header-section">
