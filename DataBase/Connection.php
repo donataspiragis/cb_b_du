@@ -15,7 +15,7 @@ Class Connection {
     private $dbname = DBNAME;
     protected $con;
 
-    public function openConnection()
+       protected function openConnection()
     {
         try
         {
@@ -27,25 +27,44 @@ Class Connection {
             echo "There is some problem in connection: " . $e->getMessage();
         }
     }
+    public function all($model){
+        $table = $model->getTable();
+        $sql ="SELECT * FROM $table";
+        $stmt = $this->openConnection()->query($sql);
+        $users = array();
+        while ($user = $stmt->fetchObject(get_class($model))) {
+
+            $users[] = $user;
+        }
+        return $users;
+    }
     public function closeConnection() {
         $this->con = null;
     }
-    public function getData($sql) {
-        $data = [];
-        foreach ($this->openConnection()->query($sql) as $row) {
-            $data[] = $row;
+    public function getWEREData($model,$sql) {
+
+        $stmt = $this->openConnection()->query($sql);
+        $users = array();
+        while ($user = $stmt->fetchObject(get_class($model))) {
+
+            $users[] = $user;
         }
-        $this->closeConnection();
-        return $data;
+        if(count($users) > 1){
+            return $users;
+        }else if(count($users) == 1){
+            return $users[0];
+        }else  trigger_error("Nothing found in table check sql query".$sql, E_USER_ERROR);
     }
-    public function updateData($sql, $data)
+    public function saveData($sql, $data)
     {
         $this->openConnection()->prepare($sql)->execute($data);
+        $lastid= $this->con->lastInsertId();
         $this->closeConnection();
+        return $lastid;
+
     }
-    public function storeData($sql, $data)
-    {
-        $this->openConnection()->prepare($sql)->execute($data);
-        $this->closeConnection();
+    public function getTableNames($table){
+        $q = $this->openConnection()->query("DESCRIBE $table");
+        return $q->fetchAll(PDO::FETCH_COLUMN);
     }
 }
