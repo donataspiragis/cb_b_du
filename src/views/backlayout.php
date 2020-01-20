@@ -73,8 +73,10 @@
                 <div class="card-body">
                     <h5 class="card-title">Sukurti naują kursą</h5>
                     {% block newCourseForm %}
+                        {{include('newcourseformlayout.php')}}
                     {% endblock %}
                     {% block videosAdd %}
+                        {{include('forms/videosAdd.php')}}
                     {% endblock %}
                 </div>
             </div>

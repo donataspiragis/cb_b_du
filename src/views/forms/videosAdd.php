@@ -1,5 +1,3 @@
-{% extends 'backlayout.php' %}
-
 {% block newCourseForm %}
     <div class="container">
         <form id="newCourse" method="POST" enctype="multipart/form-data">
@@ -45,14 +43,20 @@
 {% block videosAdd %}
     <div class="container d-inline-block">
         <form action="">
+        <div class="container">
+            <div class="row">
             {% for element in lecture %}
-                <li>
-                    <input type="checkbox">
+                <div>
+                    <input type="checkbox" id="{{ element}}">
+                    <input type="number" name="order" class="w-1">
                     <object height="150" data="{{element}}"></object>
-                </li>
+                </div>
+
             {% endfor %}
-    <!--        <br><br>-->
-    <!--        <input type="submit" value="Submit">-->
+            </div>
+        </div>
         </form>
+        <button type="submit" value="">Išsaugoti pasirinktus Video</button>
     </div>
+
 {% endblock %}
