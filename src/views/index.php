@@ -1,10 +1,10 @@
 {% extends 'frontlayout.php' %}
 {% block title %}Home{% endblock %}
 {% block body %}
-{% for offer in offer %}
+
 <div id="valid_from" style="display: none;">{{ offer.valid_from }}</div>
 <div id="valid_to" style="display: none;">{{ offer.valid_to }}</div>
-{% endfor %}
+
 <div class="front-header-section">
     <div class="front-header-content">
         <h1>CB_B_DU E-Mokymasis</h1>
@@ -83,22 +83,22 @@
                                     <div>
                                         <h1>{{ discount.name }}</h1>
                                         <p>
-                                        {% for offer in offer %}
+
                                             ({{ offer.valid_from }}
                                         -
                                         {{ offer.valid_to }})
-                                        {% endfor %}
+
                                         </p>
                                     </div>
                                 </div>
                                 <div class="modal-bod-content">
-                                    {% for offer in offer %}
+
                                    <p>Pasiūlymas galioja iki: <span id="timer"></span> </p>
                                     <h2>Kurso aprašymas:</h2>
                                     <span>{{ discount.about }}</span>
                                     <span class="original-price">{{ offer.price }} EUR</span>
                                     <span class="offer-price">{{ offer.discount_offer }} EUR</span>
-                                    {% endfor %}
+
                                     <a href="#">Pirkti kursą</a>
                                 </div>
                             </div>
@@ -125,13 +125,11 @@
                 <div class="tooler">
                     <h1>{{ course.name }}</h1>
                     <p>{{ course.about }}</p>
-
-                    {% for price in all %}
-                    {% if price.course_id ==  course.ID %}
-                    <span class="coure-card-price">{{ price.price }} EUR</span>
+                    {% for offer in all %}
+                    {% if offer.course_id ==  course.ID %}
+                    <span class="coure-card-price">{{ offer.price }} EUR</span>
                     {% endif%}
                     {% endfor %}
-
                     <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/index" class="btn-buy">Pirkti</a>
                 </div>
                 <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ course.picture }}" alt="">
