@@ -19,7 +19,7 @@ try
 $sql = "CREATE TABLE `courses` (
   `ID` int(11) NOT NULL,
   `name` varchar(26) NOT NULL,
-  `about` varchar(26) NOT NULL,
+  `about` LONGTEXT NOT NULL,
   `status` varchar(26) NOT NULL,
   `picture` varchar(26) NOT NULL,
   `created_on` DATETIME  NOT NULL,
@@ -74,7 +74,7 @@ $db->exec($sql);
     $sql = "CREATE TABLE `all` (
   `ID` int(11) NOT NULL,
     `name` varchar(26) NOT NULL,
-  `description` varchar(26) NOT NULL,
+  `description` LONGTEXT NOT NULL,
     `price` int(11) NOT NULL,
     `created_on` DATETIME NOT NULL
 )";
