@@ -19,32 +19,33 @@ try
 $sql = "CREATE TABLE `courses` (
   `ID` int(11) NOT NULL,
   `name` varchar(26) NOT NULL,
-  `about` varchar(26) NOT NULL,
+  `about` LONGTEXT NOT NULL,
   `status` varchar(26) NOT NULL,
   `picture` varchar(26) NOT NULL,
-  `created_on` date NOT NULL,
-  `edited_on` date NULL
+  `created_on` DATETIME  NOT NULL,
+  `edited_on` DATETIME  NULL
 )";
 $db->exec($sql);
 $sql = "CREATE TABLE `lectures` (
   `ID` int(11) NOT NULL,
   `video_url` varchar(26) NOT NULL,
-  `created_on` date NOT NULL
+  `created_on` DATETIME  NOT NULL
 )";
 $db->exec($sql);
     $sql = "CREATE TABLE `lectureslist` (
   `ID` int(11) NOT NULL,
 `lecture_id` int(11) NOT NULL,
+`order` int(11) NOT NULL,
   `course_id` int(11) NOT NULL
 )";
     $db->exec($sql);
 $sql = "CREATE TABLE `offer` (
   `ID` int(11) NOT NULL,
   `price` int(11) NOT NULL,
-  `valid_from` DATE,
-  `valid_to` DATE,
+  `valid_from` DATETIME ,
+  `valid_to` DATETIME ,
   `discount_offer` int(11) NOT NULL,
-  `created_on` date NOT NULL,
+  `created_on` DATETIME  NOT NULL,
   `course_id` int(11) NOT NULL
 )";
 $db->exec($sql);
@@ -54,7 +55,7 @@ $sql = "CREATE TABLE `orders` (
     `user_id` int(11) NOT NULL,
     `course_id` int(26) NOT NULL,
     `invoice_id` int(26) NOT NULL,
-  `created_on` date NOT NULL
+  `created_on` DATETIME NOT NULL
 )";
 $db->exec($sql);
 $sql = "CREATE TABLE `user` (
@@ -65,23 +66,23 @@ $sql = "CREATE TABLE `user` (
   `password` varchar(26) NOT NULL,
   `password_reminder` varchar(26) NOT NULL,
   `role` int(11) NOT NULL,
-  `created_on` date NOT NULL,
-  `last_log` date NOT NULL,
+  `created_on` DATETIME  NOT NULL,
+  `last_log` DATETIME  NOT NULL,
   `user_discount` int(11) NOT NULL
 )";
 $db->exec($sql);
     $sql = "CREATE TABLE `all` (
   `ID` int(11) NOT NULL,
     `name` varchar(26) NOT NULL,
-  `description` varchar(26) NOT NULL,
+  `description` LONGTEXT NOT NULL,
     `price` int(11) NOT NULL,
-    `created_on` date NOT NULL
+    `created_on` DATETIME NOT NULL
 )";
     $db->exec($sql);
     $sql = "CREATE TABLE `invoices` (
   `ID` int(11) NOT NULL,
     `price` int(11) NOT NULL,
-    `created_on` date NOT NULL
+    `created_on` DATETIME NOT NULL
 )";
     $db->exec($sql);
 

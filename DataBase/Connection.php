@@ -15,7 +15,7 @@ Class Connection {
     private $dbname = DBNAME;
     protected $con;
 
-       protected function openConnection()
+       public function openConnection()
     {
         try
         {

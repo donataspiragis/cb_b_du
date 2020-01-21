@@ -9,7 +9,7 @@ class Model {
     public static $carb;
     protected  $table;
     protected $atributes = [];
-    protected $id = '';
+    public $id = '';
 
 
     /**
@@ -98,6 +98,7 @@ class Model {
     }
     private function setId($id){
         $this->id = $id;
+        $this->atributes["ID"] = $id;
     }
     /**
      * Update the table information  associated with the model.
