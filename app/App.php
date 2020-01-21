@@ -5,7 +5,6 @@ include('../config.php');
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class App {
     const INSTALL_FOLDER = root;
     private static $request_url;
@@ -21,8 +20,8 @@ class App {
         self::$request_url = rtrim( self::$request_url, '/');
         self::$request_url = explode('/', self::$request_url);
         self::$containerBuilder = new ContainerBuilder();
-        $loader = new YamlFileLoader(self::$containerBuilder, new FileLocator(__DIR__));
-        $loader->load('services.yaml');
+        $loader = new PhpFileLoader(self::$containerBuilder, new FileLocator(__DIR__));
+        $loader->load('services.php');
 
         $controller = Route::getController(self::$request_url);
 
