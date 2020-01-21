@@ -7,7 +7,7 @@ $( document ).ready(function() {
     to = jQuery(to).text()
     from = jQuery(from).text();
 
-    var countDownDate =  new Date(to +" 15:00:15").getTime() ;
+    var countDownDate =  new Date(to).getTime() ;
     var now = new Date(from).getTime();
     var x = setInterval(function() {
         now = now + 1000;

@@ -444,5 +444,92 @@ li a:hover {
         box-shadow: 0 0 0 35px rgba(0, 0, 0, 0);
     }
 }
+@media only screen and  ( max-width: 590px ) {
+    .front-header-content {
+        width: 100%;
+    }
+    .front-header-content > h1 {
+        font-size: 25px;
+    }
+    .front-header-content > h2 {
+        font-size: 25px;
+    }
+    .front-header-content > p {
+        margin: 17px auto;
+        text-align: center;
+        font-size: 15px;
+        line-height: 20px;
+        padding: 3px 12px;
+        width: 100%;
+    }
+    .banner {
+        width: 100%;
+    }
+    .banner > div {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .banner-font-awsemoe {
+        width: 100%;
+        margin: 15px 0;
+    }
 
+    .front-video-container {
+        width: 100%;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        /*background-color: #134347;*/
+        padding: 40px 10px;
+    }
 
+    .front-video-container > .course-front {
+        width: 100%;
+        margin: 15px 0;
+        box-shadow: 0 2px 5px #fff;
+        position: relative;
+    }
+    .front-aside {
+        position: relative;
+        width: 100%;
+        display: inline-block;
+        top: 0;
+        left: 0;
+}
+    .front-content-holder {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .front-content-holder > div {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .front-video-container > .course-front:hover > .tooler {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: 30px;
+        top: -190px;
+        z-index: 100;
+        padding: 10px;
+        text-align: center;
+        border-radius: 4px;
+        width: 270px;
+        border: 2px solid #5BB95B;
+        background-color: #ffffff;
+        opacity: 1 !important;
+    }
+    .discount-pop-left {
+        display: none;
+    }
+
+}

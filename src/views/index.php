@@ -84,9 +84,9 @@
                                         <h1>{{ discount.name }}</h1>
                                         <p>
 
-                                            ({{ offer.valid_from }}
+                                            ({{ offer.valid_from|slice(0,10) }}
                                         -
-                                        {{ offer.valid_to }})
+                                        {{ offer.valid_to|slice(0,10) }})
 
                                         </p>
                                     </div>
