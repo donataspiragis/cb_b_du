@@ -13,12 +13,14 @@ class CourseController extends BaseController  {
     public function create()
     {
         if (!empty($_POST)) {
-            print '<pre>';
-            print_r($_POST);
-//            die();
-
             $omg = new Course();
+            $omg->name=$_POST['course_name'] ?? 'zzz';
+            $omg->about=$_POST['course_description'] ?? 'zzz';
+            $omg->status=$_POST['is_active'] ?? 'zzz';
+            $omg->picture=$_POST['cover_photo'] ?? 'zzz';
+            $omg->save();
         }
+
         $videosService = new \App\services\GetVideosUrl;
         $videoList = $videosService->getVideos();
         $new_course_form = new \App\Objects\NewCourseForm();

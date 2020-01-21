@@ -32,8 +32,8 @@ class NewCourseForm extends Form {
             ],
             [
                 'label' => 'Cover paveiksliukas',
-                'name' => 'course_name',
-                'id' => 'course_name',
+                'name' => 'cover_photo',
+                'id' => 'cover_photo',
                 'classes' => [
                     'fieldset' => 'd-block mb-3',
                     'label' => 'd-block'
