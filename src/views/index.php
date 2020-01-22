@@ -137,7 +137,7 @@
                     <h1>{{ course.name }}</h1>
                 </div>
                 <div class="course-front-about">
-                    {{ course.about|slice(0, 40) }}
+                    {{ course.about|slice(0, 28) }}
 
                     {% for offer in all %}
                     {% if offer.course_id ==  course.ID %}
