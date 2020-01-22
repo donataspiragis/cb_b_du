@@ -1,6 +1,7 @@
-<!--{% block register%}-->
-<div class="container">
-    <form action="" method="post">
+{% extends 'frontlayout.php' %}
+{% block title %}Register{% endblock %}
+{% block body %}
+<form action="" method="post">
         <div class="container">
             <label for="name"><b>Įveskite vardą:</b></label>
             <input type="text" name="name" placeholder="vardas">
@@ -17,4 +18,4 @@
             <button type="submit" name="login-submit">Registruotis</button>
         </div>
     </form>
-    <!--{% endblock %}-->
+{% endblock %}
