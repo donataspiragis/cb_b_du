@@ -61,12 +61,8 @@ class NewCourseForm extends Form {
             ],
             'is_active' => [
                 'type' => 'checkbox',
-                'options' => [
-                    [
-                        'value' => 1,
-                        'label' => 'Rodyti pagrindiniame puslapyje'
-                    ]
-                ]
+                'value' => 1,
+                'label' => 'Rodyti pagrindiniame puslapyje'
             ]
         ],
         'buttons' => [

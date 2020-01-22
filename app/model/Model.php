@@ -92,6 +92,7 @@ class Model {
         $values = substr($values,1);
 
         $sql = "INSERT INTO $this->table  ($keys) VALUES ($values)";
+        var_dump($sql);
         $this->setId((new Connection())->saveData($sql,$this->atributes));
 
         return true;
