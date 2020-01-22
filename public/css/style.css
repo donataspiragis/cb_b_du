@@ -486,6 +486,16 @@ li a:hover {
     }
 }
 
+
+@media only screen and  ( max-width: 1400px ) {
+    .front-video-container > .course-front {
+        width: 32%;
+        margin: 10px 5px 40px 5px;
+        box-shadow: 0 2px 5px #fff;
+        position: relative;
+    }
+}
+
 @media only screen and  ( max-width: 1020px ) {
     .front-header-content {
         width: 80%;
