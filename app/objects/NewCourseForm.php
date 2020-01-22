@@ -6,92 +6,78 @@ class NewCourseForm extends Form {
 
     public $form_data = [
         'fields' => [
-            [
-                'label' => 'Kurso pavadinimas',
-                'name' => 'course_name',
-                'id' => 'course_name',
-                'classes' => [
-                    'fieldset' => 'd-block mb-3',
-                    'label' => 'd-block'
-                ],
+            'course_name' => [
                 'type' => 'text',
+                'label' => 'Kurso pavadinimas',
                 'value' => 'Example course',
-                'placeholder' => 'example text'
-            ],
-            [
-                'label' => 'Aprašymas',
-                'name' => 'course_description',
-                'id' => 'course_description',
+                'placeholder' => 'example text',
                 'classes' => [
                     'fieldset' => 'd-block mb-3',
                     'label' => 'd-block'
-                ],
+                ]
+            ],
+            'course_description' => [
                 'type' => 'textarea',
+                'label' => 'Aprašymas',
                 'value' => 'Example description',
-                'placeholder' => 'describe this course'
-            ],
-            [
-                'label' => 'Cover paveiksliukas',
-                'name' => 'cover_photo',
-                'id' => 'cover_photo',
+                'placeholder' => 'describe this course',
                 'classes' => [
                     'fieldset' => 'd-block mb-3',
                     'label' => 'd-block'
-                ],
-                'type' => 'file'
+                ]
             ],
-            [
+            'cover_photo' => [
+                'type' => 'file',
+                'label' => 'Cover paveiksliukas',
+                'classes' => [
+                    'fieldset' => 'd-block mb-3',
+                    'label' => 'd-block'
+                ]
+            ],
+            'price' => [
+                'type' => 'number',
                 'label' => 'Kaina',
-                'name' => 'price',
-                'id' => 'price',
+                'value' => 50,
                 'classes' => [
                     'fieldset' => 'd-inline-block mb-3',
                     'label' => 'd-block'
-                ],
-                'type' => 'number',
-                'value' => 50
+                ]
             ],
-            [
+            'disprice' => [
+                'type' => 'number',
                 'label' => 'Kaina su nuolaida',
-                'name' => 'disprice',
-                'id' => 'disprice',
+                'value' => 100,
                 'classes' => [
                     'fieldset' => 'd-inline-block mb-3',
                     'label' => 'd-block'
-                ],
-                'type' => 'number',
-                'value' => 100,
+                ]
             ],
-            [
+            'valid_to_date' => [
+                'type' => 'date',
                 'label' => 'Galioja iki:',
-                'name' => 'valid_to_date',
-                'id' => 'valid_to_date',
                 'classes' => [
                     'fieldset' => 'd-inline-block mb-3'
-                ],
-                'type' => 'date'
+                ]
             ],
-            [
-                'name' => 'is_active',
-                'id' => 'is_active',
+            'is_active' => [
                 'type' => 'checkbox',
                 'options' => [
                     [
-                        'value' => 'is_active',
+                        'value' => 1,
                         'label' => 'Rodyti pagrindiniame puslapyje'
                     ]
                 ]
             ]
         ],
         'buttons' => [
-            [
+            'publish' => [
                 'label' => 'Skelbti',
                 'value' => 'publish',
                 'classes' => [
                     'fieldset' => 'p-4 d-inline-block'
                 ]
             ],
-            [
+            'save' => [
                 'label' => 'Išsaugoti',
                 'value' => 'save',
                 'classes' => [

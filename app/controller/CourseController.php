@@ -13,6 +13,9 @@ class CourseController extends BaseController  {
     public function create()
     {
         if (!empty($_POST)) {
+            print '<pre>';
+            var_dump($_POST);
+            die();
             $omg = new Course();
             $omg->name=$_POST['course_name'] ?? 'zzz';
             $omg->about=$_POST['course_description'] ?? 'zzz';
