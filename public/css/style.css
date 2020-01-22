@@ -334,10 +334,10 @@ li a:hover {
 }
 
 .modal-dialog {
-    max-width: 700px !important;
+    max-width: 800px !important;
 }
 .modal-content {
-    height: 515px!important;
+    height: 615px!important;
 }
 .modal-bod-custom {
     display: flex;
@@ -348,6 +348,7 @@ li a:hover {
 }
 .modal-bod-content {
     text-align: center;
+    width: 55%;
 }
 .modal-bod-content > p {
     background-color: #FF914C;
@@ -396,7 +397,7 @@ li a:hover {
     color: #F3F3F3;
 }
 .discount-pop-left {
-    width: 50%;
+    width: 45%;
     border: 5px solid #FF914C;
     background-color: #F8F7F0;
     position: relative;
