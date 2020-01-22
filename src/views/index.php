@@ -137,11 +137,13 @@
                     <h1>{{ course.name }}</h1>
                 </div>
                 <div class="course-front-about">
-                    {{ course.about|slice(0, 60) }}
+                    {{ course.about|slice(0, 28) }}
 
                     {% for offer in all %}
                     {% if offer.course_id ==  course.ID %}
                     <span class="coure-card-price">{{ offer.price }} EUR</span>
+                    {% else %}
+
                     {% endif%}
                     {% endfor %}
 
