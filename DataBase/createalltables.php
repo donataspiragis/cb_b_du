@@ -28,14 +28,14 @@ $sql = "CREATE TABLE `courses` (
 $db->exec($sql);
 $sql = "CREATE TABLE `lectures` (
   `ID` int(11) NOT NULL,
-  `video_url` varchar(26) NOT NULL,
+  `video_url` LONGTEXT NOT NULL,
   `created_on` DATETIME  NOT NULL
 )";
 $db->exec($sql);
     $sql = "CREATE TABLE `lectureslist` (
   `ID` int(11) NOT NULL,
 `lecture_id` int(11) NOT NULL,
-`order` int(11) NOT NULL,
+`order_num` int(11) NOT NULL,
   `course_id` int(11) NOT NULL
 )";
     $db->exec($sql);
@@ -106,13 +106,10 @@ $sql = "ALTER TABLE `offer`
 $db->exec($sql);
 $sql = "ALTER TABLE `orders`
   ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `course_id` (`course_id`),
-  ADD UNIQUE KEY `invoice_id` (`invoice_id`),
-  ADD UNIQUE KEY `user_id` (`user_id`);";
+  ADD UNIQUE KEY `invoice_id` (`invoice_id`);";
 $db->exec($sql);
 $sql = "ALTER TABLE `user`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `user_disc_id` (`user_discount`);";
+  ADD PRIMARY KEY (`ID`);";
 $db->exec($sql);
     $sql = "ALTER TABLE `invoices`
   ADD PRIMARY KEY (`ID`);";
