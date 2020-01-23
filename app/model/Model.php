@@ -81,7 +81,7 @@ class Model {
         $keys='';
         foreach ($this->atributes as $key=>$value){
             if($key != 'ID') {
-                $keys .= ",$key";
+                $keys .= ",`$key`";
                 $values .= ",:$key";
             }
             if($key == "created_on"){
@@ -108,7 +108,7 @@ class Model {
         $keys='';
         foreach ($this->atributes as $key=>$value){
             if($key != 'ID') {
-                $keys .= ",$key=:$key";
+                $keys .= ",`$key`=:$key";
             }
             if($key == "edited_on"){
                 $this->atributes["edited_on"] = self::carbonTime();
