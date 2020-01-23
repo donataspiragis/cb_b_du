@@ -11,7 +11,7 @@ class NewCourseForm extends Form {
         $day = rand(1, 28);
         $hour = rand(0, 23);
         $minute = rand(0, 59);
-        $course_name = 'Course ' . rand(1, 9);
+        $course_name = 'Course';
         $course_description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
         $valid_to_date = rand(2021, 2025) . '-' . ($month < 10 ? '0' . $month : $month) . '-' . ($day < 10 ? '0' . $day : $day);
         $valid_to_time = ($hour < 10 ? '0' . $hour : $hour) . ':' . ($minute < 10 ? '0' . $minute : $minute);
