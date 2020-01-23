@@ -28,14 +28,14 @@ $sql = "CREATE TABLE `courses` (
 $db->exec($sql);
 $sql = "CREATE TABLE `lectures` (
   `ID` int(11) NOT NULL,
-  `video_url` varchar(26) NOT NULL,
+  `video_url` LONGTEXT NOT NULL,
   `created_on` DATETIME  NOT NULL
 )";
 $db->exec($sql);
     $sql = "CREATE TABLE `lectureslist` (
   `ID` int(11) NOT NULL,
 `lecture_id` int(11) NOT NULL,
-`order` int(11) NOT NULL,
+`order_num` int(11) NOT NULL,
   `course_id` int(11) NOT NULL
 )";
     $db->exec($sql);
