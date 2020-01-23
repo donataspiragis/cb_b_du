@@ -68,6 +68,24 @@ class CourseController extends BaseController  {
     public function store() {
         die($_POST);
     }
+  public function  display(){
+$id = 4;
+        $orders = Order::getWere("user_id = $id");
+        if(is_object($orders)){
+            $courses[] = Course::getWere("ID = $orders->course_id");
+        }else{
+            foreach ($orders as $order){
+                $courses[] = Course::getWere("ID = $order->course_id");
+              //  var_dump( $order);
+            }
+        }
+//        $user = User::getWere("email = erisVeDEke");
+//        var_dump($user);
+//        die();
+
+        return $this->render('currentCourses',['data' => $courses]);
+
+    }
 
 
 }

@@ -915,6 +915,8 @@ button {
 
     }
 
+
+
     @media only screen and  ( max-width: 590px ) {
         .front-header-content {
             width: 100%;
@@ -1019,3 +1021,4 @@ button {
             max-height: 80vh;
         }
     }
+
