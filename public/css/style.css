@@ -726,8 +726,34 @@ button {
     padding: .5rem 1rem;
 }
 
+/*UGNIUS*/
+.center{
+    width: 100%;
+    height: 100%;
 
+}
+.text-view{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    background-color: rgba(0, 0, 255, 0.42);
+    margin-bottom: 15px;
+    border: solid 2px;
+}
+.box{
+    display:inline-block;
+    width: 30%;
+    height: 200px;
+    margin: 10px;
+    padding-top: 15px;
+}
+.center-btn{
+    display: flex;
+    justify-content: center;
+}
 
+/*UGNIUS END*/
 /*MEDIAS*/
 
 @media only screen and  ( max-width: 1600px ) {
