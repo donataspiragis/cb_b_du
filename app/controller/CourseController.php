@@ -23,11 +23,14 @@ class CourseController extends BaseController  {
                 }
             }
 
+            $cover_photos = ['vienas', 'du', 'trys', 'keturi', 'penki', 'sesi', 'septyni'];
+            $course_rand = rand(0, 6);
+
             $new_course = new Course();
-            $new_course->name=$_POST['course_name'] ?? 'incognito';
+            $new_course->name=$_POST['course_name'] . ' ' . ($course_rand + 1);
             $new_course->about=$_POST['course_description'] ?? 'no description';
             $new_course->status=$_POST['is_active'] ?? '';
-            $new_course->picture=$_POST['cover_photo'] ?? 'exmpl.jpg';
+            $new_course->picture=$_POST['cover_photo'] ?? $cover_photos[$course_rand] . '.png';
             $new_course->save();
 
             $new_offer = new Offer();
