@@ -1,5 +1,7 @@
 <?php
 namespace App;
+use App\Controller\UserController;
+
 class Route {
 
     /**
@@ -8,6 +10,8 @@ class Route {
      */
     const ROUTE = [
         '' => ['FrontPageController', 'index'],
+        'user@register'=>['UserController','register'],
+        'user@test'=>['UserController','store'],
 //        'buy@index' => ['BuyallController', 'index'],
 //        'course@index' => ['CourseController', 'index'],
         'course@create' => ['CourseController', 'create'],
