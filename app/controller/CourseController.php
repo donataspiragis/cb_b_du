@@ -16,9 +16,6 @@ class CourseController extends BaseController  {
     public function create()
     {
         if (!empty($_POST)) {
-            print '<pre>';
-//var_dump($_POST);
-//die();
             $videos = [];
             foreach ($_POST['videos_list'] as $video_info) {
                 if (!empty($video_info['url']) && !empty($video_info['order'])) {
