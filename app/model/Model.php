@@ -55,10 +55,13 @@ class Model {
      * @param string $addition
      * @return array
      */
-    public static function getWere($where,$addition="",$select="*"){
+   public static function getWere($where,$addition="",$select="*"){
+        preg_match('/^.+?\= *(.+)$/is', $where, $matches, PREG_OFFSET_CAPTURE);
+        $newstring = $matches[1][0];
+        $were = str_replace("$newstring","'$newstring'",$where);
         $table = (new static)->getTable();
         if($where != ""){
-            $sql = "SELECT $select FROM $table WHERE $where $addition";
+            $sql = "SELECT $select FROM $table WHERE $were $addition";
             return (new Connection())->getWEREData(new static(),$sql);
 
         }else {
