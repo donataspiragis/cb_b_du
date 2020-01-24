@@ -60,8 +60,8 @@
         <h2>Specialūs pasiūlymai</h2>
         <p>Nuolaida kursui:</p>
         <div class="discount-one">
-            {% for discount in discount %}
-            <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ discount.picture }}" alt="">
+
+            <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ discount.picture }}" alt="">
             <div class="course-discount-title">
                 <h1>{{ discount.name }}</h1>
             </div>
@@ -96,7 +96,11 @@
 
                                 <p>Pasiūlymas galioja iki: <span id="timer"></span> </p>
                                 <h2>Kurso aprašymas:</h2>
-                                <span>{{ discount.about }}</span>
+                                <span>{{ discount.about|slice(0, 40) }}
+                                    <span id="dots">...</span>
+                                    <span id="more"> {{ discount.about|slice(40, 2000) }}</span>
+                                </span>
+                                <button id="readmore">Plačiau</button>
                                 <span class="original-price">{{ offer.price }} EUR</span>
                                 <span class="offer-price">{{ offer.discount_offer }} EUR</span>
 
@@ -109,7 +113,7 @@
 
 
 <!--            END CUSTOM MODAL-->
-            {% endfor %}
+
 
             <h2>Super akcija visam paketui:</h2>
             <div class="buy-all-container">
@@ -132,13 +136,14 @@
                     {% endfor %}
                     <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/index" class="btn-buy">Pirkti</a>
                 </div>
-                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ course.picture }}" alt="">
+                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ course.picture }}" alt="">
                 <div class="course-front-title">
                     <h1>{{ course.name }}</h1>
                 </div>
                 <div class="course-front-about">
-                    {{ course.about|slice(0, 28) }}
 
+                    <span class="course-card-about">{{ course.about|slice(0, 28) }}</span>
+                    <span class="read-description">Skaityti aprašymą</span>
                     {% for offer in all %}
                     {% if offer.course_id ==  course.ID %}
                     <span class="coure-card-price">{{ offer.price }} EUR</span>
@@ -146,7 +151,9 @@
 
                     {% endif%}
                     {% endfor %}
-
+                    <div class="btn-mobile-hold">
+                    <a href="/cb_b_du/public/offer/index" class="btn-buy btn-mobile" >Pirkti</a>
+                    </div>
                 </div>
             </div>
             {% endfor %}

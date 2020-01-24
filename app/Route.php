@@ -10,6 +10,7 @@ class Route {
      */
     const ROUTE = [
         '' => ['FrontPageController', 'index'],
+        'front@showall' => ['FrontPageController', 'showall'],
         'user@register'=>['UserController','register'],
         'user@test'=>['UserController','store'],
 //        'buy@index' => ['BuyallController', 'index'],

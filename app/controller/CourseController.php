@@ -69,7 +69,7 @@ class CourseController extends BaseController  {
         die($_POST);
     }
   public function  display(){
-$id = 4;
+$id = 1;
         $orders = Order::getWere("user_id = $id");
         if(is_object($orders)){
             $courses[] = Course::getWere("ID = $orders->course_id");

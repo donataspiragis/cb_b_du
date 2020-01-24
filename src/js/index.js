@@ -70,3 +70,21 @@ function stickToTop() {
 }
 
 window.onscroll = function() {stickToTop()};
+
+
+$('#readmore').on('click', function(){
+    var dots = document.getElementById("dots");
+    var moreText = document.getElementById("more");
+    var btnText = document.getElementById("readmore");
+
+    if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        btnText.innerHTML = "Plačiau";
+        moreText.style.display = "none";
+    } else {
+        dots.style.display = "none";
+        btnText.innerHTML = "Sumažinti";
+        moreText.style.display = "inline";
+        console.log('sudas');
+    }
+});
