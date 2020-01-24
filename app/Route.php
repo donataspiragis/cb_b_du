@@ -11,6 +11,7 @@ class Route {
     const ROUTE = [
         '' => ['FrontPageController', 'index'],
         'front@showall' => ['FrontPageController', 'showall'],
+        'order@statistics' => ['OrderController', 'statistics'],
         'user@register'=>['UserController','register'],
         'user@test'=>['UserController','store'],
 //        'buy@index' => ['BuyallController', 'index'],

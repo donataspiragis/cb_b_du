@@ -513,8 +513,126 @@ li a:hover {
     }
 }
 
+/*NEDO KODAS*/
+input, textarea {
+    border: 1px solid transparent;
+}
 
+#newCourseVideosList {
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
 
+.video-item {
+    width: 30%;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.video-url-input {
+    display: none;
+}
+
+.video-item-inputs {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.video-url-input-label {
+    cursor: pointer;
+    white-space: nowrap;
+    margin: 5px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.video-url-input-label span {
+    margin-right: 5px;
+}
+
+span.checkmark {
+    font-weight: bold;
+    background-color: white;
+    color: white;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+span.action-label {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+span.action-label:hover {
+    background-color: green;
+    color: gold;
+}
+
+input.video-url-input:checked + div > label span.action-label {
+    color: gold;
+}
+
+.video-order-input-div {
+    visibility: hidden;
+}
+
+input.video-url-input:checked + div > label span.checkmark {
+    color: green;
+}
+
+input.video-url-input:checked + div > label {
+    color: gold;
+    background-color: green;
+}
+
+input.video-url-input:checked + div > div {
+    visibility: visible;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.video-order-input-div input {
+    color: green;
+    border: 1px solid green;
+    text-align: center;
+    width: 30px;
+    outline: none;
+    margin: 5px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.video-order-input-div label {
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.video-order-input-div label:hover {
+    color: gold;
+    background-color: green;
+}
+
+.video-item iframe {
+    width: 100%;
+    border: none;
+}
+
+/*NEDO KODAS END*/
 
 
 /* RESET RULES

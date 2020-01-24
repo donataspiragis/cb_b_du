@@ -7,131 +7,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ constant('App\\App::INSTALL_FOLDER') }}/css/style.css">
     <title>{% block title %}{% endblock %}</title>
-
-    <style>
-        input, textarea {
-            border: 1px solid transparent;
-        }
-
-        #newCourseVideosList {
-            padding: 5px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            background-color: ;
-        }
-
-        .video-item {
-            width: 30%;
-            margin: 5px;
-            display: flex;
-            flex-direction: column;
-            background-color: ;
-        }
-
-        .video-url-input {
-            display: none;
-        }
-
-        .video-item-inputs {
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            background-color: ;
-        }
-
-        .video-url-input-label {
-            cursor: pointer;
-            white-space: nowrap;
-            margin: 5px;
-            padding: 5px;
-            border: none;
-            border-radius: 5px;
-            background-color: ;
-        }
-
-        .video-url-input-label span {
-            margin-right: 5px;
-        }
-
-        span.checkmark {
-            font-weight: bold;
-            background-color: white;
-            color: white;
-            border-radius: 5px;
-            padding: 2px;
-        }
-
-        span.action-label {
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        span.action-label:hover {
-            background-color: green;
-            color: gold;
-        }
-
-        input.video-url-input:checked + div > label span.action-label {
-            color: gold;
-        }
-
-        .video-order-input-div {
-            visibility: hidden;
-        }
-
-        input.video-url-input:checked + div > label span.checkmark {
-            color: green;
-        }
-
-        input.video-url-input:checked + div > label {
-            color: gold;
-            background-color: green;
-        }
-
-        input.video-url-input:checked + div > div {
-            visibility: visible;
-        }
-
-        /* Chrome, Safari, Edge, Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        /* Firefox */
-        input[type=number]:fo {
-            -moz-appearance:textfield;
-        }
-
-        .video-order-input-div input {
-            color: green;
-            border: 1px solid green;
-            text-align: center;
-            width: 30px;
-            outline: none;
-            margin: 5px;
-            padding: 3px;
-            background-color: ;
-            border-radius: 5px;
-        }
-
-        .video-order-input-div label {
-            padding: 2px 5px;
-            border-radius: 5px;
-        }
-
-        .video-order-input-div label:hover {
-            color: gold;
-            background-color: green;
-        }
-
-        .video-item iframe {
-            width: 100%;
-            border: none;
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -195,7 +70,8 @@
         <div class="col-lg-10 col-md-8 col-sm-12">
             <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%);">
                 <div class="card-body">
-                    {{ newCourseForm }}
+
+                    {% block datacontainer %}{% endblock %}
                 </div>
             </div>
         </div>

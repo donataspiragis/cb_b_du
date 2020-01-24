@@ -59,7 +59,7 @@ class CourseController extends BaseController  {
         $new_course_form->addCheckboxInputs('videos_list', $videoList);
         $form_data = $new_course_form->render('newcourseformlayout', $new_course_form->getData());
 
-        return $this->render('backlayout', ['newCourseForm' => $form_data]);
+        return $this->render('createcourse', ['newCourseForm' => $form_data]);
     }
     public function store() {
         die($_POST);
