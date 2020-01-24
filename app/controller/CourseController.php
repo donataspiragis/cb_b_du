@@ -23,22 +23,19 @@ class CourseController extends BaseController  {
                 }
             }
 
-            $cover_photos = ['vienas', 'du', 'trys', 'keturi', 'penki', 'sesi', 'septyni'];
-            $course_rand = rand(0, 6);
-
             $new_course = new Course();
-            $new_course->name=$_POST['course_name'] . ' ' . ($course_rand + 1);
-            $new_course->about=$_POST['course_description'] ?? 'no description';
-            $new_course->status=$_POST['is_active'] ?? '';
-            $new_course->picture=$_POST['cover_photo'] ?? $cover_photos[$course_rand] . '.png';
+            $new_course->name = $_POST['course_name'];
+            $new_course->about = $_POST['course_description'] ?? 'no description';
+            $new_course->status = $_POST['is_active'] ?? '';
+            $new_course->picture = 'images/' . $_FILES['cover_photo']['name'] ?? '';
             $new_course->save();
 
             $new_offer = new Offer();
-            $new_offer->price=$_POST['price'];
-            $new_offer->valid_from=date('Y-m-d H:i');
-            $new_offer->valid_to=$_POST['valid_to_date'] . ' ' . $_POST['valid_to_time'];
-            $new_offer->discount_offer=$_POST['disprice'];
-            $new_offer->course_id=$new_course->id;
+            $new_offer->price = $_POST['price'];
+            $new_offer->valid_from = date('Y-m-d H:i');
+            $new_offer->valid_to = $_POST['valid_to_date'] . ' ' . $_POST['valid_to_time'];
+            $new_offer->discount_offer = $_POST['disprice'];
+            $new_offer->course_id = $new_course->id;
             $new_offer->save();
 
             foreach ($videos as $video) {
@@ -48,13 +45,12 @@ class CourseController extends BaseController  {
 
                 $in_order = new LecturesList();
                 $in_order->lecture_id = $lecture->ID;
-                var_dump($lecture->ID);
                 $in_order->order_num = $video['order'];
-                var_dump($video['order']);
                 $in_order->course_id = $new_course->ID;
-                var_dump($new_course->ID);
                 $in_order->save();
             }
+
+            save_file($_FILES['cover_photo']);
         }
 
         $videosService = new \App\services\GetVideosUrl;
