@@ -9,7 +9,6 @@ class Model {
     public static $carb;
     protected  $table;
     protected $atributes = [];
-    public $id = '';
 
 
     /**
@@ -56,9 +55,14 @@ class Model {
      * @return array
      */
    public static function getWere($where,$addition="",$select="*"){
-        preg_match('/^.+?\= *(.+)$/is', $where, $matches, PREG_OFFSET_CAPTURE);
+    preg_match('/^.+?\= *(.+)$/is', $where, $matches, PREG_OFFSET_CAPTURE);
+    if($matches != null){
         $newstring = $matches[1][0];
         $were = str_replace("$newstring","'$newstring'",$where);
+    }else{
+        $were = $where;
+    }
+
         $table = (new static)->getTable();
         if($where != ""){
             $sql = "SELECT $select FROM $table WHERE $were $addition";
@@ -100,7 +104,6 @@ class Model {
         return true;
     }
     private function setId($id){
-        $this->id = $id;
         $this->atributes["ID"] = $id;
     }
     /**
@@ -110,9 +113,9 @@ class Model {
     protected function updateData(){
         $keys='';
         foreach ($this->atributes as $key=>$value){
-            if($key != 'ID') {
+//            if($key != 'ID') {
                 $keys .= ",`$key`=:$key";
-            }
+//            }
             if($key == "edited_on"){
                 $this->atributes["edited_on"] = self::carbonTime();
             }
@@ -120,6 +123,9 @@ class Model {
         $keys = substr($keys,1);
 
         $sql = "UPDATE $this->table SET $keys WHERE ID=:ID";
+//        print '<pre>';
+//        print($sql);
+//        print_r($this->atributes);
         (new Connection())->saveData($sql, $this->atributes);
         return true;
     }
@@ -139,8 +145,20 @@ class Model {
         return true;
     }
 
+    public function delete(){
+	if($this->id != null){
+            return null;
+
+        }else{
+        $sql = "DELETE FROM $this->table WHERE ID=:ID";
+	return (new Connection())->deleteData($sql, ["ID"=>$this->ID]);
+            
+        }
+        return false;
+
+}
     public function save(){
-        if($this->id != null){
+        if($this->ID != null){
             $this->updateData();
 
         }else{
@@ -164,20 +182,19 @@ class Model {
     {
         return $this->atributes[ $key ];
     }
-    private function getAllatributes(){
-                $data_array = (new Connection())->getTableNames($this->table);
+
+    private function getAllatributes() {
+        $data_array = (new Connection())->getTableNames($this->table);
+
         foreach ($data_array as $value) {
             if($value =="created_on"){
 
                 $this->atributes[$value] = '';
             }
-
-
         }
+    }
 
-}
-
-
-
-
+    public function getRowWithColumns() {
+        return $this->atributes;
+    }
 }

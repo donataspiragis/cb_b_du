@@ -35,7 +35,7 @@ $db->exec($sql);
     $sql = "CREATE TABLE `lectureslist` (
   `ID` int(11) NOT NULL,
 `lecture_id` int(11) NOT NULL,
-`order_num` int(11) NOT NULL,
+`order_num` varchar(11),
   `course_id` int(11) NOT NULL
 )";
     $db->exec($sql);

@@ -27,6 +27,7 @@ Class Connection {
             echo "There is some problem in connection: " . $e->getMessage();
         }
     }
+
     public function all($model,$limit,$addition){
         $table = $model->getTable();
         if($limit == ""){
@@ -42,9 +43,11 @@ Class Connection {
         }
         return $users;
     }
+
     public function closeConnection() {
         $this->con = null;
     }
+
     public function getWEREData($model,$sql) {
 
         $stmt = $this->openConnection()->query($sql);
@@ -57,16 +60,29 @@ Class Connection {
             return $users;
         }else if(count($users) == 1){
             return $users[0];
-        }else  trigger_error("Nothing found in table check sql query".$sql, E_USER_ERROR);
+        }else  return null;
     }
+    public function deleteData($sql, $data)
+    {
+        $del = $this->openConnection()->prepare($sql);
+        $del->execute($data);
+        var_dump($del);
+        $this->closeConnection();
+        return true;
+
+    }
+
     public function saveData($sql, $data)
     {
+        var_dump($data);
+        var_dump($sql);
         $this->openConnection()->prepare($sql)->execute($data);
         $lastid= $this->con->lastInsertId();
         $this->closeConnection();
         return $lastid;
 
     }
+
     public function getTableNames($table){
         $q = $this->openConnection()->query("DESCRIBE $table");
         return $q->fetchAll(PDO::FETCH_COLUMN);
