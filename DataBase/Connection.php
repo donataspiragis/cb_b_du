@@ -57,7 +57,16 @@ Class Connection {
             return $users;
         }else if(count($users) == 1){
             return $users[0];
-        }else  trigger_error("Nothing found in table check sql query".$sql, E_USER_ERROR);
+        }else  return null;
+    }
+    public function deleteData($sql, $data)
+    {
+        $del = $this->openConnection()->prepare($sql);
+        $del->execute($data);
+        var_dump($del);
+        $this->closeConnection();
+        return true;
+
     }
     public function saveData($sql, $data)
     {
