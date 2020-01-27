@@ -37,7 +37,7 @@
 
 
 <main class="d-flex p-2 bd-highlight justify-content-center">
-    <div class="row" style="padding-top: 60px;">
+    <div class="row" style="padding-top: 60px; width: 100%;">
         <div class="col-lg-2 col-md-4 col-sm-12">
             <div class="card" >
                 <div class="card-body">
@@ -68,7 +68,6 @@
         <div class="col-lg-10 col-md-8 col-sm-12">
             <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%);">
                 <div class="card-body">
-                    <h5 class="card-title">Sukurtis naują kursą</h5>
                     {% block courses %}
 
                     {% endblock %}

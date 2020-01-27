@@ -5,11 +5,16 @@ include('../config.php');
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+
+
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\HttpFoundation\Response;
 class App {
     const INSTALL_FOLDER = root;
     private static $request_url;
     private static $controller;
     public static $containerBuilder;
+
     /**
      * @param Function call to start app
      * @return returns app with predifined starting elements
@@ -20,6 +25,7 @@ class App {
         self::$request_url = rtrim( self::$request_url, '/');
         self::$request_url = explode('/', self::$request_url);
         self::$containerBuilder = new ContainerBuilder();
+
         $loader = new PhpFileLoader(self::$containerBuilder, new FileLocator(__DIR__));
         $loader->load('services.php');
 
@@ -29,5 +35,22 @@ class App {
 
         self::$controller = new $g;
         self::$controller->{$controller[1]}(self::$request_url[2] ?? '');
+    }
+
+    public static function get($service = null){
+        if($service === null){
+            return self::$containerBuilder;
+        }
+        try{
+            $a = self::$containerBuilder->get($service);
+        }
+        catch(ServiceNotFoundException $e){
+            $response = new Response();
+            $response->prepare(self::$containerBuilder->get('paklausimas'));
+            $response->setStatusCode(418);
+            $response->send();
+            die();
+        }
+        return $a;
     }
 }
