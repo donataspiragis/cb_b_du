@@ -9,6 +9,9 @@ return function(ContainerConfigurator $configurator) {
         ->set('paysera.accepturl', 'http://localhost/cb_b_du/public/')
         ->set('paysera.cancelurl', 'http://localhost/cb_b_du/public/')
         ->set('paysera.callbackurl', 'http://localhost/cb_b_du/public/')
+->set('mailchimp.key', '0972ea13026619b2bed23ae1d69f4adc-us4')
+        ->set('list.id', '820bdf2654')
+
     ;
 
     $services = $configurator->services();
@@ -28,6 +31,10 @@ return function(ContainerConfigurator $configurator) {
             '%paysera.cancelurl%',
             '%paysera.callbackurl%'
         ]);
+$services->set('mailchimp', 'App\Services\MailChimp')
+        ->args(['%mailchimp.key%','%list.id%'])
+       // ->args([])
+    ;
 
 };
 
