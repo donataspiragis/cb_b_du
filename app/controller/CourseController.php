@@ -65,22 +65,26 @@ class CourseController extends BaseController  {
         die($_POST);
     }
   public function  display(){
-$id = 1;
-        $orders = Order::getWere("user_id = $id");
-        if(is_object($orders)){
-            $courses[] = Course::getWere("ID = $orders->course_id");
-        }else{
-            foreach ($orders as $order){
-                $courses[] = Course::getWere("ID = $order->course_id");
-              //  var_dump( $order);
-            }
-        }
-//        $user = User::getWere("email = erisVeDEke");
-//        var_dump($user);
-//        die();
-
-        return $this->render('currentCourses',['data' => $courses]);
-
+   $id = 4;
+        $coursesarr ="";
+                $orders = Order::getWere("user_id = $id");
+                if(is_object($orders)){
+                    $courses[] = Course::getWere("ID = $orders->course_id");
+                    $coursesarr .= "ID <> '$orders->course_id'";
+                }else{
+                    foreach ($orders as $order){
+                        $courses[] = Course::getWere("ID = $order->course_id");
+                        $coursesarr .= "AND ID <> '$order->course_id'";
+                      //  var_dump( $order);
+                    }
+                }
+                $coursesarr = substr($coursesarr,3);
+                $allcourses = Course::getWere($coursesarr);
+        
+        
+        
+        
+                return $this->render('currentCourses',['data' => $courses,'allcourse' => $allcourses]);
     }
 
 
