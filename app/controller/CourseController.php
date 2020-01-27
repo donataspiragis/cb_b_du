@@ -5,67 +5,152 @@ use App\App;
 use App\Controller\BaseController;
 use App\Model\LecturesList;
 use App\Model\Order;
+use App\Objects\NewCourseForm;
+use DataBase\Connection;
 use Symfony\Component\HttpFoundation\Request;
 use App\Model\Course;
 use App\Model\Lecture;
 use App\Model\Offer;
 
 class CourseController extends BaseController  {
-    public function index(){
+
+    public function create() {
+        $new_course_form = new \App\Objects\NewCourseForm('post', 'store');
+        $new_course_form->fillWithRandomValues();
+
+        $form_data = $new_course_form->render('newcourseformlayout', $new_course_form->getData());
+
+        return $this->render('backlayout', ['newCourseForm' => $form_data]);
     }
-    public function create()
-    {
+
+    public function edit($id) {
+//        var_dump(App::INSTALL_FOLDER . '/../app/controller/course/store');
+//        die();
+        $edit_form = new NewCourseForm('post', App::INSTALL_FOLDER . '/../../course/update/' . $id);
+        $edit_form->fillWithValuesFromDb($id);
+
+        $form_data = $edit_form->render('newcourseformlayout', $edit_form->getData());
+
+        return $this->render('backlayout', ['newCourseForm' => $form_data]);
+    }
+
+    public function store() {
         if (!empty($_POST)) {
+//            print '<pre>';
+//            print_r($_POST);
+//            die();
+
             $videos = [];
             foreach ($_POST['videos_list'] as $video_info) {
-                if (!empty($video_info['url']) && !empty($video_info['order'])) {
+                if (!empty($video_info['url'])) {
+                    $videos[] = $video_info;
+                }
+            }
+            
+            $course = new Course();
+            $course->name = $_POST['course_name'];
+            $course->about = $_POST['course_description'] ?? 'no description';
+            $course->status = $_POST['is_active'] ?? '';
+            $course->picture = 'images/' . $_FILES['cover_photo']['name'] ?? '';
+            $course->save();
+
+            $offer = new Offer();
+            $offer->price = $_POST['price'];
+            $offer->valid_from = date('Y-m-d H:i');
+            $offer->valid_to = $_POST['valid_to_date'] . ' ' . $_POST['valid_to_time'];
+            $offer->discount_offer = $_POST['disprice'];
+            $offer->course_id = $course->id;
+            $offer->save();
+
+            foreach ($videos as $video) {
+                $query = "video_url = '" . $video['url'] . "'";
+                if (count(Lecture::urlExists($video['url'])) > 0) {
+                    $id = Lecture::getWere($query)->ID;
+                } else {
+                    $lecture = new Lecture();
+                    $lecture->video_url = $video['url'];
+                    $lecture->save();
+                    $id = $lecture->ID;
+                }
+
+                $order = new LecturesList();
+                $order->lecture_id = $id;
+                $order->order_num = $video['order'] ?? '';
+                $order->course_id = $course->ID;
+                $order->save();
+            }
+
+            save_file($_FILES['cover_photo']);
+        }
+    }
+
+    public function update()
+    {
+        if (!empty($_POST)) {
+//            print '<pre>';
+//            print_r($_POST);
+//            die();
+
+            $course_id = explode('/', $_SERVER['REQUEST_URI'])[3];
+
+            $videos = [];
+            foreach ($_POST['videos_list'] as $video_info) {
+                if (!empty($video_info['url'])) {
                     $videos[] = $video_info;
                 }
             }
 
-            $new_course = new Course();
+            $new_course = Course::getWere("ID = $course_id");
             $new_course->name = $_POST['course_name'];
             $new_course->about = $_POST['course_description'] ?? 'no description';
             $new_course->status = $_POST['is_active'] ?? '';
             $new_course->picture = 'images/' . $_FILES['cover_photo']['name'] ?? '';
             $new_course->save();
 
-            $new_offer = new Offer();
+            $new_offer = Offer::getWere("course_id = $course_id");
             $new_offer->price = $_POST['price'];
             $new_offer->valid_from = date('Y-m-d H:i');
             $new_offer->valid_to = $_POST['valid_to_date'] . ' ' . $_POST['valid_to_time'];
             $new_offer->discount_offer = $_POST['disprice'];
-            $new_offer->course_id = $new_course->id;
+            $new_offer->course_id = $course_id;
             $new_offer->save();
 
+            if (count(LecturesList::courseExists($course_id)) > 0) {
+                $stmt = (new Connection())->openConnection()->prepare("DELETE FROM lectureslist WHERE course_id =:id");
+                $stmt->bindParam(':id', $course_id);
+                $stmt->execute();
+            }
+
             foreach ($videos as $video) {
-                $lecture = new Lecture();
-                $lecture->video_url = $video['url'];
-                $lecture->save();
+                $query = "video_url = '" . $video['url'] . "'";
+
+                if (count(Lecture::urlExists($video['url'])) > 0) {
+                    $id = Lecture::getWere($query)->ID;
+                } else {
+                    $lecture = new Lecture();
+                    $lecture->video_url = $video['url'];
+                    $lecture->save();
+                    $id = $lecture->ID;
+                }
 
                 $in_order = new LecturesList();
-                $in_order->lecture_id = $lecture->ID;
-                $in_order->order_num = $video['order'];
-                $in_order->course_id = $new_course->ID;
+                $in_order->lecture_id = $id;
+                $in_order->order_num = $video['order'] ?? '';
+                $in_order->course_id = $course_id;
                 $in_order->save();
             }
 
             save_file($_FILES['cover_photo']);
         }
-
-        $videosService = new \App\services\GetVideosUrl;
-        $videoList = $videosService->getVideos();
-        $new_course_form = new \App\Objects\NewCourseForm();
-        $new_course_form->addCheckboxInputs('videos_list', $videoList);
-        $form_data = $new_course_form->render('newcourseformlayout', $new_course_form->getData());
-
-        return $this->render('createcourse', ['newCourseForm' => $form_data]);
     }
-    public function store() {
-        die($_POST);
+
+
+    public function index() {
+
     }
-  public function  display(){
-   $id = 4;
+
+    public function display() {
+        $id = 1;
         $coursesarr ="";
                 $orders = Order::getWere("user_id = $id");
                 if(is_object($orders)){
@@ -81,11 +166,6 @@ class CourseController extends BaseController  {
                 $coursesarr = substr($coursesarr,3);
                 $allcourses = Course::getWere($coursesarr);
         
-        
-        
-        
-                return $this->render('currentCourses',['data' => $courses,'allcourse' => $allcourses]);
+                return $this->render('currentCourses',['data' => $courses ?? '','allcourse' => $allcourses]);
     }
-
-
 }

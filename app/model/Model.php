@@ -113,9 +113,9 @@ class Model {
     protected function updateData(){
         $keys='';
         foreach ($this->atributes as $key=>$value){
-            if($key != 'ID') {
+//            if($key != 'ID') {
                 $keys .= ",`$key`=:$key";
-            }
+//            }
             if($key == "edited_on"){
                 $this->atributes["edited_on"] = self::carbonTime();
             }
@@ -123,6 +123,9 @@ class Model {
         $keys = substr($keys,1);
 
         $sql = "UPDATE $this->table SET $keys WHERE ID=:ID";
+//        print '<pre>';
+//        print($sql);
+//        print_r($this->atributes);
         (new Connection())->saveData($sql, $this->atributes);
         return true;
     }
@@ -179,20 +182,19 @@ class Model {
     {
         return $this->atributes[ $key ];
     }
-    private function getAllatributes(){
-                $data_array = (new Connection())->getTableNames($this->table);
+
+    private function getAllatributes() {
+        $data_array = (new Connection())->getTableNames($this->table);
+
         foreach ($data_array as $value) {
             if($value =="created_on"){
 
                 $this->atributes[$value] = '';
             }
-
-
         }
+    }
 
-}
-
-
-
-
+    public function getRowWithColumns() {
+        return $this->atributes;
+    }
 }
