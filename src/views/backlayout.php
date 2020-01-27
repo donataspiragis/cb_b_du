@@ -26,6 +26,7 @@
             margin: 5px;
             display: flex;
             flex-direction: column;
+            align-items: center;
             background-color: ;
         }
 
@@ -34,8 +35,9 @@
         }
 
         .video-item-inputs {
+            width: 100%;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-between;
             align-items: center;
             background-color: ;
         }
@@ -78,6 +80,10 @@
 
         .video-order-input-div {
             visibility: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
         }
 
         input.video-url-input:checked + div > label span.checkmark {
