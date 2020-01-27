@@ -9,7 +9,6 @@ class Model {
     public static $carb;
     protected  $table;
     protected $atributes = [];
-    public $id = '';
 
 
     /**
@@ -105,7 +104,6 @@ class Model {
         return true;
     }
     private function setId($id){
-        $this->id = $id;
         $this->atributes["ID"] = $id;
     }
     /**
@@ -157,7 +155,7 @@ class Model {
 
 }
     public function save(){
-        if($this->id != null){
+        if($this->ID != null){
             $this->updateData();
 
         }else{
