@@ -20,7 +20,7 @@ class CourseController extends BaseController  {
 
         $form_data = $new_course_form->render('newcourseformlayout', $new_course_form->getData());
 
-        return $this->render('backlayout', ['newCourseForm' => $form_data]);
+        return $this->render('createcourse', ['newCourseForm' => $form_data]);
     }
 
     public function edit($id) {
@@ -31,7 +31,7 @@ class CourseController extends BaseController  {
 
         $form_data = $edit_form->render('newcourseformlayout', $edit_form->getData());
 
-        return $this->render('backlayout', ['newCourseForm' => $form_data]);
+        return $this->render('createcourse', ['newCourseForm' => $form_data]);
     }
 
     public function store() {
