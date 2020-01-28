@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" integrity="sha384-rtJEYb85SiYWgfpCr0jn174XgJTn4rptSOQsMroFBPQSGLdOC5IbubP6lJ35qoM9" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ constant('App\\App::INSTALL_FOLDER') }}/css/style.css">
+    {% block header %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -41,10 +42,10 @@
             </button>
         </header>
         <section class="modal-content">
-            <form action="">
-                <input type="text" placeholder="El. paštas">
-                <input type="password" placeholder="Slaptažodis">
-                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/login" type="button" class="btn-buy" data-dismiss="modal">Prisijungti</a>
+            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/login" method="post">
+                <input type="text" name="email" placeholder="El. paštas">
+                <input type="password" name="password" placeholder="Slaptažodis">
+                <button  type="submit" class="btn-buy" data-dismiss="modal">Prisijungti</button>
             </form>
         </section>
     </div>
