@@ -8,7 +8,7 @@
     <div class="card">
 
         <div class="card-body">
-            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/course/paid/{{ id }}" method="post">
+            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/order/paid/{{ id }}" method="post">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">El. paštas</label>
                     <input type="email" name="email" id="" class="form-control" id="exampleFormControlInput1" placeholder="El. paštas">

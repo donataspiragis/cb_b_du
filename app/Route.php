@@ -12,6 +12,9 @@ class Route {
         '' => ['FrontPageController', 'index'],
         'front@showall' => ['FrontPageController', 'showall'],
         'order@statistics' => ['OrderController', 'statistics'],
+        'order@payload' => ['OrderController', 'payload'],
+        'order@paid' => ['OrderController', 'paid'],
+        'order@answer' => ['OrderController', 'answer'],
         'user@register'=>['UserController','register'],
         'user@login'=>['UserController','login'],
         'user@logout'=>['UserController','logout'],
@@ -49,13 +52,47 @@ class Route {
             }
         } else if ($url[0] =='nav' && isset($url[2]) || $url[0] == 'statistics' && isset($url[2])) {
             return ['BaseController', 'error'];
-        } else if (isset($url[0]) && isset($url[1])) {
+        }
+        else if ($url[0] =='order' && isset($url[1])) {
+            if(substr($url[1], 0, strpos($url[1], '?')) == 'answer'){
+
+                $url_l = substr($url[1], 0, strpos($url[1], '?'));
+                $url_key = $url[0] . '@' . $url_l;
+
+            }
+            else {
+                $url_key = $url[0] . '@' . $url[1];
+            }
+        }
+
+        else if (isset($url[0]) && isset($url[1])) {
             $url_key = $url[0] . '@' . $url[1];
+
         } else if (isset($url[0])){
             $url_key = '';
-        } else {
+        }
+        else {
+
             return ['BaseController', 'error'];
-        };
+        }
+
+
+        ;
         return isset(self::ROUTE[$url_key]) ? self::ROUTE[$url_key] : ['BaseController', 'error'];;
     }
+
+    public static function getpayment($url){
+        if ($url[0] =='order' && isset($url[1])) {
+            if (substr($url[1], 0, strpos($url[1], '?')) == 'answer') {
+                $data = substr($url[1], strpos($url[1], '?'));
+                $url_l = substr($url[1], 0, strpos($url[1], '?'));
+                $url_key = $url[0] . '@' . $url_l;
+                return $data;
+            }
+        }
+        return '';
+
+    }
+
+
 }

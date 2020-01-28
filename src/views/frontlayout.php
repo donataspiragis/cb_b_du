@@ -42,9 +42,9 @@
             </button>
         </header>
         <section class="modal-content">
-            <form action="">
-                <input type="text" placeholder="El. paštas">
-                <input type="password" placeholder="Slaptažodis">
+            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/login" method="post">
+                <input type="text" name="email" placeholder="El. paštas">
+                <input type="password" name="password" placeholder="Slaptažodis">
                 <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/login" type="button" class="btn-buy" data-dismiss="modal">Prisijungti</a>
             </form>
         </section>
