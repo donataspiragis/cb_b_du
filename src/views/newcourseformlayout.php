@@ -55,10 +55,12 @@
                 {% elseif field.type == 'file' %}
                     <label class="d-block" for="">{{ field.label }}</label>
                     {% if field.value is not empty %}
-                    <img style="max-width: 100px" src="{{ field.value }}"/>
+                    <label id="CoverPhotoLabel" for="CoverPhotoInput" style="display: flex; align-items: center; cursor: pointer;">
+                        <img id="CoverPhotoImage" src="/{{ field.value }}" style="height: 100px; width: 100px; margin: 5px;" alt=""/>
+                        <input type="file" style="display: none;" id="CoverPhotoInput" name="{{ name }}" value="{{ field.value }}" {% if field.required is defined and field.required == 1 %} required {% endif %} onchange="readURL(this)"/>
+                        <span id="CoverPhotoSpan" style="margin: 5px;">{{ field.span }}</span>
+                    </label>
                     {% endif %}
-                    <input type="file" id="" name="{{ name }}" {% if field.required is defined and field.required == 1 %} required {% endif %}>
-
                 {% else %}
 
                 {% endif %}
@@ -74,4 +76,21 @@
         </div>
     </form>
 </div>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#CoverPhotoImage')
+                    .attr('src', e.target.result)
+                    .width(100)
+                    .height(100)
+                    .objectFit('cover');
+            };
+            reader.readAsDataURL(input.files[0]);
+            $('#CoverPhotoSpan').text('Įkelti kitą');
+        }
+    }
+</script>
 {% endblock %}

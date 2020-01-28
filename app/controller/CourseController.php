@@ -15,7 +15,7 @@ use App\Model\Offer;
 class CourseController extends BaseController  {
 
     public function create() {
-        $new_course_form = new \App\Objects\NewCourseForm('post', 'store');
+        $new_course_form = new \App\Objects\NewCourseForm('post', App::INSTALL_FOLDER . '/../../course/store');
         $new_course_form->fillWithRandomValues();
 
         $form_data = $new_course_form->render('newcourseformlayout', $new_course_form->getData());
@@ -33,8 +33,9 @@ class CourseController extends BaseController  {
     }
 
     public function store() {
+        $success = 0;
         if (!empty($_POST)) {
-            print '<pre>';
+//            print '<pre>';
 //            print_r($_POST);
 //            die();
 
@@ -50,7 +51,7 @@ class CourseController extends BaseController  {
             $course->about = $_POST['course_description'] ?? 'no description';
             $course->status = $_POST['is_active'] ?? '';
             $course->picture = 'images/' . $_FILES['cover_photo']['name'] ?? '';
-            $course->save();
+            $course->save()
 
             $offer = new Offer();
             $offer->price = $_POST['price'];
@@ -61,7 +62,7 @@ class CourseController extends BaseController  {
             $offer->save();
 
             foreach ($videos as $video) {
-                $query = "video_url = '" . $video['url'] . "'";
+                $query = "video_url = " . $video['url'];
                 if (count(Lecture::urlExists($video['url'])) > 0) {
                     $id = (Lecture::getWere($query))->ID;
                 } else {
@@ -79,6 +80,9 @@ class CourseController extends BaseController  {
             }
 
             save_file($_FILES['cover_photo']);
+
+            header("Location: " . App::INSTALL_FOLDER . '/../../course/display');
+            exit();
         }
     }
 
@@ -116,13 +120,17 @@ class CourseController extends BaseController  {
             if (count(LecturesList::courseExists($course_id)) > 0) {
                 $lectures_list = LecturesList::getWere("course_id = $course_id");
 
-                foreach ($lectures_list as $lecture_in_a_list) {
-                    $lecture_in_a_list->delete();
+                if (is_array($lectures_list)) {
+                    foreach ($lectures_list as $lecture_in_a_list) {
+                        $lecture_in_a_list->delete();
+                    }
+                } else {
+                    $lectures_list->delete();
                 }
             }
 
             foreach ($videos as $video) {
-                $query = "video_url = '" . $video['url']. "'";
+                $query = "video_url = " . $video['url'];
 
                 if (count(Lecture::urlExists($video['url'])) > 0) {
                     $id = (Lecture::getWere($query))->ID;
@@ -140,7 +148,10 @@ class CourseController extends BaseController  {
                 $in_order->save();
             }
 
-            //save_file($_FILES['cover_photo']);
+            save_file($_FILES['cover_photo']);
+
+            header("Location: " . App::INSTALL_FOLDER . '/../../course/display');
+            exit();
         }
     }
 

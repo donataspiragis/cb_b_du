@@ -34,6 +34,16 @@ class Form extends View {
                             $field['options'] = $values[$name];
                         }
                         break;
+                    case 'file':
+//                        print '<pre>';
+//                        print_r($values);
+//                        die();
+                        if (!empty($values['cover_photo'])) {
+                            $field['value'] = $values[$name];
+                            $field['required'] = '';
+                            $field['span'] = 'Įkelti kitą';
+                        }
+                        break;
                     default:
                         $field['value'] = $values[$name];
                         break;

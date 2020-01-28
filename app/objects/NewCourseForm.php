@@ -41,7 +41,8 @@ class NewCourseForm extends Form {
                 'cover_photo' => [
                     'type' => 'file',
                     'label' => 'Cover paveiksliukas',
-                    'value' => '',
+                    'value' => 'images/default.png',
+                    'span' => '',
                     'required' => 1,
                     'classes' => [
                         'fieldset' => 'd-block mb-3',
@@ -166,6 +167,8 @@ class NewCourseForm extends Form {
         $lectures = [];
 
         if (!empty($lectureslist)) {
+            !is_array($lectureslist) ? $lectureslist = [$lectureslist] : false;
+
             foreach ($lectureslist as $row) {
                 $lecture = Lecture::getWere('id = ' . $row->lecture_id);
                 $lectures[] = [
