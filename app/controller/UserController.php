@@ -83,8 +83,15 @@ class UserController extends BaseController
 
         if (password_verify($password, $pass)) {
             $_SESSION['userId'] = $user->ID;
-            header("Location: ". App::INSTALL_FOLDER."/course/display");
-            exit();
+            if($user->role==0){
+                header("Location: ". App::INSTALL_FOLDER."/course/display");
+                exit();
+            }
+            if($user->role==1){
+                header("Location: ". App::INSTALL_FOLDER."/course/create");
+                exit();
+            }
+
         } else {
             header("Location: ". App::INSTALL_FOLDER);
             exit();
