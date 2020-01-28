@@ -64,8 +64,15 @@ class CourseController extends BaseController  {
     public function store() {
         die($_POST);
     }
-  public function  display(){
-   $id = 4;
+   public function  display(){
+        session_start();
+        if($_SESSION['userId'] != null){
+            $id = $_SESSION['userId'];
+        }else{
+            header("Location: ".App::INSTALL_FOLDER);
+            exit();
+        }
+
         $coursesarr ="";
                 $orders = Order::getWere("user_id = $id");
                 if(is_object($orders)){
@@ -75,17 +82,23 @@ class CourseController extends BaseController  {
                     foreach ($orders as $order){
                         $courses[] = Course::getWere("ID = $order->course_id");
                         $coursesarr .= "AND ID <> '$order->course_id'";
-                      //  var_dump( $order);
+
                     }
+                    $coursesarr = substr($coursesarr,3);
                 }
-                $coursesarr = substr($coursesarr,3);
+
                 $allcourses = Course::getWere($coursesarr);
-        
-        
-        
-        
+
+
+
+
                 return $this->render('currentCourses',['data' => $courses,'allcourse' => $allcourses]);
-    }
+
+//      $email = 'ugnius.staniulis@gmail.com';
+//        $mailchimp = App::get('mailchimp');
+//        $mailchimp->create($email,'subscribed',array('FNAME' => 'Misha','LNAME' => 'Rudrastyh'));
+
+  }
 
 
 }
