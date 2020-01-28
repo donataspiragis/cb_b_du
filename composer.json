@@ -7,6 +7,7 @@
       "App\\Model\\": "app/model",
       "App\\Objects\\": "app/objects",
       "App\\View\\": "app/view",
+"App\\Services\\": "app/services",
       "App\\": "app",
       "DataBase\\": "DataBase"
     }
