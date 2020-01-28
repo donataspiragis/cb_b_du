@@ -58,7 +58,7 @@ class Model {
     preg_match('/^.+?\= *(.+)$/is', $where, $matches, PREG_OFFSET_CAPTURE);
     if($matches != null){
         $newstring = $matches[1][0];
-        $were = str_replace("$newstring","'$newstring'",$where);
+        $were = str_replace("$newstring","$newstring",$where);
     }else{
         $were = $where;
     }
@@ -123,9 +123,7 @@ class Model {
         $keys = substr($keys,1);
 
         $sql = "UPDATE $this->table SET $keys WHERE ID=:ID";
-//        print '<pre>';
-//        print($sql);
-//        print_r($this->atributes);
+
         (new Connection())->saveData($sql, $this->atributes);
         return true;
     }
@@ -146,7 +144,7 @@ class Model {
     }
 
     public function delete(){
-	if($this->id != null){
+	if($this->ID == null){
             return null;
 
         }else{
@@ -158,7 +156,7 @@ class Model {
 
 }
     public function save(){
-        if($this->ID != null){
+        if(array_key_exists('ID', $this->atributes)){
             $this->updateData();
 
         }else{

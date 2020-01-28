@@ -165,12 +165,14 @@ class NewCourseForm extends Form {
         $lectureslist = LecturesList::getWere('course_id = ' . $id);
         $lectures = [];
 
-        foreach ($lectureslist as $row) {
-            $lecture = Lecture::getWere('id = ' . $row->lecture_id);
-            $lectures[] = [
-                'value' => $lecture->video_url,
-                'order' => $row->order_num ?? ''
-                ];
+        if (!empty($lectureslist)) {
+            foreach ($lectureslist as $row) {
+                $lecture = Lecture::getWere('id = ' . $row->lecture_id);
+                $lectures[] = [
+                    'value' => $lecture->video_url,
+                    'order' => $row->order_num ?? ''
+                    ];
+            }
         }
 
         $valid_to_date = explode(' ', $offer->valid_to)[0];

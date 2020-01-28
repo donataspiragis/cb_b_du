@@ -24,8 +24,6 @@ class CourseController extends BaseController  {
     }
 
     public function edit($id) {
-//        var_dump(App::INSTALL_FOLDER . '/../app/controller/course/store');
-//        die();
         $edit_form = new NewCourseForm('post', App::INSTALL_FOLDER . '/../../course/update/' . $id);
         $edit_form->fillWithValuesFromDb($id);
 
@@ -36,7 +34,7 @@ class CourseController extends BaseController  {
 
     public function store() {
         if (!empty($_POST)) {
-//            print '<pre>';
+            print '<pre>';
 //            print_r($_POST);
 //            die();
 
@@ -59,13 +57,13 @@ class CourseController extends BaseController  {
             $offer->valid_from = date('Y-m-d H:i');
             $offer->valid_to = $_POST['valid_to_date'] . ' ' . $_POST['valid_to_time'];
             $offer->discount_offer = $_POST['disprice'];
-            $offer->course_id = $course->id;
+            $offer->course_id = $course->ID;
             $offer->save();
 
             foreach ($videos as $video) {
                 $query = "video_url = '" . $video['url'] . "'";
                 if (count(Lecture::urlExists($video['url'])) > 0) {
-                    $id = Lecture::getWere($query)->ID;
+                    $id = (Lecture::getWere($query))->ID;
                 } else {
                     $lecture = new Lecture();
                     $lecture->video_url = $video['url'];
@@ -116,16 +114,18 @@ class CourseController extends BaseController  {
             $new_offer->save();
 
             if (count(LecturesList::courseExists($course_id)) > 0) {
-                $stmt = (new Connection())->openConnection()->prepare("DELETE FROM lectureslist WHERE course_id =:id");
-                $stmt->bindParam(':id', $course_id);
-                $stmt->execute();
+                $lectures_list = LecturesList::getWere("course_id = $course_id");
+
+                foreach ($lectures_list as $lecture_in_a_list) {
+                    $lecture_in_a_list->delete();
+                }
             }
 
             foreach ($videos as $video) {
-                $query = "video_url = '" . $video['url'] . "'";
+                $query = "video_url = '" . $video['url']. "'";
 
                 if (count(Lecture::urlExists($video['url'])) > 0) {
-                    $id = Lecture::getWere($query)->ID;
+                    $id = (Lecture::getWere($query))->ID;
                 } else {
                     $lecture = new Lecture();
                     $lecture->video_url = $video['url'];
@@ -140,7 +140,7 @@ class CourseController extends BaseController  {
                 $in_order->save();
             }
 
-            save_file($_FILES['cover_photo']);
+            //save_file($_FILES['cover_photo']);
         }
     }
 

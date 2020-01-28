@@ -66,7 +66,6 @@ Class Connection {
     {
         $del = $this->openConnection()->prepare($sql);
         $del->execute($data);
-        var_dump($del);
         $this->closeConnection();
         return true;
 
@@ -74,8 +73,6 @@ Class Connection {
 
     public function saveData($sql, $data)
     {
-        var_dump($data);
-        var_dump($sql);
         $this->openConnection()->prepare($sql)->execute($data);
         $lastid= $this->con->lastInsertId();
         $this->closeConnection();
