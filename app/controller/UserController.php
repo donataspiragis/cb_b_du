@@ -71,10 +71,13 @@ class UserController extends BaseController
         $newUser->created_on=Carbon::now();
         $newUser->  user_discount=20;
         $newUser->save();
-        $this->login($email, $password);
+        $_SESSION['userId'] =  $newUser->ID;
+        header("Location: ". App::INSTALL_FOLDER."/course/display");
     }
 
-    public function login($email, $password){
+    public function login(){
+        $email=$_POST['email'];
+        $password=$_POST['password'];
         $user= User::getWere("email='$email'");
         $pass=$user->password;
 
