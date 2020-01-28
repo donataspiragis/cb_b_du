@@ -7,5 +7,5 @@ use App\Model\Model;
 
 class Order extends Model
 {
-    //
+    protected $table = 'orders';
 }

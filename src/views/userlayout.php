@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ constant('App\\App::INSTALL_FOLDER') }}/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -35,43 +37,40 @@
 
 
 <main class="d-flex p-2 bd-highlight justify-content-center">
-    <div class="row" style="padding-top: 60px;">
+    <div class="row" style="padding-top: 60px;width: 100%">
         <div class="col-lg-2 col-md-4 col-sm-12">
             <div class="card" >
                 <div class="card-body">
-                    <h5 class="card-title">Statistika</h5>
+                    <h5 class="card-title">Video pamokos</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Video statistika</a>
+                            <a class="nav-link text-dark" href="#"><i class="fa fa-unlock-alt" aria-hidden="true"></i> - Lygis I</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Mokiniai + informacija</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Apyvarta</a>
+                            <a class="nav-link text-dark" href="#"><i class="fa fa-lock" aria-hidden="true"></i> - Lygis II</a>
                         </li>
                     </ul>
                     <br>
-                    <h5 class="card-title">Video</h5>
+                    <h5 class="card-title">Asmeninė informacija</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Patalpinti naują video</a>
+                            <a class="nav-link text-dark" href="#">Pakeisti slaptažodį</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Sukurti naują kursą</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Redaguoti esamą kursą</a>
+                            <a class="nav-link text-dark" href="#">Mano informacija</a>
                         </li>
                     </ul>
+                    <br>
+                    <a class="card-title h5 text-dark" href="#">Naujienos</a>
                 </div>
             </div>
         </div>
         <div class="col-lg-10 col-md-8 col-sm-12">
             <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%);">
                 <div class="card-body">
+                    {% block courses %}
 
-                    {% block datacontainer %}{% endblock %}
+                    {% endblock %}
                 </div>
             </div>
         </div>
@@ -89,3 +88,7 @@
 </body>
 
 </html>
+
+
+
+

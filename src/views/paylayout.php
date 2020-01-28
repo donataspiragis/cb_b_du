@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" integrity="sha384-rtJEYb85SiYWgfpCr0jn174XgJTn4rptSOQsMroFBPQSGLdOC5IbubP6lJ35qoM9" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ constant('App\\App::INSTALL_FOLDER') }}/css/style.css">
     <title>{% block title %}{% endblock %}</title>
@@ -31,24 +32,7 @@
     </div>
 
 </nav>
-<!-- Modal -->
-<div class="modal modal-cust" id="modal2" data-animation="slideInOutTop">
-    <div class="modal-dialog modal-dialog-login">
-        <header class="modal-header">
-            Prisijungti
-            <button class="close-modal" aria-label="close modal" data-close>
-                ✕
-            </button>
-        </header>
-        <section class="modal-content">
-            <form action="">
-                <input type="text" placeholder="El. paštas">
-                <input type="password" placeholder="Slaptažodis">
-                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/login" type="button" class="btn-buy" data-dismiss="modal">Prisijungti</a>
-            </form>
-        </section>
-    </div>
-</div>
+
 {% block body %}{% endblock %}
 
 <footer class="footer">

@@ -1,10 +1,11 @@
 {% extends 'frontlayout.php' %}
 {% block title %}Home{% endblock %}
 {% block body %}
-
+<!--Time save-->
 <div id="valid_from" style="display: none;">{{ time }}</div>
 <div id="valid_to" style="display: none;">{{ offer.valid_to }}</div>
 
+<!--header - hero section-->
 <div class="front-header-section">
     <div class="front-header-content">
         <h1>CB_B_DU E-Mokymasis</h1>
@@ -15,7 +16,8 @@
         <a href="#video">Peržiūrėk</a>
     </div>
 </div>
-
+<!--header - hero section END-->
+<!--Bannder start-->
 <section class="banner">
     <div>
         <div class="banner-font-awsemoe">
@@ -49,68 +51,70 @@
         </div>
     </div>
 </section>
-
+<!--Banner END-->
 
 <section id="video" class="front-content-holder">
+
 
     <aside class="front-aside">
         <h2>Specialūs pasiūlymai</h2>
         <p>Nuolaida kursui:</p>
         <div class="discount-one">
-            {% for discount in discount %}
-            <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ discount.picture }}" alt="">
+
+            <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ discount.picture }}" alt="">
             <div class="course-discount-title">
                 <h1>{{ discount.name }}</h1>
             </div>
-            <button type="button" class="btn-buy" data-toggle="modal" data-target="#exampleModalCenter">
-                Pasižiūrėti
+            <button type="button" class="btn-buy open-modal" data-open="modal1">
+                Peržiūrėti
             </button>
 
+<!--            CUSTOM MODAL-->
+            <div class="modal" id="modal1" data-animation="slideInOutLeft">
+                <div class="modal-dialog">
+                    <header class="modal-header">
+                        {{ discount.name }}
+                        <button class="close-modal" aria-label="close modal" data-close>
+                            ✕
+                        </button>
+                    </header>
+                    <section class="modal-content">
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">{{ discount.name }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-bod-custom">
-                                <div class="discount-pop-left">
-                                    <div>
-                                        <h1>{{ discount.name }}</h1>
-                                        <p>
 
-                                            ({{ offer.valid_from|slice(0,10) }}
+                        <div class="modal-bod-custom">
+                            <div class="discount-pop-left">
+                                <div>
+                                    <h1>{{ discount.name }}</h1>
+                                    <p>
+                                        ({{ offer.valid_from|slice(0,10) }}
                                         -
                                         {{ offer.valid_to|slice(0,10) }})
-
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="modal-bod-content">
-
-                                   <p>Pasiūlymas galioja iki: <span id="timer"></span> </p>
-                                    <h2>Kurso aprašymas:</h2>
-                                    <span>{{ discount.about }}</span>
-                                    <span class="original-price">{{ offer.price }} EUR</span>
-                                    <span class="offer-price">{{ offer.discount_offer }} EUR</span>
-
-                                    <a href="#">Pirkti kursą</a>
+                                    </p>
                                 </div>
                             </div>
+                            <div class="modal-bod-content">
+
+                                <p>Pasiūlymas galioja iki: <span id="timer"></span> </p>
+                                <h2>Kurso aprašymas:</h2>
+                                <span>{{ discount.about|slice(0, 40) }}
+                                    <span id="dots">...</span>
+                                    <span id="more"> {{ discount.about|slice(40, 2000) }}</span>
+                                </span>
+                                <button id="readmore">Plačiau</button>
+                                <span class="original-price">{{ offer.price }} EUR</span>
+                                <span class="offer-price">{{ offer.discount_offer }} EUR</span>
+
+                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/payload/{{course.ID}}">Pirkti kursą</a>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nenoriu pasiūlymo</button>
-                        </div>
-                    </div>
+                    </section>
                 </div>
             </div>
-            {% endfor %}
-            <div></div>
+
+
+<!--            END CUSTOM MODAL-->
+
+
             <h2>Super akcija visam paketui:</h2>
             <div class="buy-all-container">
                 <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/buyall/all" class="btn-buy-me">PIRK VISKA</a>
@@ -130,15 +134,16 @@
                     <span class="coure-card-price">{{ offer.price }} EUR</span>
                     {% endif%}
                     {% endfor %}
-                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/index" class="btn-buy">Pirkti</a>
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/payload/{{course.ID}}" class="btn-buy">Pirkti</a>
                 </div>
-                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ course.picture }}" alt="">
+                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ course.picture }}" alt="">
                 <div class="course-front-title">
                     <h1>{{ course.name }}</h1>
                 </div>
                 <div class="course-front-about">
-                    {{ course.about|slice(0, 28) }}
 
+                    <span class="course-card-about">{{ course.about|slice(0, 28) }}</span>
+                    <span class="read-description">Skaityti aprašymą</span>
                     {% for offer in all %}
                     {% if offer.course_id ==  course.ID %}
                     <span class="coure-card-price">{{ offer.price }} EUR</span>
@@ -146,7 +151,9 @@
 
                     {% endif%}
                     {% endfor %}
-
+                    <div class="btn-mobile-hold">
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/payload/{{course.ID}}" class="btn-buy btn-mobile" >Pirkti</a>
+                    </div>
                 </div>
             </div>
             {% endfor %}
