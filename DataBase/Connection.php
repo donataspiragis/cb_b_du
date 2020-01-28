@@ -27,6 +27,7 @@ Class Connection {
             echo "There is some problem in connection: " . $e->getMessage();
         }
     }
+
     public function all($model,$limit,$addition){
         $table = $model->getTable();
         if($limit == ""){
@@ -42,9 +43,11 @@ Class Connection {
         }
         return $users;
     }
+
     public function closeConnection() {
         $this->con = null;
     }
+
     public function getWEREData($model,$sql) {
 
         $stmt = $this->openConnection()->query($sql);
@@ -63,11 +66,11 @@ Class Connection {
     {
         $del = $this->openConnection()->prepare($sql);
         $del->execute($data);
-        var_dump($del);
         $this->closeConnection();
         return true;
 
     }
+
     public function saveData($sql, $data)
     {
         $this->openConnection()->prepare($sql)->execute($data);
@@ -76,6 +79,7 @@ Class Connection {
         return $lastid;
 
     }
+
     public function getTableNames($table){
         $q = $this->openConnection()->query("DESCRIBE $table");
         return $q->fetchAll(PDO::FETCH_COLUMN);

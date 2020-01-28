@@ -58,7 +58,7 @@ class Model {
     preg_match('/^.+?\= *(.+)$/is', $where, $matches, PREG_OFFSET_CAPTURE);
     if($matches != null){
         $newstring = $matches[1][0];
-        $were = str_replace("$newstring","'$newstring'",$where);
+        $were = str_replace("$newstring","$newstring",$where);
     }else{
         $were = $where;
     }
@@ -113,9 +113,9 @@ class Model {
     protected function updateData(){
         $keys='';
         foreach ($this->atributes as $key=>$value){
-            if($key != 'ID') {
+//            if($key != 'ID') {
                 $keys .= ",`$key`=:$key";
-            }
+//            }
             if($key == "edited_on"){
                 $this->atributes["edited_on"] = self::carbonTime();
             }
@@ -123,6 +123,7 @@ class Model {
         $keys = substr($keys,1);
 
         $sql = "UPDATE $this->table SET $keys WHERE ID=:ID";
+
         (new Connection())->saveData($sql, $this->atributes);
         return true;
     }
@@ -143,7 +144,7 @@ class Model {
     }
 
     public function delete(){
-	if($this->id != null){
+	if($this->ID == null){
             return null;
 
         }else{
@@ -155,7 +156,7 @@ class Model {
 
 }
     public function save(){
-        if($this->ID != null){
+        if(array_key_exists('ID', $this->atributes)){
             $this->updateData();
 
         }else{
@@ -179,20 +180,19 @@ class Model {
     {
         return $this->atributes[ $key ];
     }
-    private function getAllatributes(){
-                $data_array = (new Connection())->getTableNames($this->table);
+
+    private function getAllatributes() {
+        $data_array = (new Connection())->getTableNames($this->table);
+
         foreach ($data_array as $value) {
             if($value =="created_on"){
 
                 $this->atributes[$value] = '';
             }
-
-
         }
+    }
 
-}
-
-
-
-
+    public function getRowWithColumns() {
+        return $this->atributes;
+    }
 }
