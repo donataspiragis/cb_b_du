@@ -65,15 +65,8 @@ class OrderController extends BaseController  {
         var_dump('<br>');
         var_dump('<br>');
         var_dump('<br>');
-        var_dump('<br>');
-        var_dump('<br>');
-        var_dump('<br>');
-        var_dump('<br>');
-        var_dump('<br>');
-        var_dump('<br>');
-
         var_dump($data);
-        return $this->render('testpaidview');
+        return $this->render('register');
     }
 
 
