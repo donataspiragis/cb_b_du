@@ -1,6 +1,6 @@
 {% block newCourseForm %}
 <div class="container">
-    <form id="newCourse" method="POST" action="{{ action }}" enctype="multipart/form-data">
+    <form id="newCourse" method="POST" action="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ action }}" enctype="multipart/form-data">
         <div class="container">
             {% for name, field in fields %}
                 <fieldset class="{{ field.classes.fieldset }}">

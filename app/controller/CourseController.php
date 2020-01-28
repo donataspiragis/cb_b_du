@@ -15,7 +15,7 @@ use App\Model\Offer;
 class CourseController extends BaseController  {
 
     public function create() {
-        $new_course_form = new \App\Objects\NewCourseForm('post', App::INSTALL_FOLDER . '/../../course/store');
+        $new_course_form = new \App\Objects\NewCourseForm('post', 'course/store');
         $new_course_form->fillWithRandomValues();
 
         $form_data = $new_course_form->render('newcourseformlayout', $new_course_form->getData());
@@ -24,7 +24,7 @@ class CourseController extends BaseController  {
     }
 
     public function edit($id) {
-        $edit_form = new NewCourseForm('post', App::INSTALL_FOLDER . '/../../course/update/' . $id);
+        $edit_form = new NewCourseForm('post', 'course/update/' . $id);
         $edit_form->fillWithValuesFromDb($id);
 
         $form_data = $edit_form->render('newcourseformlayout', $edit_form->getData());
@@ -51,7 +51,7 @@ class CourseController extends BaseController  {
             $course->about = $_POST['course_description'] ?? 'no description';
             $course->status = $_POST['is_active'] ?? '';
             $course->picture = 'images/' . $_FILES['cover_photo']['name'] ?? '';
-            $course->save()
+            $course->save();
 
             $offer = new Offer();
             $offer->price = $_POST['price'];
