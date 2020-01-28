@@ -78,13 +78,20 @@ class UserController extends BaseController
     public function login(){
         $email=$_POST['email'];
         $password=$_POST['password'];
-        $user= User::getWere("email='$email'");
+        $user= User::getWere("email=$email");
         $pass=$user->password;
 
         if (password_verify($password, $pass)) {
             $_SESSION['userId'] = $user->ID;
-            header("Location: ". App::INSTALL_FOLDER."/course/display");
-            exit();
+            if($user->role==0){
+                header("Location: ". App::INSTALL_FOLDER."/course/display");
+                exit();
+            }
+            if($user->role==1){
+                header("Location: ". App::INSTALL_FOLDER."/course/create");
+                exit();
+            }
+
         } else {
             header("Location: ". App::INSTALL_FOLDER);
             exit();
