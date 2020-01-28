@@ -74,26 +74,26 @@ class CourseController extends BaseController  {
 
                 $order = new LecturesList();
                 $order->lecture_id = $id;
-                $order->order_num = $video['order'] ?? '';
+                $order->order_num = !empty($video['order']) ? $video['order'] : null;
                 $order->course_id = $course->ID;
                 $order->save();
             }
 
             save_file($_FILES['cover_photo']);
 
-            header("Location: " . App::INSTALL_FOLDER . '/../../course/display');
+            header("Location: " . App::INSTALL_FOLDER . '/course/display');
             exit();
         }
     }
 
-    public function update()
+    public function update($id)
     {
         if (!empty($_POST)) {
 //            print '<pre>';
 //            print_r($_POST);
 //            die();
 
-            $course_id = explode('/', $_SERVER['REQUEST_URI'])[3];
+            $course_id =$id;// explode('/', $_SERVER['REQUEST_URI'])[3];
 
             $videos = [];
             foreach ($_POST['videos_list'] as $video_info) {
@@ -143,14 +143,14 @@ class CourseController extends BaseController  {
 
                 $in_order = new LecturesList();
                 $in_order->lecture_id = $id;
-                $in_order->order_num = $video['order'] ?? '';
+                $in_order->order_num = !empty($video['order']) ? $video['order'] : null;
                 $in_order->course_id = $course_id;
                 $in_order->save();
             }
 
             save_file($_FILES['cover_photo']);
 
-            header("Location: " . App::INSTALL_FOLDER . '/../../course/display');
+            header("Location: " . App::INSTALL_FOLDER . '/course/display');
             exit();
         }
     }
@@ -198,3 +198,4 @@ class CourseController extends BaseController  {
 
 
 }
+
