@@ -104,7 +104,7 @@
                                 <span class="original-price">{{ offer.price }} EUR</span>
                                 <span class="offer-price">{{ offer.discount_offer }} EUR</span>
 
-                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/payload/{{course.ID}}">Pirkti kursą</a>
+                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}">Pirkti kursą</a>
                             </div>
                         </div>
                     </section>
@@ -134,7 +134,7 @@
                     <span class="coure-card-price">{{ offer.price }} EUR</span>
                     {% endif%}
                     {% endfor %}
-                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/payload/{{course.ID}}" class="btn-buy">Pirkti</a>
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}" class="btn-buy">Pirkti</a>
                 </div>
                 <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ course.picture }}" alt="">
                 <div class="course-front-title">
@@ -152,7 +152,7 @@
                     {% endif%}
                     {% endfor %}
                     <div class="btn-mobile-hold">
-                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/payload/{{course.ID}}" class="btn-buy btn-mobile" >Pirkti</a>
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}" class="btn-buy btn-mobile" >Pirkti</a>
                     </div>
                 </div>
             </div>

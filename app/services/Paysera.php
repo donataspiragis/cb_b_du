@@ -3,23 +3,23 @@ namespace App\Services;
 class Paysera
 {
     private $config;
-//    public function __construct($config)
-//    {
-//        $this->config = $config;
-//    }
+    public function __construct($config)
+    {
+        $this->config = $config;
+    }
     public function pay($email, $amount)
     {
         try {
             $request = WebToPay::redirectToPayment([
-                'projectid'     => 146155,
-                'sign_password' => 'ce28c97dcd8381b7d5a093ffd1deae38',
+                'projectid'     => $this->config['0'],
+                'sign_password' => $this->config['1'],
                 'orderid'       => rand(1000000, 9999999),
                 'amount'        => $amount,
                 'currency'      => 'EUR',
                 'country'       => 'LT',
-                'accepturl'     => 'http://localhost/cb_b_du/public/course/answer',
-                'cancelurl'     => 'http://localhost/cb_b_du/public/course/answer',
-                'callbackurl'   => 'http://localhost/cb_b_du/public/course/answer',
+                'accepturl'     => $this->config['2'],
+                'cancelurl'     => $this->config['3'],
+                'callbackurl'   => $this->config['4'],
                 'p_email'       => $email,
                 'test'          => 1,
             ]);

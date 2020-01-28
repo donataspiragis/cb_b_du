@@ -28,11 +28,17 @@ class App {
         $loader->load('services.php');
 
         $controller = Route::getController(self::$request_url);
-
+        $payment = Route::getpayment(self::$request_url);
         $g = 'App\\Controller\\'.$controller[0];
 
-        self::$controller = new $g;
-        self::$controller->{$controller[1]}(self::$request_url[2] ?? '');
+        if(empty($payment) ){
+            self::$controller = new $g;
+            self::$controller->{$controller[1]}(self::$request_url[2] ?? '');
+        } else {
+            self::$controller = new $g;
+            self::$controller->{$controller[1]}($payment);
+        }
+
     }
     public static function get($service = null){
         if($service === null){

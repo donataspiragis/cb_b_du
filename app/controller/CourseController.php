@@ -162,8 +162,9 @@ class CourseController extends BaseController  {
                         $coursesarr .= "AND ID <> '$order->course_id'";
                       //  var_dump( $order);
                     }
+                    $coursesarr = substr($coursesarr,3);
                 }
-                $coursesarr = substr($coursesarr,3);
+
                 $allcourses = Course::getWere($coursesarr);
         
                 return $this->render('currentCourses',['data' => $courses ?? '','allcourse' => $allcourses]);
