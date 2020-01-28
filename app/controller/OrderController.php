@@ -9,6 +9,7 @@ use App\Model\Offer;
 use App\Model\Order;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
+use App\Services\Paysera;
 
 class OrderController extends BaseController  {
     public function index(){
@@ -47,6 +48,28 @@ class OrderController extends BaseController  {
 
         return $this->render('statistics', ['invoices' => $invoices, 'orders' => $orders]);
     }
+
+    public function payload($id){
+        $offer = Course::getWere('ID=' . $id );
+        return $this->render('pay', ['id' => $id, 'offer' => $offer]);
+
+    }
+    public function paid ($id){
+        $email = $_POST['email'];
+        $servisas = App::get('paysera');
+        $servisas->pay($email, 5000);
+    }
+
+
+    public function answer($data) {
+        var_dump('<br>');
+        var_dump('<br>');
+        var_dump('<br>');
+        var_dump($data);
+        return $this->render('register');
+    }
+
+
 
 }
 
