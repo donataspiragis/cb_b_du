@@ -58,7 +58,7 @@ class Model {
     preg_match('/^.+?\= *(.+)$/is', $where, $matches, PREG_OFFSET_CAPTURE);
     if($matches != null){
         $newstring = $matches[1][0];
-        $were = str_replace("$newstring","$newstring",$where);
+        $were = str_replace("$newstring","'$newstring'",$where);
     }else{
         $were = $where;
     }
