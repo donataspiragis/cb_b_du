@@ -18,6 +18,10 @@ class UserController extends BaseController
 {
     public function register()
     {
+        if($_SESSION['temp']!=true){
+            header("Location: ". App::INSTALL_FOLDER);
+            exit();
+        }
         if($_POST==null){
             return $this->render('register',  []);
         }
@@ -38,7 +42,7 @@ class UserController extends BaseController
                 $email=$_POST['email'];
                 $user=User::getAll();
                 foreach ($user as $u) {
-                    if($u->email==$email) {
+                    if($u->email==$email && $u->ID!=$_SESSION['userId']) {
                         $data['emailValue']=$email.' - šis paštas jau užregistruotas';
                         return $this->render('register',  ['data' => $data]);
                     }
@@ -59,6 +63,21 @@ class UserController extends BaseController
         }
     }
 
+
+    public function registerNew($hash)
+    {
+        $user=User::getAll();
+        foreach ($user as $tempUser) {
+            if($tempUser->password==$hash && $tempUser->name=='laikinas') {
+                $_SESSION['userId'] =  $tempUser->ID;
+                $_SESSION['temp'] = true;
+                return $this->render('register',  []);
+                    }
+        }
+        header("Location: ". App::INSTALL_FOLDER);
+        exit();
+    }
+
     public function store($email, $name, $surname, $password)
     {
         $newUser= new User();
@@ -66,12 +85,11 @@ class UserController extends BaseController
         $newUser->surname=$surname;
         $newUser->email=$email;
         $newUser->password=password_hash($password, PASSWORD_DEFAULT);
-        //https://www.php.net/manual/en/function.password-hash.php read more this is just for now will be added salt or something similar
         $newUser->role=0;
         $newUser->created_on=Carbon::now();
         $newUser->  user_discount=20;
+        $newUser->ID=$_SESSION['userId'];
         $newUser->save();
-        $_SESSION['userId'] =  $newUser->ID;
         header("Location: ". App::INSTALL_FOLDER."/course/display");
     }
 
@@ -80,7 +98,6 @@ class UserController extends BaseController
         $password=$_POST['password'];
         $user= User::getWere("email=$email");
         $pass=$user->password;
-
         if (password_verify($password, $pass)) {
             $_SESSION['userId'] = $user->ID;
             if($user->role==0){
@@ -91,7 +108,6 @@ class UserController extends BaseController
                 header("Location: ". App::INSTALL_FOLDER."/course/create");
                 exit();
             }
-
         } else {
             header("Location: ". App::INSTALL_FOLDER);
             exit();

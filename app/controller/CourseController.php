@@ -76,7 +76,7 @@ class CourseController extends BaseController  {
         $offer->price = $_POST['price'];
         $offer->valid_from = date('Y-m-d H:i');
         $offer->valid_to = $_POST['valid_to_date'] . ' ' . $_POST['valid_to_time'];
-        $offer->discount_offer = $_POST['disprice'];
+        $offer->discount_offer = $_POST['disprice'] ?? intval(0);
         $offer->course_id = !$course_id ? $course->ID : $course_id;
         $offer->save();
 
