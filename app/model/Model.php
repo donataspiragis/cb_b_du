@@ -4,6 +4,7 @@ namespace App\Model;
     use DataBase\Connection;
     use Carbon\Carbon;
     use Symfony\Component\HttpFoundation\Request;
+    use PDO;
 
 class Model {
     public static $carb;
@@ -194,5 +195,21 @@ class Model {
 
     public function getRowWithColumns() {
         return $this->atributes;
+    }
+
+    /**
+     * @param string $table_name
+     * @param string $column_name
+     * @param $value
+     * @return array
+     */
+    public static function rowsByValueExists(string $table_name, string $column_name, $value): array {
+        $query = "SELECT * FROM $table_name WHERE $column_name = :value";
+
+        $action = (new Connection())->openConnection()->prepare($query);
+        $action->bindParam(':value', $value);
+        $action->execute();
+
+        return $action->fetchAll(PDO::FETCH_ASSOC);
     }
 }
