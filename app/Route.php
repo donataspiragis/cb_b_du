@@ -13,6 +13,7 @@ class Route {
         'front@showall' => ['FrontPageController', 'showall'],
         'order@statistics' => ['OrderController', 'statistics'],
         'order@payload' => ['OrderController', 'payload'],
+        'order@checkPrePayment' => ['OrderController', 'checkPrePayment'],
         'order@paid' => ['OrderController', 'paid'],
         'order@answer' => ['OrderController', 'answer'],
         'user@register'=>['UserController','register'],
@@ -84,10 +85,14 @@ class Route {
     public static function getpayment($url){
         if ($url[0] =='order' && isset($url[1])) {
             if (substr($url[1], 0, strpos($url[1], '?')) == 'answer') {
-                $data = substr($url[1], strpos($url[1], '?'));
+                $atst = strpos($url[1], '?') + 11;
+                $data = substr($url[1], $atst);
+
+
                 $url_l = substr($url[1], 0, strpos($url[1], '?'));
                 $url_key = $url[0] . '@' . $url_l;
-                return $data;
+                $urlll = ['data' => $data];
+                return $urlll;
             }
         }
         return '';

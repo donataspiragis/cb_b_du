@@ -42,7 +42,9 @@ class CourseController extends BaseController  {
 
     public function update($course_id) {
         if (!empty($_POST)) {
+
             $this->sendToDb($course_id);
+
             header("Location: " . App::INSTALL_FOLDER . '/course/display');
             exit();
         }
@@ -129,6 +131,8 @@ class CourseController extends BaseController  {
             exit();
         }
         $coursesarr ="";
+        $courses=[];
+        $allcourses = [];
                 $orders = Order::getWere("user_id = $id");
                 if(is_object($orders)){
                     $courses[] = Course::getWere("ID = $orders->course_id");
@@ -142,7 +146,7 @@ class CourseController extends BaseController  {
                     $coursesarr = substr($coursesarr,3);
                 }
 
-                $allcourses = Course::getWere($coursesarr);
+       $allcourses = Course::getWere($coursesarr);
 
 
 
