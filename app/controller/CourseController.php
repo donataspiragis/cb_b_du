@@ -49,7 +49,7 @@ class CourseController extends BaseController  {
     }
 
     public function sendToDb($course_id = null) {
-        if (!$course_id && Course::courseNameExists($_POST['course_name'])) {
+        if (Course::courseNameExists($_POST['course_name'])) {
             die("Course with a name '" . $_POST['course_name'] . "' already exists. Go back!");
         }
 
