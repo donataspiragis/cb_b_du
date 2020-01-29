@@ -17,6 +17,7 @@ class Route {
         'order@paid' => ['OrderController', 'paid'],
         'order@answer' => ['OrderController', 'answer'],
         'user@register'=>['UserController','register'],
+        'user@registerNew'=>['UserController','registerNew'],
         'user@login'=>['UserController','login'],
         'user@logout'=>['UserController','logout'],
 //        'buy@index' => ['BuyallController', 'index'],
