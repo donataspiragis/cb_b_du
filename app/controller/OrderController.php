@@ -145,12 +145,18 @@ class OrderController extends BaseController  {
         }
         else {
             $status = "Laukiame mokėjimo patvirtinimo ir išsiuntėme Jums prisijungimą";
-            return $this->render('pay', ['info' => $status]);
+            return $this->render('waiting', ['info' => $status]);
         }
 
     }
 
+    public function cancelPaysera() {
+        return $this->render('canceled');
+    }
 
+    public function callbackpaysera($data) {
+
+    }
 
 }
 
