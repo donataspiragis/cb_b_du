@@ -64,7 +64,7 @@ class NewCourseForm extends Form {
                     'type' => 'number',
                     'label' => 'Kaina su nuolaida',
                     'value' => '',
-                    'required' => 1,
+                    'required' => '',
                     'classes' => [
                         'fieldset' => 'd-inline-block mb-3',
                         'label' => 'd-block',

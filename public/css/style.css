@@ -442,7 +442,6 @@ li a:hover {
     left: 30px;
     top: 10%;
     width: 250px;
-    background-color: #f3f3f3;
     box-shadow: 2px 2px 2px #f3f3f3;
     border-radius: 10px;
     padding: 35px 7px;
@@ -475,7 +474,7 @@ li a:hover {
     color: #ffffff;
     font-size: 33px;
     line-height: 35px;
-    width: 65%;
+    width: 100%;
     background-color: rgba(20, 20, 20, 0.5);
 }
 
