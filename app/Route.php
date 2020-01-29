@@ -20,6 +20,9 @@ class Route {
         'user@registerNew'=>['UserController','registerNew'],
         'user@login'=>['UserController','login'],
         'user@logout'=>['UserController','logout'],
+        'user@changePassword'=>['UserController','changePassword'],
+        'user@passwordStore'=>['UserController','passwordStore'],
+
 //        'buy@index' => ['BuyallController', 'index'],
 //        'course@index' => ['CourseController', 'index'],
         'course@create' => ['CourseController', 'create'],

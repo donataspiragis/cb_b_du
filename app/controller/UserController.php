@@ -63,12 +63,12 @@ class UserController extends BaseController
         }
     }
 
-
     public function registerNew($hash)
     {
         $user=User::getAll();
         foreach ($user as $tempUser) {
-            if($tempUser->password==$hash && $tempUser->name=='laikinas') {
+            $password=str_replace('/','',$tempUser->password);
+            if($password==$hash && $tempUser->name=='laikinas') {
                 $_SESSION['userId'] =  $tempUser->ID;
                 $_SESSION['temp'] = true;
                 return $this->render('register',  []);
@@ -91,6 +91,7 @@ class UserController extends BaseController
         $newUser->ID=$_SESSION['userId'];
         $newUser->save();
         header("Location: ". App::INSTALL_FOLDER."/course/display");
+        exit();
     }
 
     public function login(){
@@ -117,5 +118,33 @@ class UserController extends BaseController
         $_SESSION['userId'] = null;
         header("Location: ". App::INSTALL_FOLDER);
         exit();
+    }
+
+    public function changePassword(){
+        if($_SESSION['userId']!=null){
+            echo $_SESSION['userId'];
+            $user=User::getWere("ID=".$_SESSION['userId']);
+            return $this->render('changePassword');
+
+        }
+        else{
+            header("Location: ". App::INSTALL_FOLDER);
+            exit();
+        }
+    }
+    public function passwordStore(){
+        $password=$_POST['newPassword'];
+        $password2=$_POST['newPassword2'];
+        if($password!=$password2){
+            return $this->render('changePassword');
+        }
+        $user=User::getWere("ID=".$_SESSION['userId']);
+        if($password==$password2){
+            header("Location: ". App::INSTALL_FOLDER."/course/display");
+            exit();
+        }
+    }
+    public function passwordReminder(){
+
     }
 }
