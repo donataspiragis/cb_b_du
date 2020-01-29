@@ -35,6 +35,7 @@ Class Connection {
         }else {
             $sql ="SELECT * FROM $table limit $limit $addition";
         }
+
         $stmt = $this->openConnection()->query($sql);
         $users = array();
         while ($user = $stmt->fetchObject(get_class($model))) {

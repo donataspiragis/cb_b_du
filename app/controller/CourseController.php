@@ -50,7 +50,7 @@ class CourseController extends BaseController  {
             $course->name = $_POST['course_name'];
             $course->about = $_POST['course_description'] ?? 'no description';
             $course->status = $_POST['is_active'] ?? '';
-            $course->picture = 'images/' . $_FILES['cover_photo']['name'] ?? '';
+            $course->picture = $_FILES['cover_photo']['name'] ?? '';
             $course->save();
 
             $offer = new Offer();
@@ -65,6 +65,7 @@ class CourseController extends BaseController  {
                 $query = "video_url = " . $video['url'];
                 if (count(Lecture::urlExists($video['url'])) > 0) {
                     $id = (Lecture::getWere($query))->ID;
+
                 } else {
                     $lecture = new Lecture();
                     $lecture->video_url = $video['url'];
@@ -74,6 +75,7 @@ class CourseController extends BaseController  {
 
                 $order = new LecturesList();
                 $order->lecture_id = $id;
+
                 $order->order_num = !empty($video['order']) ? $video['order'] : null;
                 $order->course_id = $course->ID;
                 $order->save();
@@ -106,7 +108,7 @@ class CourseController extends BaseController  {
             $new_course->name = $_POST['course_name'];
             $new_course->about = $_POST['course_description'] ?? 'no description';
             $new_course->status = $_POST['is_active'] ?? '';
-            $new_course->picture = 'images/' . $_FILES['cover_photo']['name'] ?? '';
+            $new_course->picture =  $_FILES['cover_photo']['name'] ?? '';
             $new_course->save();
 
             $new_offer = Offer::getWere("course_id = $course_id");
@@ -169,6 +171,8 @@ class CourseController extends BaseController  {
             exit();
         }
         $coursesarr ="";
+        $courses=[];
+        $allcourses = [];
                 $orders = Order::getWere("user_id = $id");
                 if(is_object($orders)){
                     $courses[] = Course::getWere("ID = $orders->course_id");
@@ -182,7 +186,7 @@ class CourseController extends BaseController  {
                     $coursesarr = substr($coursesarr,3);
                 }
 
-                $allcourses = Course::getWere($coursesarr);
+       $allcourses = Course::getWere($coursesarr);
 
 
 
