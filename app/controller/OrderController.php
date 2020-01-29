@@ -7,6 +7,8 @@ use App\Model\Course;
 use App\Model\Invoice;
 use App\Model\Offer;
 use App\Model\Order;
+use App\Model\User;
+use App\Services\WebToPay;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\Paysera;
@@ -54,18 +56,62 @@ class OrderController extends BaseController  {
         return $this->render('pay', ['id' => $id, 'offer' => $offer]);
 
     }
-    public function paid ($id){
+    public function checkPrePayment($id){
+        $offer = Course::getWere('ID=' . $id );
         $email = $_POST['email'];
+        $user=User::getAll();
+        foreach ($user as $u) {
+            if($u->email== $_POST['email']) {
+                self::paid($id, 1, $email);
+            } else {
+                self::paid($id, 0, $email);
+            }
+        }
+    }
+
+    public function paid ($id, $status, $email){
+        $email = $email;
+
+
+        if($status == 0) {
+            $newUser= new User();
+            $newUser->name='laikinas';
+            $newUser->surname='laikinas';
+            $newUser->password=password_hash(rand(1,100), PASSWORD_DEFAULT);
+            $newUser->role=0;
+            $newUser->email = $email;
+            $newUser->created_on=Carbon::now();
+            $newUser->user_discount=20;
+            $newUser->payment_status=1;
+            $newUser->save();
+        }
+
+
+
         $servisas = App::get('paysera');
-        $servisas->pay($email, 5000);
+        $amount_obj = Offer::getWere('course_id =' . $id);
+        $amount = 0;
+        if($amount_obj->discount_offer > 0) {
+            $amount = $amount_obj->discount_offer;
+        }
+        else {
+            $amount = $amount_obj->price;
+        }
+        $amount = $amount * 100;
+        $servisas->pay($email, $amount);
     }
 
 
     public function answer($data) {
         var_dump('<br>');
         var_dump('<br>');
-        var_dump('<br>');
         var_dump($data);
+
+
+        $info = WebToPay::checkResponse($_GET, ['projectid' => 146155, 'sign_password' => 'ce28c97dcd8381b7d5a093ffd1deae38']);
+        var_dump(
+            $info
+        );
         return $this->render('register');
     }
 
