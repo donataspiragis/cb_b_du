@@ -13,8 +13,6 @@ class Lecture extends Model
     protected $table = 'lectures';
 
     public static function urlExists(string $url) {
-        $data = "WHERE video_url = '$url'";
-
-        return self::getAll('', $data);
+        return Model::rowsByValueExists('lectures', 'video_url', $url);
     }
 }

@@ -41,7 +41,7 @@ class NewCourseForm extends Form {
                 'cover_photo' => [
                     'type' => 'file',
                     'label' => 'Cover paveiksliukas',
-                    'value' => 'images/default.png',
+                    'value' => 'default.png',
                     'span' => '',
                     'required' => 1,
                     'classes' => [
@@ -122,9 +122,7 @@ class NewCourseForm extends Form {
                 ]
             ]
         ];
-//print '<pre>';
-//print_r($form['fields']['is_active']);
-//die();
+
         parent::__construct($form);
     }
 
@@ -154,10 +152,6 @@ class NewCourseForm extends Form {
         }
 
         $this->setValues($values);
-    }
-
-    public function getMatchedFields(array $data) {
-
     }
 
     public function fillWithValuesFromDb($id) {
@@ -228,15 +222,6 @@ class NewCourseForm extends Form {
         return ($inputs_from_db ?? false) + $inputs_from_api;
     }
 
-    public function addCheckboxInput(array $data) {
-        $input['value'] = $data['value'] ?? '';
-        $input['label'] = $data['label'] ?? '';
-        $input['order'] = $data['order'] ?? false;
-        $input['checked'] = $data['checked'] ?? false;
-
-        return $input;
-    }
-
     public function addCheckboxInputs(array $array, bool $checked = false): array {
         $options = [];
 
@@ -250,5 +235,14 @@ class NewCourseForm extends Form {
         }
 
         return $options;
+    }
+
+    public function addCheckboxInput(array $data) {
+        $input['value'] = $data['value'] ?? '';
+        $input['label'] = $data['label'] ?? '';
+        $input['order'] = $data['order'] ?? false;
+        $input['checked'] = $data['checked'] ?? false;
+
+        return $input;
     }
 }

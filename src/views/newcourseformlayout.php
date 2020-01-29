@@ -56,7 +56,7 @@
                     <label class="d-block" for="">{{ field.label }}</label>
                     {% if field.value is not empty %}
                     <label id="CoverPhotoLabel" for="CoverPhotoInput" style="display: flex; align-items: center; cursor: pointer;">
-                        <img id="CoverPhotoImage" src="/{{ field.value }}" style="height: 100px; width: 100px; margin: 5px;" alt=""/>
+                        <img id="CoverPhotoImage" src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ field.value }}" style="height: 100px; width: 100px; margin: 5px;" alt=""/>
                         <input type="file" style="display: none;" id="CoverPhotoInput" name="{{ name }}" value="{{ field.value }}" {% if field.required is defined and field.required == 1 %} required {% endif %} onchange="readURL(this)"/>
                         <span id="CoverPhotoSpan" style="margin: 5px;">{{ field.span }}</span>
                     </label>
