@@ -38,7 +38,7 @@ class UserController extends BaseController
                 $email=$_POST['email'];
                 $user=User::getAll();
                 foreach ($user as $u) {
-                    if($u->email==$email) {
+                    if($u->email==$email && $u->ID!=$_SESSION['userId']) {
                         $data['emailValue']=$email.' - šis paštas jau užregistruotas';
                         return $this->render('register',  ['data' => $data]);
                     }
@@ -57,6 +57,67 @@ class UserController extends BaseController
                 $this->store($email, $name, $surname, $password);
             }
         }
+    }
+
+
+    public function register2($hash)
+    {
+        var_dump($hash);
+        $user=User::getAll();
+        foreach ($user as $tempUser) {
+            if($tempUser->password==$hash && $tempUser->name=='laikinas') {
+                $_SESSION['userId'] =  $tempUser->ID;
+                return $this->render('register',  []);
+                    }
+                }
+
+
+
+
+
+
+
+
+
+//        if($_POST==null){
+//            return $this->render('register',  []);
+//        }
+//        else{
+//            if($_POST['name']==null ||$_POST['surname']==null ||$_POST['email']==null||$_POST['password']==null){
+//                if($_POST['name']!=null) {
+//                    $data['nameValue']=$_POST['name'];
+//                }
+//                if($_POST['surname']!=null){
+//                    $data['surnameValue']=$_POST['surname'];
+//                }
+//                if($_POST['email']!=null) {
+//                    $data['emailValue']=$_POST['email'];
+//                }
+//                return $this->render('register',  ['data' => $data]);
+//            }
+//            else{
+//                $email=$_POST['email'];
+//                $user=User::getAll();
+//                foreach ($user as $u) {
+//                    if($u->email==$email) {
+//                        $data['emailValue']=$email.' - šis paštas jau užregistruotas';
+//                        return $this->render('register',  ['data' => $data]);
+//                    }
+//                }
+//                $password=$_POST['password'];
+//                $password2=$_POST['password2'];
+//                if($password!=$password2){
+//                    $data['nameValue']=$_POST['name'];
+//                    $data['surnameValue']=$_POST['surname'];
+//                    $data['emailValue']=$_POST['email'];
+//                    $data['password']='slaptažodžiai nesutampa';
+//                    return $this->render('register',  ['data' => $data]);
+//                }
+//                $name=$_POST['name'];
+//                $surname=$_POST['surname'];
+//                $this->store($email, $name, $surname, $password);
+//            }
+//        }
     }
 
     public function store($email, $name, $surname, $password)
