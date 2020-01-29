@@ -42,6 +42,9 @@
 # Build data
 /build/
 
+# PDF
+/app/objects/fpdf/*
+
 # Composer PHAR
 /composer.phar
 

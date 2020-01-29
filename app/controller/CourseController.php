@@ -118,10 +118,6 @@ class CourseController extends BaseController  {
         save_file($_FILES['cover_photo']);
     }
 
-    public function index() {
-
-    }
-
    public function  display(){
         session_start();
         if($_SESSION['userId'] != null){
@@ -160,6 +156,6 @@ class CourseController extends BaseController  {
 
   }
 
-
+    public function index() {}
 }
 
