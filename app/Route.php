@@ -16,6 +16,8 @@ class Route {
         'order@checkPrePayment' => ['OrderController', 'checkPrePayment'],
         'order@paid' => ['OrderController', 'paid'],
         'order@answer' => ['OrderController', 'answer'],
+        'order@cancelPaysera' => ['OrderController', 'cancelPaysera'],
+        'order@callbackpaysera' => ['OrderController', 'callbackpaysera'],
         'user@register'=>['UserController','register'],
         'user@registerNew'=>['UserController','registerNew'],
         'user@login'=>['UserController','login'],

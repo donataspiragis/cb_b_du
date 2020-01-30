@@ -22,7 +22,8 @@ class FrontPageController extends BaseController  {
                 $temp[] = $offers;
             }
         }
-        $i = $temp[rand(0, count($temp) )];
+        $lon = count($temp)  - 1;
+        $i = $temp[rand(0, $lon )];
         $idforoffer = $i->ID;
         $offer = Offer::getWere('course_id=' . $idforoffer );
         $discounted = Course::getWere('id=' . $idforoffer);

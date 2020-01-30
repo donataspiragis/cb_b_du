@@ -8,11 +8,10 @@
     <div class="card">
 
         <div class="card-body">
-            {{ data }}
             <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/order/checkPrePayment/{{ id }}" method="post">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">El. paštas</label>
-                    <input type="email" name="email" id="" class="form-control" id="exampleFormControlInput1" placeholder="El. paštas">
+                    <input type="email" name="email" id="" class="form-control" id="exampleFormControlInput1" placeholder="El. paštas" required>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Pradėti mokėjimą</button>
             </form>
