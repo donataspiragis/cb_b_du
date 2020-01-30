@@ -81,6 +81,7 @@
 
                     {% block infocollection %}{% endblock %}
                     {% endif %}
+
                     {% block datacontainer %}{% endblock %}
                 </div>
             </div>
