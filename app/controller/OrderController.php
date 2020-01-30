@@ -129,6 +129,7 @@ class OrderController extends BaseController  {
 
 
         $servisas = App::get('paysera');
+
         $servisas->pay($email, $amount);
     }
 
