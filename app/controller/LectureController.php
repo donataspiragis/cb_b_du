@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Model\Model;
 use App\Model\Lecture;
 use App\Model\LecturesList;
+use App\Model\Order;
 
 use function Composer\Autoload\includeFile;
 
