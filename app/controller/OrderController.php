@@ -88,19 +88,21 @@ class OrderController extends BaseController  {
             $newUser->email = $email;
             $newUser->created_on=Carbon::now();
             $newUser->user_discount=20;
-            $newUser->payment_status=0;
             $newUser->save();
 
             $invoice = new Invoice();
             $invoice->price = $amount / 100;
             $invoice->created_on = Carbon::now();
             $invoice->save();
-//
-//            $order = new Order();
-//            $order->user_id = $newUser->ID;
-//            $order->course_id = $id;
-//            $order->invoice_id = $invoice->ID;
-//            $order->save();
+
+            $order = new Order();
+            $order->user_id = $newUser->ID;
+            $offer= Offer::getWere('course_id = ' . $id );
+            $order->offer_id = $offer->ID;
+            $order->course_id = $id;
+            $order->invoice_id = $invoice->ID;
+            $order->payment_status=0;
+            $order->save();
 
         }
         else {
@@ -155,7 +157,7 @@ class OrderController extends BaseController  {
     }
 
     public function callbackpaysera($data) {
-
+         return $this->render('callbackpaysera');
     }
 
 }
