@@ -35,36 +35,44 @@
 
 
 <main class="d-flex p-2 bd-highlight justify-content-center">
-    <div class="row" style="padding-top: 60px;">
+    <div class="row" style="padding-top: 60px; width: 100%">
         <div class="col-lg-2 col-md-4 col-sm-12">
             <div class="card" >
                 <div class="card-body">
-                    <h5 class="card-title">Statistika</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Video statistika</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Mokiniai + informacija</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Apyvarta</a>
-                        </li>
-                    </ul>
-                    <br>
-                    <h5 class="card-title">Video</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Patalpinti naują video</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Sukurti naują kursą</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Redaguoti esamą kursą</a>
-                        </li>
-                    </ul>
+                    <div id="accordion">
+                        <h5 class="card-title"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">Statistika</h5>
+                        <ul class="nav flex-column">
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="#">Video statistika</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="#">Mokiniai + informacija</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/statistics">Apyvarta</a>
+                                </li>
+                            </div>
+
+                        </ul>
+                        <br>
+                        <h5 class="card-title"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"id="headingTwo">Video</h5>
+                        <ul class="nav flex-column">
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="#">Patalpinti naują video</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/create">Sukurti naują kursą</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="#">Redaguoti esamą kursą</a>
+                                </li>
+                            </div>
+
+                        </ul>
                 </div>
+            </div>
             </div>
         </div>
         <div class="col-lg-10 col-md-8 col-sm-12">
