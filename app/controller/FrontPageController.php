@@ -10,19 +10,21 @@ use App\Model\Course;
 use App\Model\Offer;
 
 class FrontPageController extends BaseController  {
-    public function index(){;
+    public function index(){
         $raw = Course::getAll(6);
         $offer = Offer::getWere('course_id=2' );
-        $discounted = Course::getAll(1);
+        $discounted = Course::getWere('id=2');
         $all = Offer::getAll();
         $time = Carbon::now();
         return $this->render('index', ['courses' => $raw, 'offer' => $offer, 'discount' => $discounted, 'all' => $all, 'time'=>$time]);
     }
     public function showall(){
-        $raw = (new Connection)->getData("SELECT * FROM courses");
-        $offer = (new Connection)->getData("SELECT * FROM offer WHERE course_id=2");
-        $discounted =  (new Connection)->getData("SELECT * FROM courses limit 1");
-        return $this->render('index', ['courses' => $raw, 'discount' => $discounted, 'offer' => $offer]);
+        $raw = Course::getAll();
+        $offer = Offer::getWere('course_id=2' );
+        $discounted = Course::getWere('id=2');
+        $all = Offer::getAll();
+        $time = Carbon::now();
+        return $this->render('index', ['courses' => $raw, 'offer' => $offer, 'discount' => $discounted, 'all' => $all, 'time'=>$time]);
     }
 
 

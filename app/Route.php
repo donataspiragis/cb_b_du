@@ -10,13 +10,18 @@ class Route {
      */
     const ROUTE = [
         '' => ['FrontPageController', 'index'],
+        'front@showall' => ['FrontPageController', 'showall'],
+        'order@statistics' => ['OrderController', 'statistics'],
         'user@register'=>['UserController','register'],
         'user@test'=>['UserController','store'],
 //        'buy@index' => ['BuyallController', 'index'],
 //        'course@index' => ['CourseController', 'index'],
         'course@create' => ['CourseController', 'create'],
 //        'invoice@index' => ['InvoiceController', 'index'],
+'course@display' => ['CourseController', 'display'],
         'lecture@index' => ['LectureController', 'index'],
+'lecture@show' => ['LectureController', 'show'],
+        'info@collect' => ['StudentsInfoController','collectinfo'],
 //        'offer@index' => ['OfferController', 'index'],
 //        'order@index' => ['OrderController', 'index'],
 //        'auth@index' => ['AuthentificationController', 'index'],

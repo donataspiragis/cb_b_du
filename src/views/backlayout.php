@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ constant('App\\App::INSTALL_FOLDER') }}/css/style.css">
-
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -71,7 +70,10 @@
         <div class="col-lg-10 col-md-8 col-sm-12">
             <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%);">
                 <div class="card-body">
-                    {{ newCourseForm }}
+
+                    {% block infocollection %}{% endblock %}
+                    {% endif %}
+                    {% block datacontainer %}{% endblock %}
                 </div>
             </div>
         </div>

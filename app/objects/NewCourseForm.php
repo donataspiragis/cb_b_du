@@ -4,104 +4,122 @@ namespace App\Objects;
 
 class NewCourseForm extends Form {
 
-    public $form_data = [
-        'fields' => [
-            [
-                'label' => 'Kurso pavadinimas',
-                'name' => 'course_name',
-                'id' => 'course_name',
-                'classes' => [
-                    'fieldset' => 'd-block mb-3',
-                    'label' => 'd-block'
+    public function __construct() {
+//        var_dump(date('Y-m-d H:i'));
+//        die();
+        $month = rand(1, 12);
+        $day = rand(1, 28);
+        $hour = rand(0, 23);
+        $minute = rand(0, 59);
+        $course_name = 'Course ' . rand(1, 9);
+        $course_description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+        $valid_to_date = rand(2021, 2025) . '-' . ($month < 10 ? '0' . $month : $month) . '-' . ($day < 10 ? '0' . $day : $day);
+        $valid_to_time = ($hour < 10 ? '0' . $hour : $hour) . ':' . ($minute < 10 ? '0' . $minute : $minute);
+
+        $form = [
+            'fields' => [
+                'course_name' => [
+                    'type' => 'text',
+                    'label' => 'Kurso pavadinimas',
+                    'value' => $course_name,
+                    'placeholder' => $course_name,
+                    'required' => 1,
+                    'classes' => [
+                        'fieldset' => 'd-block mb-3',
+                        'label' => 'd-block',
+                        'input' => 'p-1'
+                    ]
                 ],
-                'type' => 'text',
-                'value' => 'Example course',
-                'placeholder' => 'example text'
-            ],
-            [
-                'label' => 'Aprašymas',
-                'name' => 'course_description',
-                'id' => 'course_description',
-                'classes' => [
-                    'fieldset' => 'd-block mb-3',
-                    'label' => 'd-block'
+                'course_description' => [
+                    'type' => 'textarea',
+                    'label' => 'Aprašymas',
+                    'value' => $course_description,
+                    'placeholder' => 'Mr. Admin, describe this course hier!',
+                    'required' => 1,
+                    'classes' => [
+                        'fieldset' => 'd-block mb-3',
+                        'label' => 'd-block',
+                        'input' => 'd-block p-1'
+                    ]
                 ],
-                'type' => 'textarea',
-                'value' => 'Example description',
-                'placeholder' => 'describe this course'
-            ],
-            [
-                'label' => 'Cover paveiksliukas',
-                'name' => 'cover_photo',
-                'id' => 'cover_photo',
-                'classes' => [
-                    'fieldset' => 'd-block mb-3',
-                    'label' => 'd-block'
+                'cover_photo' => [
+                    'type' => 'file',
+                    'label' => 'Cover paveiksliukas',
+                    'required' => 1,
+                    'classes' => [
+                        'fieldset' => 'd-block mb-3',
+                        'label' => 'd-block'
+                    ]
                 ],
-                'type' => 'file'
-            ],
-            [
-                'label' => 'Kaina',
-                'name' => 'price',
-                'id' => 'price',
-                'classes' => [
-                    'fieldset' => 'd-inline-block mb-3',
-                    'label' => 'd-block'
+                'price' => [
+                    'type' => 'number',
+                    'label' => 'Kaina',
+                    'value' => rand(10, 50),
+                    'required' => 1,
+                    'classes' => [
+                        'fieldset' => 'd-inline-block mb-3',
+                        'label' => 'd-block',
+                        'input' => 'mr-2 p-1'
+                    ]
                 ],
-                'type' => 'number',
-                'value' => 50
-            ],
-            [
-                'label' => 'Kaina su nuolaida',
-                'name' => 'disprice',
-                'id' => 'disprice',
-                'classes' => [
-                    'fieldset' => 'd-inline-block mb-3',
-                    'label' => 'd-block'
+                'disprice' => [
+                    'type' => 'number',
+                    'label' => 'Kaina su nuolaida',
+                    'value' => rand(60, 100),
+                    'required' => 1,
+                    'classes' => [
+                        'fieldset' => 'd-inline-block mb-3',
+                        'label' => 'd-block',
+                        'input' => 'mr-2 p-1'
+                    ]
                 ],
-                'type' => 'number',
-                'value' => 100,
-            ],
-            [
-                'label' => 'Galioja iki:',
-                'name' => 'valid_to_date',
-                'id' => 'valid_to_date',
-                'classes' => [
-                    'fieldset' => 'd-inline-block mb-3'
+                'valid_to_date' => [
+                    'type' => 'date',
+                    'label' => 'Galioja iki (data)',
+                    'value' => $valid_to_date,
+                    'required' => 1,
+                    'classes' => [
+                        'fieldset' => 'd-inline-block mb-3',
+                        'label' => 'd-block',
+                        'input' => 'mr-2 p-1 border-0'
+                    ]
                 ],
-                'type' => 'date'
+                'valid_to_time' => [
+                    'type' => 'time',
+                    'label' => 'Galioja iki (laikas)',
+                    'value' => $valid_to_time,
+                    'required' => 1,
+                    'classes' => [
+                        'fieldset' => 'd-inline-block mb-3',
+                        'label' => 'd-block',
+                        'input' => 'w-100 p-1 border-0'
+                    ]
+                ],
+                'is_active' => [
+                    'type' => 'checkbox',
+                    'value' => 'published',
+                    'label' => 'Rodyti pagrindiniame puslapyje',
+                    'required' => 1
+                ]
             ],
-            [
-                'name' => 'is_active',
-                'id' => 'is_active',
-                'type' => 'checkbox',
-                'options' => [
-                    [
-                        'value' => 'is_active',
-                        'label' => 'Rodyti pagrindiniame puslapyje'
+            'buttons' => [
+                'publish' => [
+                    'label' => 'Skelbti',
+                    'value' => 'publish',
+                    'classes' => [
+                        'fieldset' => 'p-4 d-inline-block'
+                    ]
+                ],
+                'save' => [
+                    'label' => 'Išsaugoti',
+                    'value' => 'save',
+                    'classes' => [
+                        'fieldset' => 'p-4 d-inline-block'
                     ]
                 ]
             ]
-        ],
-        'buttons' => [
-            [
-                'label' => 'Skelbti',
-                'value' => 'publish',
-                'classes' => [
-                    'fieldset' => 'p-4 d-inline-block'
-                ]
-            ],
-            [
-                'label' => 'Išsaugoti',
-                'value' => 'save',
-                'classes' => [
-                    'fieldset' => 'p-4 d-inline-block'
-                ]
-            ]
-        ]
-    ];
+        ];
 
-    public function __construct() {
-        parent::__construct($this->form_data);
+        parent::__construct($form);
     }
 }

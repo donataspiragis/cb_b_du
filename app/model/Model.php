@@ -9,7 +9,6 @@ class Model {
     public static $carb;
     protected  $table;
     protected $atributes = [];
-    public $id = '';
 
 
     /**
@@ -55,10 +54,18 @@ class Model {
      * @param string $addition
      * @return array
      */
-    public static function getWere($where,$addition="",$select="*"){
+   public static function getWere($where,$addition="",$select="*"){
+    preg_match('/^.+?\= *(.+)$/is', $where, $matches, PREG_OFFSET_CAPTURE);
+    if($matches != null){
+        $newstring = $matches[1][0];
+        $were = str_replace("$newstring","'$newstring'",$where);
+    }else{
+        $were = $where;
+    }
+
         $table = (new static)->getTable();
         if($where != ""){
-            $sql = "SELECT $select FROM $table WHERE $where $addition";
+            $sql = "SELECT $select FROM $table WHERE $were $addition";
             return (new Connection())->getWEREData(new static(),$sql);
 
         }else {
@@ -81,7 +88,7 @@ class Model {
         $keys='';
         foreach ($this->atributes as $key=>$value){
             if($key != 'ID') {
-                $keys .= ",$key";
+                $keys .= ",`$key`";
                 $values .= ",:$key";
             }
             if($key == "created_on"){
@@ -97,7 +104,6 @@ class Model {
         return true;
     }
     private function setId($id){
-        $this->id = $id;
         $this->atributes["ID"] = $id;
     }
     /**
@@ -108,7 +114,7 @@ class Model {
         $keys='';
         foreach ($this->atributes as $key=>$value){
             if($key != 'ID') {
-                $keys .= ",$key=:$key";
+                $keys .= ",`$key`=:$key";
             }
             if($key == "edited_on"){
                 $this->atributes["edited_on"] = self::carbonTime();
@@ -136,8 +142,20 @@ class Model {
         return true;
     }
 
+    public function delete(){
+	if($this->id != null){
+            return null;
+
+        }else{
+        $sql = "DELETE FROM $this->table WHERE ID=:ID";
+	return (new Connection())->deleteData($sql, ["ID"=>$this->ID]);
+            
+        }
+        return false;
+
+}
     public function save(){
-        if($this->id != null){
+        if($this->ID != null){
             $this->updateData();
 
         }else{

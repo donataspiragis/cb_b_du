@@ -6,7 +6,15 @@ class GetVideosUrl
 {
     public function getVideos()
     {
-        $videoList = $this->makeVideosList();
+//        $videoList = $this->makeVideosList();
+        $videoList = [
+            'https://www.youtube.com/embed/SVgHHTjRxZQ',
+            'https://www.youtube.com/embed/Ro6Y8goh33c',
+            'https://www.youtube.com/embed/e7Pg8a6jL1I',
+            'https://www.youtube.com/embed/tM7MSaoVuI0',
+            'https://www.youtube.com/embed/YOxRKqooCAI'
+        ];
+
         return $videoList;
     }
 
@@ -14,13 +22,14 @@ class GetVideosUrl
     {
         $channelId = 'UCeTVoczn9NOZA9blls3YgUg';
         $maxResults = 10;
-        $API_key = 'AIzaSyC2bzQLTHYtXj7R1TSvlZ-1HyY_OxB1xnI';
-//        $API_key = 'AIzaSyD4rNOOOSNEZVG-BBDfexa4kdYl1dE1dgw';
+//        $API_key = 'AIzaSyC2bzQLTHYtXj7R1TSvlZ-1HyY_OxB1xnI';
+        $API_key = 'AIzaSyD4rNOOOSNEZVG-BBDfexa4kdYl1dE1dgw';
         $listOfVideoKey = $this->getVideosKeyFromChanel($channelId, $maxResults, $API_key);
         $max = sizeof($listOfVideoKey);
         for ($i = 0; $i < $max; $i++) {
             $videoList[] = 'https://www.youtube.com/embed/' . $listOfVideoKey[$i];
         }
+
         return $videoList;
     }
 
