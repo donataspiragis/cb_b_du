@@ -65,7 +65,7 @@
             <div class="course-discount-title">
                 <h1>{{ discount.name }}</h1>
             </div>
-            <button type="button" class="btn-buy open-modal" data-open="modal1">
+            <button type="button" class="btn-buy open-modal" id="modal-opener" data-open="modal1">
                 Peržiūrėti
             </button>
 
@@ -103,8 +103,11 @@
                                 <button id="readmore">Plačiau</button>
                                 <span class="original-price">{{ offer.price }} EUR</span>
                                 <span class="offer-price">{{ offer.discount_offer }} EUR</span>
-
-                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/buy">Pirkti kursą</a>
+                                {% for course in courses %}
+                                {% if offer.course_id ==  course.ID %}
+                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}">Pirkti kursą</a>
+                                {% endif%}
+                                {% endfor %}
                             </div>
                         </div>
                     </section>
@@ -134,7 +137,7 @@
                     <span class="coure-card-price">{{ offer.price }} EUR</span>
                     {% endif%}
                     {% endfor %}
-                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/offer/index" class="btn-buy">Pirkti</a>
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}" class="btn-buy">Pirkti</a>
                 </div>
                 <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ course.picture }}" alt="">
                 <div class="course-front-title">
@@ -152,7 +155,7 @@
                     {% endif%}
                     {% endfor %}
                     <div class="btn-mobile-hold">
-                    <a href="/cb_b_du/public/offer/index" class="btn-buy btn-mobile" >Pirkti</a>
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}" class="btn-buy btn-mobile" >Pirkti</a>
                     </div>
                 </div>
             </div>

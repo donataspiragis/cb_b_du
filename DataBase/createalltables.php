@@ -21,7 +21,7 @@ $sql = "CREATE TABLE `courses` (
   `name` varchar(26) NOT NULL,
   `about` LONGTEXT NOT NULL,
   `status` varchar(26) NOT NULL,
-  `picture` varchar(26) NOT NULL,
+  `picture` TEXT NOT NULL,
   `created_on` DATETIME  NOT NULL,
   `edited_on` DATETIME  NULL
 )";
@@ -35,7 +35,7 @@ $db->exec($sql);
     $sql = "CREATE TABLE `lectureslist` (
   `ID` int(11) NOT NULL,
 `lecture_id` int(11) NOT NULL,
-`order_num` int(11) NOT NULL,
+`order_num` varchar(11) NULL,
   `course_id` int(11) NOT NULL
 )";
     $db->exec($sql);
@@ -55,6 +55,7 @@ $sql = "CREATE TABLE `orders` (
     `user_id` int(11) NOT NULL,
     `course_id` int(26) NOT NULL,
     `invoice_id` int(26) NOT NULL,
+    `payment_status` varchar(255) NOT NULL,
   `created_on` DATETIME NOT NULL
 )";
 $db->exec($sql);
@@ -62,12 +63,12 @@ $sql = "CREATE TABLE `user` (
   `ID` int(11) NOT NULL,
   `name` varchar(26) NOT NULL,
   `surname` varchar(26) NOT NULL,
-  `email` varchar(26) NOT NULL,
-  `password` varchar(26) NOT NULL,
-  `password_reminder` varchar(26) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `password_reminder` varchar(255) NULL ,
   `role` int(11) NOT NULL,
   `created_on` DATETIME  NOT NULL,
-  `last_log` DATETIME  NOT NULL,
+  `last_log` DATETIME  NULL,
   `user_discount` int(11) NOT NULL
 )";
 $db->exec($sql);

@@ -12,8 +12,21 @@ use App\Model\Offer;
 class FrontPageController extends BaseController  {
     public function index(){
         $raw = Course::getAll(6);
-        $offer = Offer::getWere('course_id=2' );
-        $discounted = Course::getWere('id=2');
+
+        $alloffers = Offer::getAll();
+
+        $temp = [];
+        foreach ($alloffers as $offers) {
+            if ($offers->discount_offer !== '0')
+            {
+                $temp[] = $offers;
+            }
+        }
+        $lon = count($temp)  - 1;
+        $i = $temp[rand(0, $lon )];
+        $idforoffer = $i->ID;
+        $offer = Offer::getWere('course_id=' . $idforoffer );
+        $discounted = Course::getWere('id=' . $idforoffer);
         $all = Offer::getAll();
         $time = Carbon::now();
         return $this->render('index', ['courses' => $raw, 'offer' => $offer, 'discount' => $discounted, 'all' => $all, 'time'=>$time]);

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block header %}{% endblock %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" integrity="sha384-rtJEYb85SiYWgfpCr0jn174XgJTn4rptSOQsMroFBPQSGLdOC5IbubP6lJ35qoM9" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ constant('App\\App::INSTALL_FOLDER') }}/css/style.css">
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -41,11 +43,17 @@
             </button>
         </header>
         <section class="modal-content">
-            <form action="">
-                <input type="text" placeholder="El. paštas">
-                <input type="password" placeholder="Slaptažodis">
-                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/login" type="button" class="btn-buy" data-dismiss="modal">Prisijungti</a>
+            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/login{{info}}" method="post" id="login-form">
+                <input type="text" name="email" placeholder="El. paštas">
+                <input type="password" name="password" placeholder="Slaptažodis">
+                <button  type="submit" class="btn-buy" data-dismiss="modal">Prisijungti</button>
+
             </form>
+            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/passwordReminder{{email2}}" method="post" remind-form id="remind-form">
+                <input type="text" name="email2" placeholder="El. paštas">
+                <button  type="submit" class="btn-buy" data-dismiss="modal">Priminti</button>
+            </form>
+            <a href="#" class="btn-remind" id="remind-me">Priminti slaptažodi</a>
         </section>
     </div>
 </div>
