@@ -60,13 +60,16 @@ class OrderController extends BaseController  {
         $offer = Course::getWere('ID=' . $id );
         $email = $_POST['email'];
         $user=User::getAll();
-        foreach ($user as $u) {
-            if($u->email== $_POST['email']) {
-                self::paid($id, 1, $email);
-            } else {
-                self::paid($id, 0, $email);
-            }
-        }
+        self::paid($id, 1, $email);
+
+
+//        foreach ($user as $u) {
+//            if($u->email== $_POST['email']) {
+//                self::paid($id, 1, $email);
+//            } else {
+//                self::paid($id, 0, $email);
+//            }
+//        }
     }
 
     public function paid ($id, $status, $email){
