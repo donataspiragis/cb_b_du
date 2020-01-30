@@ -105,7 +105,7 @@
                                 <span class="offer-price">{{ offer.discount_offer }} EUR</span>
                                 {% for course in courses %}
                                 {% if offer.course_id ==  course.ID %}
-                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}">Pirkti kursą</a>
+                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}} ">Pirkti kursą</a>
                                 {% endif%}
                                 {% endfor %}
                             </div>
@@ -131,6 +131,24 @@
             <div class="course-front">
                 <div class="tooler">
                     <h1>{{ course.name }}</h1>
+
+
+
+
+
+                    <p>{{ course.about|slice(0, 40) }}
+                                    <span id="dots">...</span>
+                                    <span id="more"> {{ course.about|slice(40, 2000) }}</span>
+                                </p>
+                    <button id="readmore">Plačiau</button>
+                    <span class="original-price">{{ offer.price }} EUR</span>
+                    <span class="offer-price">{{ offer.discount_offer }} EUR</span>
+
+
+
+
+
+
                     <p>{{ course.about }}</p>
                     {% for offer in all %}
                     {% if offer.course_id ==  course.ID %}
@@ -155,7 +173,7 @@
                     {% endif%}
                     {% endfor %}
                     <div class="btn-mobile-hold">
-                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}" class="btn-buy btn-mobile" >Pirkti</a>
+                    <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}}" class="btn-buy btn-mobile"  id="no-disc">Pirkti</a>
                     </div>
                 </div>
             </div>
