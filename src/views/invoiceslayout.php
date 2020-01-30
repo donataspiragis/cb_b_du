@@ -17,7 +17,7 @@
             <td>{{ payment.name }}</td>
             <td>{{ payment.price }} eur</td>
             <td>{{ payment.date }}</td>
-            <td><a href="{{ constant('App\\App::INSTALL_FOLDER') }}/invoice/show/{{ index + 1 }}">{{ index + 1 }}.pdf</a></td>
+            <td><a href="{{ constant('App\\App::INSTALL_FOLDER') }}/invoice/show/{{ index }}">PDF</a></td>
         </tr>
         {% endfor %}
     </table>

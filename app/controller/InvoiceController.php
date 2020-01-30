@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\App;
 use App\Controller\BaseController;
+use App\Model\Course;
 use App\Model\Invoice;
 use App\Model\Order;
 use App\Model\User;
@@ -12,96 +13,50 @@ use App\Model\Model;
 use App\Pdf\tFPDF;
 use App\Pdf\InvoicePdf;
 
+session_start();
+
 class InvoiceController extends BaseController  {
-    public function index($user_id = 1) {
-//        $user_orders = Order::getWere("user_id = $user_id");
-
-        $payments = [
-            [
-                'name' => 'Course 1',
-                'price' => '10',
-                'date' => '2020-07-03'
-            ],
-            [
-                'name' => 'Course 2',
-                'price' => '20',
-                'date' => '2020-09-13'
-            ],
-            [
-                'name' => 'Course 3',
-                'price' => '30',
-                'date' => '2020-11-11'
-            ]
-        ];
-
-        return $this->render('invoiceslayout', ['payments' => $payments]);
+    public function index() {
+        return $this->render('invoiceslayout', ['payments' => $this->getPayments()]);
     }
 
-    public function show($invoice_id = 1) {
-        $payments = [
-            [
-                'name' => 'Course 1',
-                'price' => '10',
-                'date' => '2020-07-03'
-            ]
-        ];
-
-
-        // Instanciation of inherited class
+    public function show($invoice_id) {
         $pdf = new InvoicePdf();
-
-        $pdf->setTableData($payments);
-
         $pdf->AliasNbPages();
         $pdf->AddPage();
-        $pdf->myTable($payments);
-//        $pdf->SetFont('Times','',12);
-//        for($i=1;$i<=20;$i++)
-//            $pdf->Cell(0,10,'Printing line number '.$i,0,1);
+        $pdf->myTable($this->getPayments($invoice_id));
         $pdf->Output();
+    }
 
-//        $pdf = new FPDF();
-//        $header = array('Country', 'Capital', 'Area (sq km)', 'Pop. (thousands)');
-//        $data = [['lithuania', 'vilnius', 230, 4000]];
-//        $pdf->AddPage();
-//        // Logo
-//        $pdf->Image(App::INSTALL_FOLDER . 'images/1.png',10,6,30);
-//        // Arial bold 15
-//        $pdf->SetFont('Arial','B',15);
-//        // Move to the right
-//        $pdf->Cell(80);
-//        // Title
-//        $pdf->Cell(30,10,'Title',1,0,'C');
-//        // Line break
-//        $pdf->Ln(20);
-//
-//        // Header
-//        foreach($header as $col)
-//            $pdf->Cell(40,7,$col,1);
-//        $pdf->Ln();
-//        // Data
-//        foreach($data as $row)
-//        {
-//            foreach($row as $col)
-//                $pdf->Cell(40,6,$col,1);
-//            $pdf->Ln();
-//        }
-//        $pdf->Output();
+    public function getPayments($invc_id = null): array {
+        $user_id = $_SESSION['userId'];
+        $orders = [];
 
-        $page_data = [
-            'page_width' => $pdf->GetPageWidth(),
-            'page_height' => $pdf->GetPageHeight()
-        ];
+        if (!is_null($invc_id)) {
+            $orders[] = Order::getWere("invoice_id = $invc_id");
+        } else {
+            $orders = Order::getWere("user_id = $user_id");
+            !is_array($orders) ? $orders = [$orders] : false;
+        }
 
-//        print '<pre>';
-//        print_r($page_data);
-//        die();
+        $payments = [];
 
-//        print('This is InvoiceController method show() for invoice id - ' . $invoice_id);
-        die();
-        $invoice = Invoice::getWere("ID = $invoice_id");
-        $order = Order::getWere("invoice_id = $invoice->ID");
-        $user = User::getWere("ID = $order->user_id");
+        foreach ($orders as $index => $order) {
+            $course_id = $order->course_id;
+            $invoice_id = $invc_id ?? $order->invoice_id;
+
+            $name = (Course::getWere("ID = $course_id"))->name;
+            $price = (Invoice::getWere("ID = $invoice_id"))->price;
+            $date = (Invoice::getWere("ID = $invoice_id"))->created_on;
+
+            $payments[$invoice_id] = [
+                'name' => $name,
+                'price' => $price,
+                'date' => explode(' ', $date)[0]
+            ];
+        }
+
+        return $payments;
     }
 }
 
