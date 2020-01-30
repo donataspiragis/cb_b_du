@@ -144,13 +144,12 @@ class UserController extends BaseController
         }
     }
     public function passwordReminder(){
-//        $email=$_POST['email'];
-        $email='testas2@testas2.com';
+        $email=$_POST['email2'];
         $user= User::getWere("email=$email");
         $user->	password_reminder= bin2hex(random_bytes(16));
         $user->save();
-        $link=App::INSTALL_FOLDER."/user/passwordForget/". $user->password_reminder;
-        echo '<a>'.$link.'</a>';
+        $link='http://localhost'.App::INSTALL_FOLDER."/user/passwordForget/". $user->password_reminder;
+        echo "<a href=$link>$link</a>";
 
     }
     public function passwordReminderChangePassword($hash){
