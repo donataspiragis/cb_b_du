@@ -13,9 +13,8 @@ use App\Pdf\tFPDF;
 use App\Pdf\InvoicePdf;
 
 class InvoiceController extends BaseController  {
-    public function index() {
-        $user_id = 1;
-        $user_orders = Order::getWere("user_id = $user_id");
+    public function index($user_id = 1) {
+//        $user_orders = Order::getWere("user_id = $user_id");
 
         $payments = [
             [
