@@ -80,8 +80,7 @@
                 <div class="card-body">
                     {% block infocollection %}{% endblock %}
 
-                    {% block infocollection %}{% endblock %}
-                    {% endif %}
+
 
                     {% block datacontainer %}{% endblock %}
                 </div>
