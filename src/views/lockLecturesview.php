@@ -24,7 +24,11 @@
     <h1>Esate lojalus vartotojas, tad suteiksime nuolaidą.</h1>
     <div class="center-btn">
         
-            <a href="{{ constant('App\\App::INSTALL_FOLDER') }}" style = "height:50px;"class="btn-buy blue">Pirk su 20% nuolaida</a>
+    <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payexisting{{ info }}" method="post">
+                    <input type="text" name="id" id="" value="{{lockcourse.ID}}" style="display: none;">
+                    <input type="email" name="email" value="{{ email }}" style="display: none;">
+                    <button  type="submit" class="btn-buy blue">Pirkti su 20% nuolaida</button>
+                </form>
         </div>
         </div>
         <div id="overlay"></div>
