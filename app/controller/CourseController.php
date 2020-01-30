@@ -141,7 +141,6 @@ class CourseController extends BaseController  {
             $courses[] = Course::getWere("ID = $orders->course_id");
             $coursesarr .= "ID <> '$orders->course_id'";
         }else{
-            var_dump($orders);
             foreach ($orders as $order){
                 $courses[] = Course::getWere("ID = $order->course_id");
                 $coursesarr .= "AND ID <> '$order->course_id'";
