@@ -22,6 +22,8 @@ class Route {
         'user@logout'=>['UserController','logout'],
         'user@changePassword'=>['UserController','changePassword'],
         'user@passwordStore'=>['UserController','passwordStore'],
+        'user@passwordReminder'=>['UserController','passwordReminder'],
+        'user@passwordForget'=>['UserController','passwordReminderChangePassword'],
 
 //        'buy@index' => ['BuyallController', 'index'],
 //        'course@index' => ['CourseController', 'index'],

@@ -4,10 +4,10 @@
 {% block body %}
 <form class="signUp-form" action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/passwordStore" method="POST">
     <div class="container">
-        <label for="password"><b>Naujas slaptažodis:</b></label><br>
+        <label for="newPassword"><b>Naujas slaptažodis:</b></label><br>
         <input type="password" name="newPassword" class="form-control"><br>
 
-        <label for="password2"><b>Pakartoti slaptažodį:</b></label><br>
+        <label for="newPassword2"><b>Pakartoti slaptažodį:</b></label><br>
         <input type="password" name="newPassword2" class="form-control"><br>
 
         <button type="submit" class="btn btn-success btn-sm" name="signUp-form">Keisti</button>

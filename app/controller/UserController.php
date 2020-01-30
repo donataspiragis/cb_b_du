@@ -122,7 +122,6 @@ class UserController extends BaseController
 
     public function changePassword(){
         if($_SESSION['userId']!=null){
-            echo $_SESSION['userId'];
             $user=User::getWere("ID=".$_SESSION['userId']);
             return $this->render('changePassword');
 
@@ -138,13 +137,25 @@ class UserController extends BaseController
         if($password!=$password2){
             return $this->render('changePassword');
         }
-        $user=User::getWere("ID=".$_SESSION['userId']);
         if($password==$password2){
+            $user=User::getWere("ID=".$_SESSION['userId']);
             header("Location: ". App::INSTALL_FOLDER."/course/display");
             exit();
         }
     }
     public function passwordReminder(){
+//        $email=$_POST['email'];
+        $email='testas2@testas2.com';
+        $user= User::getWere("email=$email");
+        $user->	password_reminder= bin2hex(random_bytes(16));
+        $user->save();
+        $link=App::INSTALL_FOLDER."/user/passwordForget/". $user->password_reminder;
+        echo '<a>'.$link.'</a>';
 
+    }
+    public function passwordReminderChangePassword($hash){
+        $user= User::getWere("password_reminder=$hash");
+        $_SESSION['userId'] = $user->ID;
+        $this->changePassword();
     }
 }
