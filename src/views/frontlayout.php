@@ -43,14 +43,13 @@
             </button>
         </header>
         <section class="modal-content">
-            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/login" method="post" id="login-form">
+            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/login{{ email }}" method="post" id="login-form">
                 <input type="text" name="email" placeholder="El. paštas">
                 <input type="password" name="password" placeholder="Slaptažodis">
                 <button  type="submit" class="btn-buy" data-dismiss="modal">Prisijungti</button>
-
             </form>
-            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/passwordReminder" method="post" remind-form" id="remind-form">
-                <input type="text" placeholder="El. paštas">
+            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/passwordReminder/{{ email2 }}" method="post" class="remind-form" id="remind-form">
+                <input type="text" name="email2" placeholder="El. paštas">
                 <button  type="submit" class="btn-buy" data-dismiss="modal">Priminti</button>
             </form>
             <a href="#" class="btn-remind" id="remind-me">Priminti slaptažodi</a>

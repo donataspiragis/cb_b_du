@@ -51,11 +51,13 @@ class OrderController extends BaseController  {
         return $this->render('statistics', ['invoices' => $invoices, 'orders' => $orders]);
     }
 
+
     public function payload($id){
         $offer = Course::getWere('ID=' . $id );
         return $this->render('pay', ['id' => $id, 'offer' => $offer]);
 
     }
+
     public function checkPrePayment($id){
         $email = $_POST['email'];
         $user=User::getAll();
@@ -68,6 +70,7 @@ class OrderController extends BaseController  {
     }
 
     public function paid ($id, $status, $email){
+
         $amount_obj = Offer::getWere('course_id =' . $id);
         $amount = 0;
         if($amount_obj->discount_offer > 0) {
@@ -114,7 +117,7 @@ class OrderController extends BaseController  {
             $invoice->save();
 
             $order = new Order();
-            $order->user_id = $newUser->ID;
+            $order->user_id = $user->ID;
             $offer= Offer::getWere('course_id = ' . $id );
             $order->offer_id = $offer->ID;
             $order->course_id = $id;
@@ -126,7 +129,6 @@ class OrderController extends BaseController  {
 
 
         $servisas = App::get('paysera');
-
         $servisas->pay($email, $amount);
     }
 
@@ -137,8 +139,10 @@ class OrderController extends BaseController  {
 
         if($info['status'] == "1")
         {
-            $user=User::getWere('email = ' . $info['p_email'] );
-            $user->payment_status = 1;
+            $user = User::getWere('email = ' . $info['p_email'] );
+            $order = Order::getWere('user_id = ' . $user->ID);
+            $order->payment_status = 1;
+            $order->save();
             $hash = $user->password;
             $hash = str_replace('/', '', $hash);
            header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
@@ -159,4 +163,5 @@ class OrderController extends BaseController  {
     }
 
 }
+
 
