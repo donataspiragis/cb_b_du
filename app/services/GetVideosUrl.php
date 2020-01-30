@@ -6,7 +6,21 @@ class GetVideosUrl
 {
     public function getVideos()
     {
-        $videoList = $this->makeVideosList();
+//        $videoList = $this->makeVideosList();
+        $videoList = [
+            'https://www.youtube.com/embed/5r3gdfJXRW4',
+            'https://www.youtube.com/embed/cAkPM25h_A4',
+            'https://www.youtube.com/embed/SVgHHTjRxZQ',
+            'https://www.youtube.com/embed/Ro6Y8goh33c',
+            'https://www.youtube.com/embed/e7Pg8a6jL1I',
+            'https://www.youtube.com/embed/tM7MSaoVuI0',
+            'https://www.youtube.com/embed/jmqKlNBjpWw',
+            'https://www.youtube.com/embed/McnBFDnlg-E',
+            'https://www.youtube.com/embed/EABb6rXiTD0',
+            'https://www.youtube.com/embed/iuBcqfr_RnU'
+        ];
+
+
         return $videoList;
     }
 
@@ -21,6 +35,7 @@ class GetVideosUrl
         for ($i = 0; $i < $max; $i++) {
             $videoList[] = 'https://www.youtube.com/embed/' . $listOfVideoKey[$i];
         }
+
         return $videoList;
     }
 

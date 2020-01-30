@@ -14,27 +14,41 @@ class Form extends View {
         $this->form = $form;
     }
 
-    public function getData() {
+    public function getData(): array {
         return $this->form;
     }
 
-    public function addCheckboxInputs(string $field_name, array $inputs) {
-        if (!in_array($field_name, array_column($this->form['fields'], 'name'))) {
-            $options = [];
+    public function setData(array $form) {
+        $this->form = $form;
+    }
 
-            foreach ($inputs as $index => $value) {
-                $options[] = [
-                    'value' => $index,
-                    'label' => $value
-                ];
+    public function setValues(array $values) {
+        foreach ($this->form['fields'] as $name => &$field) {
+            if (in_array($name, array_keys($values))) {
+                switch ($field['type']) {
+                    case 'checkbox':
+                        if ($name === 'is_active') {
+                            $field['value'] = $values[$name];
+                            $field['checked'] = !empty($field['value']) ? true : false;
+                        } else {
+                            $field['options'] = $values[$name];
+                        }
+                        break;
+                    case 'file':
+//                        print '<pre>';
+//                        print_r($values);
+//                        die();
+                        if (!empty($values['cover_photo'])) {
+                            $field['value'] = $values[$name];
+                            $field['required'] = '';
+                            $field['span'] = 'Įkelti kitą';
+                        }
+                        break;
+                    default:
+                        $field['value'] = $values[$name];
+                        break;
+                }
             }
-
-            $this->form['fields'][] = [
-                'name' => $field_name,
-                'id' => 'checkbox_inputs_group_' . $field_name,
-                'type' => 'checkbox',
-                'options' => $options
-            ];
         }
     }
 }
