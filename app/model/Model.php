@@ -212,4 +212,9 @@ class Model {
 
         return $action->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function getRaw($sql){
+        return (new Connection())->getWEREData(new static(),$sql);
+    }
+
 }

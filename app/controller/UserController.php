@@ -95,6 +95,7 @@ class UserController extends BaseController
     }
 
     public function login(){
+
         $email=$_POST['email'];
         $password=$_POST['password'];
         $user= User::getWere("email=$email");
@@ -139,6 +140,8 @@ class UserController extends BaseController
         }
         if($password==$password2){
             $user=User::getWere("ID=".$_SESSION['userId']);
+            $user->password=password_hash($password, PASSWORD_DEFAULT);
+            $user->save();
             header("Location: ". App::INSTALL_FOLDER."/course/display");
             exit();
         }

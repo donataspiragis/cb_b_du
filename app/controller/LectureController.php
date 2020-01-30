@@ -14,7 +14,7 @@ class LectureController extends BaseController  {
     public function index($id){
     }
     function cmp($a, $b) {
-        echo $a->order;
+       // echo $a->order;
         return strcmp($a->order, $b->order);
     }
 
@@ -23,11 +23,11 @@ class LectureController extends BaseController  {
         if(is_array($lectlist)){
             foreach ($lectlist as $key =>$value){
                 $lecture[] = Lecture::getWere("ID = $value->lecture_id");
-                $lecture[$key]->order = $value->order;
+                $lecture[$key]->order = $value->order_num;
             }
         }else{
             $lecture[0] = Lecture::getWere("ID = $lectlist->lecture_id");
-            $lecture[0]->order = $lectlist->order;
+            $lecture[0]->order = $lectlist->order_num;
         }
         usort($lecture, array($this, "cmp"));
         return $this->render('lecturesview',['lectures' => $lecture]);

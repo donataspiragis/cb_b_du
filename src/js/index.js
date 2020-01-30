@@ -1,7 +1,6 @@
 var to = document.querySelector('#valid_to');
 var from = document.querySelector('#valid_from');
 $( document ).ready(function() {
-
     $('#modal-opener').on('click', function (){
         to = jQuery(to).text()
         from = jQuery(from).text();

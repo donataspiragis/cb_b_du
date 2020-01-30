@@ -25,4 +25,9 @@ class StudentsInfoController extends BaseController
 
 
 
+<<<<<<< HEAD
 };
+
+=======
+};
+>>>>>>> 894e7b1d14f4ebab9e752e680532bf5b4980e4a8
