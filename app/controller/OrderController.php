@@ -106,24 +106,21 @@ class OrderController extends BaseController  {
 
         }
         else {
-            $user=User::getAll();
-            $user_id = 0;
-             foreach ($user as $u) {
-                 if($u->email == $email) {
-                     $user_id = $u->ID;
-                 }
-             }
+            $user=User::getWere('email = ' .$email);
 
-//            $invoice = new Invoice();
-//            $invoice->price = $amount / 100;
-//            $invoice->created_on = Carbon::now();
-//            $invoice->save();
+            $invoice = new Invoice();
+            $invoice->price = $amount / 100;
+            $invoice->created_on = Carbon::now();
+            $invoice->save();
 
-//            $order = new Order();
-//            $order->user_id = $user_id;
-//            $order->course_id = $id;
-//            $order->invoice_id = $invoice->ID;
-//            $order->save();
+            $order = new Order();
+            $order->user_id = $newUser->ID;
+            $offer= Offer::getWere('course_id = ' . $id );
+            $order->offer_id = $offer->ID;
+            $order->course_id = $id;
+            $order->invoice_id = $invoice->ID;
+            $order->payment_status=0;
+            $order->save();
 
         }
 

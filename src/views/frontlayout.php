@@ -49,7 +49,7 @@
                 <button  type="submit" class="btn-buy" data-dismiss="modal">Prisijungti</button>
 
             </form>
-            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/passwordReminder" class="remind-form" id="remind-form">
+            <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/user/passwordReminder" method="post" remind-form" id="remind-form">
                 <input type="text" placeholder="El. paštas">
                 <button  type="submit" class="btn-buy" data-dismiss="modal">Priminti</button>
             </form>
