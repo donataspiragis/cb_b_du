@@ -41,27 +41,46 @@
         <div class="col-lg-2 col-md-4 col-sm-12">
             <div class="card" >
                 <div class="card-body">
-                    <h5 class="card-title">Video pamokos</h5>
+                    <div id="accordion">
+                    <h5 class="card-title"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"id="headingTwo">Video pamokos</h5>
                     <ul class="nav flex-column">
+                        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                        {% for course in data|slice (0,4) %}
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#"><i class="fa fa-unlock-alt" aria-hidden="true"></i> - Lygis I</a>
+                            <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/lecture/show/{{course.ID}}"><i class="fas fa-lock-open"style="transform: scaleX(-1);" aria-hidden="true"></i> {{course.name}}</a>
                         </li>
+                        {% endfor %}
+                        {% for lockcourse in allcourse|slice (0,5) %}
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#"><i class="fa fa-lock" aria-hidden="true"></i> - Lygis II</a>
+                            <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/lecture/show/{{lockcourse.ID}}"><i class="fa fa-lock" aria-hidden="true"></i> {{lockcourse.name}}</a>
                         </li>
+                        {% endfor %}
+                            <li class="nav-item">
+                            <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/display">VisosPamokos</a>
+                            </li>
+                        </div>
+
                     </ul>
                     <br>
-                    <h5 class="card-title">Asmeninė informacija</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Pakeisti slaptažodį</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">Mano informacija</a>
-                        </li>
+
+                                        <h5 class="card-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
+                                            Asmeninė informacija<!--  <a class="nav-link text-dark" href="#">Pakeisti slaptažodį</a>-->
+                                        </h5>
+                            <ul class="nav flex-column">
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="#">Pakeisti slaptažodį</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="#">Mano informacija</a>
+                                    </li>
+                                </div>
+
+
                     </ul>
                     <br>
                     <a class="card-title h5 text-dark" href="#">Naujienos</a>
+                </div>
                 </div>
             </div>
         </div>
@@ -88,7 +107,6 @@
 </body>
 
 </html>
-
 
 
 

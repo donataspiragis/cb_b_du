@@ -901,6 +901,16 @@ button {
 }
 
 /*UGNIUS*/
+.boxcenter{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+.statistic { width: 50%; height: 200px;float: left; border:solid 2px; }
 .center{
     width: 100%;
     height: 100%;

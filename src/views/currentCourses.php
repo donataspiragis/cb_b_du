@@ -12,7 +12,7 @@
             </div>
             <div class="text-view">
 
-                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ course.picture }}" alt="">
+                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ course.picture }}" alt="">
 
        <!-- <h1>{{ course.name }}</h1>-->
             </div>
@@ -36,7 +36,7 @@
                 <h1>{{ lockcourse.name }}</h1>
             </div>
             <div class="text-view">
-                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/images/{{ lockcourse.picture }}" alt="">
+                <img src="{{ constant('App\\App::INSTALL_FOLDER') }}/{{ lockcourse.picture }}" alt="">
                 <!-- <h1>{{ course.name }}</h1>-->
             </div>
             <div class="simple-btn center-btn">
@@ -48,3 +48,4 @@
     {% endfor %}
 </div>
 {% endblock %}
+
