@@ -14,7 +14,6 @@
                 </iframe>
 
             </div>
-            <h5>{{ lecture.video_url }}</h5>
         </div>
     </div>
     {% endfor %}
