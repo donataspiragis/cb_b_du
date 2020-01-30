@@ -7,7 +7,7 @@ class Paysera
     {
         $this->config = $config;
     }
-    public function pay($email, $amount, $invoice, $paytext)
+    public function pay($email, $amount, $invoice)
     {
         try {
             $request = WebToPay::redirectToPayment([
@@ -22,7 +22,6 @@ class Paysera
                 'callbackurl'   => $this->config['4'],
                 'p_email'       => $email,
                 'test'          => 1,
-                'paytext' => $paytext,
             ]);
         } catch (WebToPayException $e) {
             die('BLOGAIddd');
