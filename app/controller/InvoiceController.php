@@ -25,7 +25,7 @@ class InvoiceController extends BaseController  {
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->myTable($this->getPayments($invoice_id));
-        $pdf->Output();
+        $pdf->Output('cbb2_invoice_' . $invoice_id . '.pdf', 'I');
     }
 
     public function getPayments($invc_id = null): array {
