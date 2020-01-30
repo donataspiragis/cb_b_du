@@ -105,7 +105,7 @@
                                 <span class="offer-price">{{ offer.discount_offer }} EUR</span>
                                 {% for course in courses %}
                                 {% if offer.course_id ==  course.ID %}
-                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payload/{{course.ID}} ">Pirkti kursą</a>
+                                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/d_payload/{{course.ID}} ">Pirkti kursą</a>
                                 {% endif%}
                                 {% endfor %}
                             </div>
@@ -141,8 +141,7 @@
                                     <span id="more"> {{ course.about|slice(40, 2000) }}</span>
                                 </p>
                     <button id="readmore">Plačiau</button>
-                    <span class="original-price">{{ offer.price }} EUR</span>
-                    <span class="offer-price">{{ offer.discount_offer }} EUR</span>
+
 
 
 

@@ -13,6 +13,7 @@ class Route {
         'front@showall' => ['FrontPageController', 'showall'],
         'order@statistics' => ['OrderController', 'statistics'],
         'order@payload' => ['OrderController', 'payload'],
+        'order@d_payload' => ['OrderController', 'd_payload'],
         'order@payexisting' => ['OrderController', 'payexisting'],
         'order@checkPrePayment' => ['OrderController', 'checkPrePayment'],
         'order@paid' => ['OrderController', 'paid'],

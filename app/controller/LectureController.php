@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Model\Model;
 use App\Model\Lecture;
 use App\Model\LecturesList;
+use App\Model\Order;
 
 use function Composer\Autoload\includeFile;
 
@@ -18,20 +19,44 @@ class LectureController extends BaseController  {
         return strcmp($a->order, $b->order);
     }
 
-    public function show($id){
-        $lectlist = LecturesList::getWere("course_id = $id");
-        if(is_array($lectlist)){
-            foreach ($lectlist as $key =>$value){
-                $lecture[] = Lecture::getWere("ID = $value->lecture_id");
-                $lecture[$key]->order = $value->order_num;
+    public function show($course_id){
+        $bool = false;
+        session_start();
+        if($_SESSION['userId'] != null){
+            $userid = $_SESSION['userId'];
+        }else{
+            header("Location: ".App::INSTALL_FOLDER);
+            exit();
+        }
+        
+        $orders = Order::getWere("user_id = $userid");
+        if(is_object($orders)){
+            if($orders->course_id == $course_id){
+                $bool = true;
             }
         }else{
-            $lecture[0] = Lecture::getWere("ID = $lectlist->lecture_id");
-            $lecture[0]->order = $lectlist->order_num;
+            foreach($orders as $value){
+                if($value->course_id == $course_id){
+                    $bool = true;
+                }
+            }
         }
-        usort($lecture, array($this, "cmp"));
-        return $this->render('lecturesview',['lectures' => $lecture]);
-
+        $lectlist = LecturesList::getWere("course_id = $course_id");
+            if(is_array($lectlist)){
+                foreach ($lectlist as $key =>$value){
+                    $lecture[] = Lecture::getWere("ID = $value->lecture_id");
+                    $lecture[$key]->order = $value->order_num;
+                }
+            }else{
+                $lecture[0] = Lecture::getWere("ID = $lectlist->lecture_id");
+                $lecture[0]->order = $lectlist->order_num;
+            }
+            usort($lecture, array($this, "cmp"));
+        if($bool){         
+            return $this->render('lecturesview',['lectures' => $lecture]);
+        }else{
+            return $this->render('lockLecturesview',['lectures' => $lecture]);
+        }
     }
 }
 

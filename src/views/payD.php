@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label for="exampleFormControlInput1">El. paštas</label>
                     <input type="email" name="email" id="" class="form-control" id="exampleFormControlInput1" placeholder="El. paštas" required>
-                    <input type="text" style="display: none;" name="old" value="orig">
+                    <input type="text" style="display: none;" name="old" value="disc">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Pradėti mokėjimą</button>
             </form>
