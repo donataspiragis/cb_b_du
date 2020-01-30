@@ -64,11 +64,49 @@ class OrderController extends BaseController  {
         return $array;
     }
 
+    public function payexisting(){
+        $email = $_POST['email'];
+        $c_id = $_POST['id'];
+
+
+        $amount_obj = Offer::getWere('course_id =' . $c_id );
+        $amount = 0;
+        if($amount_obj->discount_offer > 0) {
+            $amount = $amount_obj->discount_offer;
+        }
+        else {
+            $amount = $amount_obj->price;
+        }
+        $amount = $amount * 100;
+
+        $user=User::getWere('email = ' .$email);
+
+        $invoice = new Invoice();
+        $invoice->price = $amount / 100;
+        $invoice->created_on = Carbon::now();
+        $invoice->save();
+
+        $order = new Order();
+        $order->user_id = $user->ID;
+        $offer= Offer::getWere('course_id = ' . $c_id  );
+        $order->offer_id = $offer->ID;
+        $order->course_id = $c_id ;
+        $order->invoice_id = $invoice->ID;
+        $order->payment_status=0;
+        $order->save();
+
+        $ino = $invoice->ID;
+        $paytext = 'esu';
+        $servisas = App::get('paysera');
+        $servisas->pay($email, $amount, $order->ID, $paytext);
+    }
+
     public function payload($id){
         $offer = Course::getWere('ID=' . $id );
         return $this->render('pay', ['id' => $id, 'offer' => $offer]);
 
     }
+
     public function checkPrePayment($id){
         $email = $_POST['email'];
         $user=User::getAll();
@@ -81,6 +119,7 @@ class OrderController extends BaseController  {
     }
 
     public function paid ($id, $status, $email){
+
         $amount_obj = Offer::getWere('course_id =' . $id);
         $amount = 0;
         if($amount_obj->discount_offer > 0) {
@@ -127,7 +166,7 @@ class OrderController extends BaseController  {
             $invoice->save();
 
             $order = new Order();
-            $order->user_id = $newUser->ID;
+            $order->user_id = $user->ID;
             $offer= Offer::getWere('course_id = ' . $id );
             $order->offer_id = $offer->ID;
             $order->course_id = $id;
@@ -136,22 +175,46 @@ class OrderController extends BaseController  {
             $order->save();
 
         }
-
-
+        $ino = $invoice->ID;
+        $paytext = '';
         $servisas = App::get('paysera');
-
-        $servisas->pay($email, $amount);
+        $servisas->pay($email, $amount, $order->ID, $paytext);
     }
 
 
     public function answer($data) {
 
         $info = WebToPay::checkResponse($_GET, ['projectid' => 146155, 'sign_password' => 'ce28c97dcd8381b7d5a093ffd1deae38']);
+        var_dump('<pre>');
+        var_dump($info);
+        die();
+        $user = User::getRaw('SELECT MAX(ID) FROM user' );
 
+        if ($info['paytext'] == 'esu'){
+            header("Location: " . App::INSTALL_FOLDER. "/course/display/"  );
+        } else {
+
+            $user = User::getWere('email = ' . $info['p_email'] );
+            $order = Order::getWere('ID = ' . $info['orderid']);
+
+            $order->payment_status = 1;
+            $order->save();
+            $hash = $user->password;
+            $hash = str_replace('/', '', $hash);
+            header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
+        }
+
+
+        var_dump('<pre>');
+     var_dump($info);
+        die();
         if($info['status'] == "1")
         {
-            $user=User::getWere('email = ' . $info['p_email'] );
-            $user->payment_status = 1;
+            $user = User::getWere('email = ' . $info['p_email'] );
+            $order = Order::getWere('ID = ' . $info['orderid']);
+
+            $order->payment_status = 1;
+            $order->save();
             $hash = $user->password;
             $hash = str_replace('/', '', $hash);
            header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
@@ -172,4 +235,5 @@ class OrderController extends BaseController  {
     }
 
 }
+
 

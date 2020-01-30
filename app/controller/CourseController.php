@@ -5,6 +5,7 @@ use App\App;
 use App\Controller\BaseController;
 use App\Model\LecturesList;
 use App\Model\Order;
+use App\Model\User;
 use App\Objects\NewCourseForm;
 use DataBase\Connection;
 use Symfony\Component\HttpFoundation\Request;
@@ -122,10 +123,12 @@ class CourseController extends BaseController  {
 
     }
 
-   public function  display(){
+    public function  display(){
         session_start();
         if($_SESSION['userId'] != null){
             $id = $_SESSION['userId'];
+            $us = User::getWere('ID = ' . $id);
+            $user_email = $us->email;
         }else{
             header("Location: ".App::INSTALL_FOLDER);
             exit();
@@ -133,32 +136,29 @@ class CourseController extends BaseController  {
         $coursesarr ="";
         $courses=[];
         $allcourses = [];
-                $orders = Order::getWere("user_id = $id");
-                if(is_object($orders)){
-                    $courses[] = Course::getWere("ID = $orders->course_id");
-                    $coursesarr .= "ID <> '$orders->course_id'";
-                }else{
-                    foreach ($orders as $order){
-                        $courses[] = Course::getWere("ID = $order->course_id");
-                        $coursesarr .= "AND ID <> '$order->course_id'";
-
-                    }
-                    $coursesarr = substr($coursesarr,3);
-                }
-
-       $allcourses = Course::getWere($coursesarr);
-
-
-
-
-
-                return $this->render('currentCourses',['data' => $courses,'allcourse' => $allcourses]);
-
+        $orders = Order::getWere("user_id = $id");
+        if(is_object($orders)){
+            $courses[] = Course::getWere("ID = $orders->course_id");
+            $coursesarr .= "ID <> '$orders->course_id'";
+        }else{
+            var_dump($orders);
+            foreach ($orders as $order){
+                $courses[] = Course::getWere("ID = $order->course_id");
+                $coursesarr .= "AND ID <> '$order->course_id'";
+            }
+            $coursesarr = substr($coursesarr,3);
+        }
+        $allcourse = Course::getWere($coursesarr);
+        if(is_object($allcourse)){
+            $allcourses[] = $allcourse;
+        }else{
+            $allcourses = $allcourse;
+        }
+        return $this->render('currentCourses',['data' => $courses,'allcourse' => $allcourses, 'email' =>  $user_email]);
 //      $email = 'ugnius.staniulis@gmail.com';
 //        $mailchimp = App::get('mailchimp');
 //        $mailchimp->create($email,'subscribed',array('FNAME' => 'Misha','LNAME' => 'Rudrastyh'));
-
-  }
+    }
 
 
 }

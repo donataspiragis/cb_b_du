@@ -23,7 +23,7 @@
                     <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/logof">Atsijungti</a>
+                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/user/logout">Atsijungti</a>
                 </li>
 
                 <li class="nav-item">

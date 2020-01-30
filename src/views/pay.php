@@ -20,9 +20,10 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ offer.name}}</h5>
                     <p class="card-text">    {{ offer.about }}</p>
-                    {{ amount }}
                 </div>
             </div>
+
+            {{ off }}
 
         </div>
     </div>
