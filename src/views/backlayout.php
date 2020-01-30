@@ -47,7 +47,7 @@
                                     <a class="nav-link text-dark" href="#">Video statistika</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="#">Mokiniai + informacija</a>
+                                    <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/info/collect">Mokiniai + informacija</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/statistics">Apyvarta</a>
@@ -78,6 +78,7 @@
         <div class="col-lg-10 col-md-8 col-sm-12">
             <div class="card" style="background: linear-gradient(to bottom, #d3d3d3 0%, #f2f2f2 100%);">
                 <div class="card-body">
+                    {% block infocollection %}{% endblock %}
 
                     {% block datacontainer %}{% endblock %}
                 </div>
