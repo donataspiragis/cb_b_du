@@ -65,7 +65,7 @@
             <div class="course-discount-title">
                 <h1>{{ discount.name }}</h1>
             </div>
-            <button type="button" class="btn-buy open-modal" data-open="modal1">
+            <button type="button" class="btn-buy open-modal" id="modal-opener" data-open="modal1">
                 Peržiūrėti
             </button>
 

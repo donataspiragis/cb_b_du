@@ -19,36 +19,49 @@ class OrderController extends BaseController  {
     }
 
     public function statistics(){
-        $invoices = Invoice::getAll();
-        $orders = Order::getAll();
+        $all = Invoice::getAll();
+        $nowtime =Carbon::now();
+        $amount = ["thisYear"=>0,"thisMonth"=>0,"thisQuarter"=>0,"halfYear"=>0];
 
-        var_dump('<br>');
-        var_dump('<br>');var_dump('<br>');var_dump('<br>');
-        foreach ($invoices as $val) {
+        foreach ($all as $alls){
+            if(substr($alls->created_on, 0, 4) == $nowtime->year){
+                $amount["thisYear"] += $alls->price;
+                if(substr($alls->created_on, 5, 2) == $nowtime->month){
+                    $amount["thisMonth"] += $alls->price;
+                }
+            }
 
-            if ($val->created_on > Carbon::now() )
-                var_dump('created on daugiau');
-                var_dump( $val->created_on);
-            var_dump('<br>');
-            var_dump('<br>');
-
-            if ($val->created_on < "2020-01-01 00:00:00" )
-                var_dump('created on maziau');
-                var_dump( $val->created_on);
-            var_dump('<br>');
-            var_dump('<br>');
-            if ($val->created_on < Carbon::now() )
-                var_dump('Carbon now');
-                var_dump( $val->created_on);
-            var_dump('<br>');
-            var_dump('<br>');
+            if(in_array(substr($alls->created_on, 0, 7), $this->monthsBack(3))){
+                $amount["thisQuarter"] += $alls->price;
+            }
+            if(in_array(substr($alls->created_on, 0, 7), $this->monthsBack(6))){
+                $amount["halfYear"] += $alls->price;
+            }
 
 
         }
+        return $this->render('statistics', ['all' => $all,'amount' => $amount]);
+    }
+    private function monthsBack($backamount){
+        $array = [];
+        $nowtime = Carbon::now();
 
+        for($i = 0; $i < $backamount; $i++){
+            if($nowtime->month < 10){
+                $array[]= $nowtime->year."-0".$nowtime->month;
+            }else{
+                $array[]= $nowtime->year."-".$nowtime->month;
+            }
 
+            if($nowtime->month  == 1){
+                $nowtime->year -= 1;
+                $nowtime->month = 12;
+            }else{
+                $nowtime->month -= 1;
+            }
 
-        return $this->render('statistics', ['invoices' => $invoices, 'orders' => $orders]);
+        }
+        return $array;
     }
 
     public function payload($id){
@@ -57,23 +70,26 @@ class OrderController extends BaseController  {
 
     }
     public function checkPrePayment($id){
-        $offer = Course::getWere('ID=' . $id );
         $email = $_POST['email'];
         $user=User::getAll();
-        self::paid($id, 1, $email);
-
-
-//        foreach ($user as $u) {
-//            if($u->email== $_POST['email']) {
-//                self::paid($id, 1, $email);
-//            } else {
-//                self::paid($id, 0, $email);
-//            }
-//        }
+        foreach ($user as $u) {
+            if($u->email == $email) {
+                return self::paid($id, 1, $email);
+            }
+        }
+        return self::paid($id, 0, $email);
     }
 
     public function paid ($id, $status, $email){
-        $email = $email;
+        $amount_obj = Offer::getWere('course_id =' . $id);
+        $amount = 0;
+        if($amount_obj->discount_offer > 0) {
+            $amount = $amount_obj->discount_offer;
+        }
+        else {
+            $amount = $amount_obj->price;
+        }
+        $amount = $amount * 100;
 
 
         if($status == 0) {
@@ -85,40 +101,74 @@ class OrderController extends BaseController  {
             $newUser->email = $email;
             $newUser->created_on=Carbon::now();
             $newUser->user_discount=20;
-            $newUser->payment_status=1;
             $newUser->save();
-        }
 
+            $invoice = new Invoice();
+            $invoice->price = $amount / 100;
+            $invoice->created_on = Carbon::now();
+            $invoice->save();
+
+            $order = new Order();
+            $order->user_id = $newUser->ID;
+            $offer= Offer::getWere('course_id = ' . $id );
+            $order->offer_id = $offer->ID;
+            $order->course_id = $id;
+            $order->invoice_id = $invoice->ID;
+            $order->payment_status=0;
+            $order->save();
+
+        }
+        else {
+            $user=User::getWere('email = ' .$email);
+
+            $invoice = new Invoice();
+            $invoice->price = $amount / 100;
+            $invoice->created_on = Carbon::now();
+            $invoice->save();
+
+            $order = new Order();
+            $order->user_id = $newUser->ID;
+            $offer= Offer::getWere('course_id = ' . $id );
+            $order->offer_id = $offer->ID;
+            $order->course_id = $id;
+            $order->invoice_id = $invoice->ID;
+            $order->payment_status=0;
+            $order->save();
+
+        }
 
 
         $servisas = App::get('paysera');
-        $amount_obj = Offer::getWere('course_id =' . $id);
-        $amount = 0;
-        if($amount_obj->discount_offer > 0) {
-            $amount = $amount_obj->discount_offer;
-        }
-        else {
-            $amount = $amount_obj->price;
-        }
-        $amount = $amount * 100;
+
         $servisas->pay($email, $amount);
     }
 
 
     public function answer($data) {
-        var_dump('<br>');
-        var_dump('<br>');
-        var_dump($data);
-
 
         $info = WebToPay::checkResponse($_GET, ['projectid' => 146155, 'sign_password' => 'ce28c97dcd8381b7d5a093ffd1deae38']);
-        var_dump(
-            $info
-        );
-        return $this->render('register');
+
+        if($info['status'] == "1")
+        {
+            $user=User::getWere('email = ' . $info['p_email'] );
+            $user->payment_status = 1;
+            $hash = $user->password;
+            $hash = str_replace('/', '', $hash);
+            header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
+        }
+        else {
+            $status = "Laukiame mokėjimo patvirtinimo ir išsiuntėme Jums prisijungimą";
+            return $this->render('waiting', ['info' => $status]);
+        }
+
     }
 
+    public function cancelPaysera() {
+        return $this->render('canceled');
+    }
 
+    public function callbackpaysera($data) {
+        return $this->render('callbackpaysera');
+    }
 
 }
-

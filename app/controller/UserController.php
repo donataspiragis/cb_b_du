@@ -63,12 +63,12 @@ class UserController extends BaseController
         }
     }
 
-
     public function registerNew($hash)
     {
         $user=User::getAll();
         foreach ($user as $tempUser) {
-            if($tempUser->password==$hash && $tempUser->name=='laikinas') {
+            $password=str_replace('/','',$tempUser->password);
+            if($password==$hash && $tempUser->name=='laikinas') {
                 $_SESSION['userId'] =  $tempUser->ID;
                 $_SESSION['temp'] = true;
                 return $this->render('register',  []);
@@ -91,6 +91,7 @@ class UserController extends BaseController
         $newUser->ID=$_SESSION['userId'];
         $newUser->save();
         header("Location: ". App::INSTALL_FOLDER."/course/display");
+        exit();
     }
 
     public function login(){
@@ -117,5 +118,45 @@ class UserController extends BaseController
         $_SESSION['userId'] = null;
         header("Location: ". App::INSTALL_FOLDER);
         exit();
+    }
+
+    public function changePassword(){
+        if($_SESSION['userId']!=null){
+            $user=User::getWere("ID=".$_SESSION['userId']);
+            return $this->render('changePassword');
+
+        }
+        else{
+            header("Location: ". App::INSTALL_FOLDER);
+            exit();
+        }
+    }
+    public function passwordStore(){
+        $password=$_POST['newPassword'];
+        $password2=$_POST['newPassword2'];
+        if($password!=$password2){
+            return $this->render('changePassword');
+        }
+        if($password==$password2){
+            $user=User::getWere("ID=".$_SESSION['userId']);
+            $user->password=password_hash($password, PASSWORD_DEFAULT);
+            $user->save();
+            header("Location: ". App::INSTALL_FOLDER."/course/display");
+            exit();
+        }
+    }
+    public function passwordReminder(){
+        $email=$_POST['email2'];
+        $user= User::getWere("email=$email");
+        $user->	password_reminder= bin2hex(random_bytes(16));
+        $user->save();
+        $link='http://localhost'.App::INSTALL_FOLDER."/user/passwordForget/". $user->password_reminder;
+        echo "<a href=$link>$link</a>";
+
+    }
+    public function passwordReminderChangePassword($hash){
+        $user= User::getWere("password_reminder=$hash");
+        $_SESSION['userId'] = $user->ID;
+        $this->changePassword();
     }
 }
