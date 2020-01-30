@@ -5,17 +5,18 @@
 <div class="viewCourse">
     {% for lecture in lectures %}
 
-    <div class="box">
+    <div class="lecture_box">
         <div class="center">
+
             <div class="text-view">
-                <h1>{{ lecture.video_url }}</h1>
+                <iframe width="100%" height="100%"
+                        src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                </iframe>
+
             </div>
-            <div class="simple-btn center-btn">
-                <a href="#" class="btn-buy">Žiūrėti</a>
-            </div>
+            <h5>{{ lecture.video_url }}</h5>
         </div>
     </div>
     {% endfor %}
 </div>
 {% endblock %}
-

@@ -19,36 +19,49 @@ class OrderController extends BaseController  {
     }
 
     public function statistics(){
-        $invoices = Invoice::getAll();
-        $orders = Order::getAll();
+        $all = Invoice::getAll();
+        $nowtime =Carbon::now();
+        $amount = ["thisYear"=>0,"thisMonth"=>0,"thisQuarter"=>0,"halfYear"=>0];
 
-        var_dump('<br>');
-        var_dump('<br>');var_dump('<br>');var_dump('<br>');
-        foreach ($invoices as $val) {
+        foreach ($all as $alls){
+            if(substr($alls->created_on, 0, 4) == $nowtime->year){
+                $amount["thisYear"] += $alls->price;
+                if(substr($alls->created_on, 5, 2) == $nowtime->month){
+                    $amount["thisMonth"] += $alls->price;
+                }
+            }
 
-            if ($val->created_on > Carbon::now() )
-                var_dump('created on daugiau');
-                var_dump( $val->created_on);
-            var_dump('<br>');
-            var_dump('<br>');
-
-            if ($val->created_on < "2020-01-01 00:00:00" )
-                var_dump('created on maziau');
-                var_dump( $val->created_on);
-            var_dump('<br>');
-            var_dump('<br>');
-            if ($val->created_on < Carbon::now() )
-                var_dump('Carbon now');
-                var_dump( $val->created_on);
-            var_dump('<br>');
-            var_dump('<br>');
+            if(in_array(substr($alls->created_on, 0, 7), $this->monthsBack(3))){
+                $amount["thisQuarter"] += $alls->price;
+            }
+            if(in_array(substr($alls->created_on, 0, 7), $this->monthsBack(6))){
+                $amount["halfYear"] += $alls->price;
+            }
 
 
         }
+        return $this->render('statistics', ['all' => $all,'amount' => $amount]);
+    }
+    private function monthsBack($backamount){
+        $array = [];
+        $nowtime = Carbon::now();
 
+        for($i = 0; $i < $backamount; $i++){
+            if($nowtime->month < 10){
+                $array[]= $nowtime->year."-0".$nowtime->month;
+            }else{
+                $array[]= $nowtime->year."-".$nowtime->month;
+            }
 
+            if($nowtime->month  == 1){
+                $nowtime->year -= 1;
+                $nowtime->month = 12;
+            }else{
+                $nowtime->month -= 1;
+            }
 
-        return $this->render('statistics', ['invoices' => $invoices, 'orders' => $orders]);
+        }
+        return $array;
     }
 
 
