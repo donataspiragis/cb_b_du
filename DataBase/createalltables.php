@@ -55,6 +55,7 @@ $sql = "CREATE TABLE `orders` (
     `user_id` int(11) NOT NULL,
     `course_id` int(26) NOT NULL,
     `invoice_id` int(26) NOT NULL,
+    `payment_status` varchar(255) NOT NULL,
   `created_on` DATETIME NOT NULL
 )";
 $db->exec($sql);
@@ -65,7 +66,6 @@ $sql = "CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `password_reminder` varchar(255) NULL ,
-    `payment_status` varchar(255) NOT NULL,
   `role` int(11) NOT NULL,
   `created_on` DATETIME  NOT NULL,
   `last_log` DATETIME  NULL,
