@@ -71,10 +71,10 @@
                             <ul class="nav flex-column">
                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" id="changepass"href="#">Pakeisti slaptažodį</a>
+                                        <a class="nav-link text-dark" id="changepass"href="{{ constant('App\\App::INSTALL_FOLDER') }}/user/changePassword">Pakeisti slaptažodį</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" id="myinfo"href="#">Mano informacija</a>
+                                        <a class="nav-link text-dark" id="myinfo"href="{{ constant('App\\App::INSTALL_FOLDER') }}/invoice/index">Mano informacija</a>
                                     </li>
                                 </div>
 

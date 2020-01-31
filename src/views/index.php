@@ -136,11 +136,7 @@
 
 
 
-                    <p>{{ course.about|slice(0, 40) }}
-                                    <span id="dots">...</span>
-                                    <span id="more"> {{ course.about|slice(40, 2000) }}</span>
-                                </p>
-                    <button id="readmore">Plačiau</button>
+
 
 
 
