@@ -9,6 +9,31 @@
     <link rel="stylesheet" href="{{ constant('App\\App::INSTALL_FOLDER') }}/css/style.css">
 
     <title>{% block title %}{% endblock %}</title>
+    <style>
+        #paymentsTable {
+            width: 75%;
+            max-width: 800px;
+            margin: 10px auto;
+        }
+
+        #paymentsTable th {
+            text-align: left;
+            padding: 10px 10px 10px 20px;
+        }
+
+        #paymentsTable td {
+            text-align: left;
+            padding: 5px 5px 5px 10px;
+        }
+
+        #paymentsTable tr:nth-of-type(odd){
+            background-color: silver;
+        }
+
+        #paymentsTable tr:nth-of-type(even){
+            background-color: #e8e8e8;
+        }
+    </style>
 </head>
 <body>
 <input type="text" name="id" id="getval" value="{{value}}" style="display: none;">
