@@ -33,6 +33,7 @@ class Route {
         'user@passwordStore'=>['UserController','passwordStore'],
         'user@passwordReminder'=>['UserController','passwordReminder'],
         'user@passwordForget'=>['UserController','passwordReminderChangePassword'],
+        'admin@lectureLikes'=>['videoStatisticsController','show'],
 
 //        'buy@index' => ['BuyallController', 'index'],
         'course@index' => ['CourseController', 'index'],
