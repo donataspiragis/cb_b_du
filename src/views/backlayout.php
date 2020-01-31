@@ -46,7 +46,7 @@
                         <ul class="nav flex-column">
                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark"id="videostat" href="#">Video statistika</a>
+                                    <a class="nav-link text-dark"id="videostat" href="{{ constant('App\\App::INSTALL_FOLDER') }}/admin/lectureLikes">Video statistika</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" id="mokinfo" href="{{ constant('App\\App::INSTALL_FOLDER') }}/info/collect">Mokiniai + informacija</a>
@@ -62,16 +62,16 @@
                         <ul class="nav flex-column">
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark"id="naujavid" href="#">Patalpinti naują video</a>
+                                    <a class="nav-link text-dark"id="naujavid" href="https://www.youtube.com/">Patalpinti naują video</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" id="newcourse"href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/create">Sukurti naują kursą</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" id="editcourse"href="#">Redaguoti esamą kursą</a>
+                                    <a class="nav-link text-dark" id="editcourse"href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/create">Redaguoti esamą kursą</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/createall">Sukurti Pirkti Viską</a>
+                                    <a class="nav-link text-dark" id="buyall"href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/createall">Sukurti Pirkti Viską</a>
                                 </li>
                             </div>
 
