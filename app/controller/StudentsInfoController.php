@@ -16,7 +16,7 @@ class StudentsInfoController extends BaseController
     {
         $raw = User::getAll();
         $raw1 = Course::getAll();
-        return $this->render('studentsInfoTable', ['users' => $raw, 'coursename' => $raw1]);
+        return $this->render('studentsInfoTable', ['users' => $raw, 'coursename' => $raw1,'value'=>'mokinfo','menu'=>'collapseOne']);
 
 
 
