@@ -11,7 +11,8 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-
+<input type="text" name="id" id="getval" value="{{value}}" style="display: none;">
+<input type="text" name="id" id="getval2" value="{{menu}}" style="display: none;">
 <nav class="nav-customize" id="sticker">
     <div class="nav-container">
         <a class="navbar-brand-c" href="{{ constant('App\\App::INSTALL_FOLDER') }}/">CB_B_DU mokykis</a>

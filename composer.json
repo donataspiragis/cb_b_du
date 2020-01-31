@@ -20,6 +20,7 @@
     "madcoda/php-youtube-api": "1.2",
     "symfony/dependency-injection": "^5.0",
     "symfony/yaml": "^5.0",
-    "symfony/config": "^5.0"
+    "symfony/config": "^5.0",
+"phpmailer/phpmailer": "^6.1"
   }
 }
