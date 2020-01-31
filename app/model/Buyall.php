@@ -7,5 +7,5 @@ use App\Model\Model;
 
 class Buyall extends Model
 {
-    //
+    protected $table = 'allbuy';
 }
