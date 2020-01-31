@@ -21,7 +21,7 @@ class CourseController extends BaseController  {
 
         $form_data = $new_course_form->render('newcourseformlayout', $new_course_form->getData());
 
-        return $this->render('createcourse', ['newCourseForm' => $form_data]);
+        return $this->render('createcourse', ['newCourseForm' => $form_data,'value'=>'newcourse','menu'=>'collapseTwo']);
     }
 
     public function store() {
@@ -38,7 +38,7 @@ class CourseController extends BaseController  {
 
         $form_data = $edit_form->render('newcourseformlayout', $edit_form->getData());
 
-        return $this->render('createcourse', ['newCourseForm' => $form_data]);
+        return $this->render('createcourse', ['newCourseForm' => $form_data,'value'=>'editcourse','menu'=>'collapseTwo']);
     }
 
     public function update($course_id) {
@@ -136,24 +136,42 @@ class CourseController extends BaseController  {
         $coursesarr ="";
         $courses=[];
         $allcourses = [];
+        $boughtAny = false;
         $orders = Order::getWere("user_id = $id");
         if(is_object($orders)){
+            if($orders->payment_status == 1){
             $courses[] = Course::getWere("ID = $orders->course_id");
             $coursesarr .= "ID <> '$orders->course_id'";
+            $boughtAny = true;
+            }else{
+                $allcourse = Course::getAll();
+            }
+            
+           
         }else{
             foreach ($orders as $order){
-                $courses[] = Course::getWere("ID = $order->course_id");
-                $coursesarr .= "AND ID <> '$order->course_id'";
+                if($order->payment_status == 1){
+                    $courses[] = Course::getWere("ID = $order->course_id");
+                    $coursesarr .= "AND ID <> '$order->course_id'";
+                    $boughtAny = true;
+                    }else{
+                        $allcourse = Course::getAll();
+                    }
+
+                
             }
             $coursesarr = substr($coursesarr,3);
         }
-        $allcourse = Course::getWere($coursesarr);
+        if($boughtAny){
+            $allcourse = Course::getWere($coursesarr);
+        }
+        
         if(is_object($allcourse)){
             $allcourses[] = $allcourse;
         }else{
             $allcourses = $allcourse;
         }
-        return $this->render('currentCourses',['data' => $courses,'allcourse' => $allcourses, 'email' =>  $user_email]);
+        return $this->render('currentCourses',['data' => $courses,'allcourse' => $allcourses,'menu'=>'collapseTwo', 'email' =>  $user_email,'value'=>'allcourse']);
 //      $email = 'ugnius.staniulis@gmail.com';
 //        $mailchimp = App::get('mailchimp');
 //        $mailchimp->create($email,'subscribed',array('FNAME' => 'Misha','LNAME' => 'Rudrastyh'));

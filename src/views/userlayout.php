@@ -37,6 +37,8 @@
 
 
 <main class="d-flex p-2 bd-highlight justify-content-center">
+<input type="text" name="id" id="getval" value="{{value}}" style="display: none;">
+<input type="text" name="id" id="getval2" value="{{menu}}" style="display: none;">
     <div class="row" style="padding-top: 60px;width: 100%">
         <div class="col-lg-2 col-md-4 col-sm-12">
             <div class="card" >
@@ -44,19 +46,19 @@
                     <div id="accordion">
                     <h5 class="card-title"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"id="headingTwo">Video pamokos</h5>
                     <ul class="nav flex-column">
-                        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         {% for course in data|slice (0,4) %}
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/lecture/show/{{course.ID}}"><i class="fas fa-lock-open"style="transform: scaleX(-1);" aria-hidden="true"></i> {{course.name}}</a>
+                            <a class="nav-link text-dark" id="id{{course.ID}}" href="{{ constant('App\\App::INSTALL_FOLDER') }}/lecture/show/{{course.ID}}"><i class="fas fa-lock-open"style="transform: scaleX(-1);" aria-hidden="true"></i> {{course.name}}</a>
                         </li>
                         {% endfor %}
                         {% for lockcourse in allcourse|slice (0,5) %}
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/lecture/show/{{lockcourse.ID}}"><i class="fa fa-lock" aria-hidden="true"></i> {{lockcourse.name}}</a>
+                            <a class="nav-link text-dark" id="id{{lockcourse.ID}}"href="{{ constant('App\\App::INSTALL_FOLDER') }}/lecture/show/{{lockcourse.ID}}"><i class="fa fa-lock" aria-hidden="true"></i> {{lockcourse.name}}</a>
                         </li>
                         {% endfor %}
                             <li class="nav-item">
-                            <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/display">VisosPamokos</a>
+                            <a class="nav-link text-dark" id="allcourse"href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/display">VisosPamokos</a>
                             </li>
                         </div>
 
@@ -69,10 +71,10 @@
                             <ul class="nav flex-column">
                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" href="#">Pakeisti slaptažodį</a>
+                                        <a class="nav-link text-dark" id="changepass"href="#">Pakeisti slaptažodį</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" href="#">Mano informacija</a>
+                                        <a class="nav-link text-dark" id="myinfo"href="#">Mano informacija</a>
                                     </li>
                                 </div>
 
@@ -104,6 +106,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{{ constant('App\\App::INSTALL_FOLDER') }}/js/main.js" defer></script>
 </body>
 
 </html>

@@ -40,7 +40,7 @@ class OrderController extends BaseController  {
 
 
         }
-        return $this->render('statistics', ['all' => $all,'amount' => $amount]);
+        return $this->render('statistics', ['all' => $all,'amount' => $amount,'value'=>"apyvarta",'menu'=>'collapseOne']);
     }
     private function monthsBack($backamount){
         $array = [];
