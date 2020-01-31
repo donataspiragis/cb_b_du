@@ -115,6 +115,16 @@ class OrderController extends BaseController  {
         $invoice->save();
 
         $courses=Course::getAll();
+        if(is_object($courses)){
+            $order = new Order();
+            $order->user_id = $newUser->ID;
+            $offer= Offer::getWere('course_id = ' . $courses->ID  );
+            $order->offer_id = $offer->ID;
+            $order->course_id = $courses->ID;
+            $order->invoice_id = $invoice->ID;
+            $order->payment_status=0;
+            $order->save();
+        } else {
         foreach ($courses as $course) {
             $order = new Order();
             $order->user_id = $newUser->ID;
@@ -124,6 +134,7 @@ class OrderController extends BaseController  {
             $order->invoice_id = $invoice->ID;
             $order->payment_status=0;
             $order->save();
+        }
         }
 
         $amount = $invoice->price;
@@ -283,9 +294,15 @@ class OrderController extends BaseController  {
                 header("Location: " . App::INSTALL_FOLDER. "/course/display/" );
             } else if($newold = 'NOKOALL'){
                 $orders = Order::getWere('user_id = '. $user->ID );
+                if(is_object($orders)) {
+                    $orders->payment_status = 1;
+                    $orders->save();
+                } else {
+
                 foreach ($orders as $order) {
                     $order->payment_status = 1;
                     $order->save();
+                }
                 }
 
                 header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
