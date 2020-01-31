@@ -26,6 +26,7 @@ class Route {
         'order@callbackpaysera' => ['OrderController', 'callbackpaysera'],
         'info@collect' => ['StudentsInfoController','collectinfo'],
         'user@register'=>['UserController','register'],
+	'user@subscribe'=>['UserController','subscribe'],
         'user@registerNew'=>['UserController','registerNew'],
         'user@login'=>['UserController','login'],
         'user@logout'=>['UserController','logout'],
