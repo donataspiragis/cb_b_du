@@ -990,7 +990,9 @@ button {
     display: flex;
     justify-content: center;
 }
-
+.bold{
+    font-weight: bold;
+}
 /*UGNIUS END*/
 /*MEDIAS*/
 #more {display: none;}

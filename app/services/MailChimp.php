@@ -1,13 +1,20 @@
 <?php
 
 namespace App\Services;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+use Mandrill;
+
 class MailChimp
 {
-    private $list_id,$api_key;
+    private $list_id,$api_key,$gmail_key;
 
-    public function __construct($api_key, $list_id){
+    public function __construct($api_key, $list_id,$gmail_key){
         $this->list_id = $list_id;
         $this->api_key = $api_key;
+        $this->gmail_key = $gmail_key;
+	
 
     }
     public function create($email, $status, $merge_fields = array('FNAME' => '','LNAME' => '')){
@@ -33,6 +40,36 @@ echo 'HII';
         $result = curl_exec($mch_api);
         return $result;
 
+    }
+
+public function send($email,$name,$link){
+        
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->Mailer = "smtp";
+
+        $mail->SMTPDebug  = 1;  
+        $mail->SMTPAuth   = TRUE;
+        $mail->SMTPSecure = "tls";
+        $mail->Port       = 587;
+        $mail->Host       = "smtp.gmail.com";
+        $mail->Username   = "ugas.bugas@gmail.com";
+        $mail->Password   = $this->gmail_key;
+
+        $mail->IsHTML(true);
+    $mail->AddAddress($email, $name);
+    $mail->SetFrom("ugas.bugas@gmail.com", "CBDU");
+    $mail->AddReplyTo("CBDU@codebaker.com", "reply-to-name");
+    $mail->AddCC("cc-$email", "cc-$email");
+    $mail->Subject = "Email remind";
+    $content = "<b>$link.</b>";
+
+    $mail->MsgHTML($content); 
+    if(!$mail->Send()) {
+      echo "Error while sending Email.";
+    } else {
+      echo "Email sent successfully";
+    }
     }
 
 

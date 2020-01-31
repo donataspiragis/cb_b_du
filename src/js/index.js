@@ -1,6 +1,15 @@
 var to = document.querySelector('#valid_to');
 var from = document.querySelector('#valid_from');
 $( document ).ready(function() {
+//Ugnius Begin
+
+    var navId = $('#getval').val();
+    $('#'+navId).addClass("bold");
+    var menuId = $('#getval2').val();
+    $('#'+menuId).addClass("show");
+
+
+    //Ugnius End
     $('#modal-opener').on('click', function (){
         to = jQuery(to).text()
         from = jQuery(from).text();

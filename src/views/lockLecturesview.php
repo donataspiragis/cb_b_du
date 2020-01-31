@@ -25,7 +25,7 @@
     <div class="center-btn">
         
     <form action="{{ constant('App\\App::INSTALL_FOLDER') }}/order/payexisting{{ info }}" method="post">
-                    <input type="text" name="id" id="" value="{{lockcourse.ID}}" style="display: none;">
+                    <input type="text" name="id" id="" value="{{course_id}}" style="display: none;">
                     <input type="email" name="email" value="{{ email }}" style="display: none;">
                     <button  type="submit" class="btn-buy blue">Pirkti su 20% nuolaida</button>
                 </form>
@@ -34,3 +34,4 @@
         <div id="overlay"></div>
     
 {% endblock %}
+
