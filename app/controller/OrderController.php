@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\App;
 use App\Controller\BaseController;
+use App\Model\Buyall;
 use App\Model\Course;
 use App\Model\Invoice;
 use App\Model\Offer;
@@ -63,9 +64,75 @@ class OrderController extends BaseController  {
         }
         return $array;
     }
-    public function buyall(){
 
+    public function createall(){
+
+         return $this->render('createall');
     }
+
+    public function createallsave($id){
+
+        $all = Buyall::getWere('ID = 1 ');
+        $all->name = $_POST['name'];
+        $all->price = $_POST['price'];
+        $all->description = $_POST['description'];
+        $all->save();
+        header("Location: ". App::INSTALL_FOLDER."/order/statistics");
+    }
+
+    public function buyallview(){
+        $all = Buyall::getWere('ID = 1');
+        $info = '';
+        return $this->render('buyall', ['info' => $info, 'all' => $all]);
+    }
+
+    public function buyall($id){
+        $email = $_POST['email'];
+        $user=User::getAll();
+        foreach ($user as $u) {
+            if($u->email == $email) {
+                $info = 'Planavai pirkti viską bet pasiūlymas galioja tik naujiems vartotojams!';
+                return $this->render('buyall', ['info'=>$info]);
+            }
+        }
+
+        $amount_obj = Offer::getAll();
+        $alltable= Buyall::getWere('ID = 1');
+
+
+        $newUser= new User();
+        $newUser->name='laikinas';
+        $newUser->surname='laikinas';
+        $newUser->password=password_hash(rand(1,100), PASSWORD_DEFAULT);
+        $newUser->role=0;
+        $newUser->email = $email;
+        $newUser->created_on=Carbon::now();
+        $newUser->user_discount=20;
+        $newUser->save();
+
+        $invoice = new Invoice();
+        $invoice->price = $alltable->price * 100;
+        $invoice->created_on = Carbon::now();
+        $invoice->save();
+
+        $courses=Course::getAll();
+        foreach ($courses as $course) {
+            $order = new Order();
+            $order->user_id = $newUser->ID;
+            $offer= Offer::getWere('course_id = ' . $course->ID  );
+            $order->offer_id = $offer->ID;
+            $order->course_id = $course->ID;
+            $order->invoice_id = $invoice->ID;
+            $order->payment_status=0;
+            $order->save();
+        }
+
+        $amount = $invoice->price;
+        $order_id_paysera = $order->ID . 'NOKOALL';
+        $servisas = App::get('paysera');
+        $servisas->pay($email, $amount, $order_id_paysera);
+    }
+
     public function payexisting(){
         $email = $_POST['email'];
         $c_id = $_POST['id'];
@@ -91,13 +158,14 @@ class OrderController extends BaseController  {
 
         $ino = $invoice->ID;
         $servisas = App::get('paysera');
-        $servisas->pay($email, $amount, $order->ID);
+
+        $order_id_paysera = $order->ID . 'OKOO';
+        $servisas->pay($email, $amount, $order_id_paysera);
     }
 
     public function payload($id){
         $offer = Course::getWere('ID=' . $id );
         return $this->render('pay', ['id' => $id, 'offer' => $offer]);
-
     }
 
     public function d_payload($id){
@@ -199,19 +267,31 @@ class OrderController extends BaseController  {
 
         if($info['status'] == "1")
         {
+            $hash = $user->password;
+            $hash = str_replace('/', '', $hash);
+
             if($newold == 'NOKO'){
                 $order->payment_status = 1;
                 $order->save();
-                $hash = $user->password;
-                $hash = str_replace('/', '', $hash);
                 header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
 
             }
-            if ($newold == 'OKOO'){
+            else if ($newold == 'OKOO'){
                 $order->payment_status = 1;
                 $order->save();
                 header("Location: " . App::INSTALL_FOLDER. "/course/display/" );
+            } else if($newold = 'NOKOALL'){
+                $orders = Order::getWere('user_id = '. $user->ID );
+                foreach ($orders as $order) {
+                    $order->payment_status = 1;
+                    $order->save();
+                }
+
+                header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
             }
+
+
+
         }
         else {
             $status = "Laukiame mokėjimo patvirtinimo ir išsiuntėme Jums prisijungimą";

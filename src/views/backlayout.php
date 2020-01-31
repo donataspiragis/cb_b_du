@@ -21,11 +21,11 @@
                     <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/logof">Atsijungti</a>
+                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/user/logout">Atsijungti</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/profile">Profilis</a>
+                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/user/profile">Profilis</a>
                 </li>
             </ul>
         </div>
@@ -67,6 +67,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" href="#">Redaguoti esamą kursą</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/createall">Sukurti Pirkti Viską</a>
                                 </li>
                             </div>
 

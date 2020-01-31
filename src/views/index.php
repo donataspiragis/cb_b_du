@@ -120,7 +120,7 @@
 
             <h2>Super akcija visam paketui:</h2>
             <div class="buy-all-container">
-                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/buyall/all" class="btn-buy-me">PIRK VISKA</a>
+                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/buyallview" class="btn-buy-me">PIRK VISKA</a>
             </div>
     </aside>
     <div>

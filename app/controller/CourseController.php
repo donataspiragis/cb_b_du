@@ -136,18 +136,31 @@ class CourseController extends BaseController  {
         $coursesarr ="";
         $courses=[];
         $allcourses = [];
+        $boughtAny = false;
         $orders = Order::getWere("user_id = $id");
         if(is_object($orders)){
-            $courses[] = Course::getWere("ID = $orders->course_id");
-            $coursesarr .= "ID <> '$orders->course_id'";
+            if($orders->payment_status == 1){
+                $courses[] = Course::getWere("ID = $orders->course_id");
+                $coursesarr .= "ID <> '$orders->course_id'";
+                $boughtAny = true;
+            }else{
+                $allcourse = Course::getAll();
+            }
         }else{
             foreach ($orders as $order){
-                $courses[] = Course::getWere("ID = $order->course_id");
-                $coursesarr .= "AND ID <> '$order->course_id'";
+                if($order->payment_status == 1){
+                    $courses[] = Course::getWere("ID = $order->course_id");
+                    $coursesarr .= "AND ID <> '$order->course_id'";
+                    $boughtAny = true;
+                }else{
+                    $allcourse = Course::getAll();
+                }
             }
             $coursesarr = substr($coursesarr,3);
         }
-        $allcourse = Course::getWere($coursesarr);
+        if($boughtAny){
+            $allcourse = Course::getWere($coursesarr);
+        }
         if(is_object($allcourse)){
             $allcourses[] = $allcourse;
         }else{
