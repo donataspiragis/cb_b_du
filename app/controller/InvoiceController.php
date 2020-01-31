@@ -33,33 +33,51 @@ class InvoiceController extends BaseController  {
         $orders = [];
 
         if (!is_null($invc_id)) {
-            $orders[] = Order::getWere("invoice_id = $invc_id");
+            $orders = Order::getWere("invoice_id = $invc_id");
         } else {
             $orders = Order::getWere("user_id = $user_id");
-            !is_array($orders) ? $orders = [$orders] : false;
         }
 
-        if (!is_null($invc_id) && count($orders) > 1) {
-
-        }
+        !is_array($orders) ? $orders = [$orders] : false;
 
         $payments = [];
+
+//        print '<pre>';
+//        print_r($orders);
+//        die();
 
         foreach ($orders as $index => $order) {
             $course_id = $order->course_id;
             $invoice_id = $invc_id ?? $order->invoice_id;
-
             $name = (Course::getWere("ID = $course_id"))->name;
             $price = (Invoice::getWere("ID = $invoice_id"))->price;
             $date = (Invoice::getWere("ID = $invoice_id"))->created_on;
 
-            $payments[] = [
-                'invoice_id' => $invoice_id,
-                'name' => $name,
-                'price' => $price,
-                'date' => explode(' ', $date)[0]
-            ];
+            if ($index < 1) {
+                $payments[$index]['invoice_id'] = $invoice_id;
+                $payments[$index]['name'] = $name;
+                $payments[$index]['price'] = $price;
+                $payments[$index]['date'] = explode(' ', $date)[0];
+            } else {
+                if ($payments[$index -1]['invoice_id'] === $invoice_id) {
+                    $payments[$index]['invoice_id'] = $invoice_id;
+                    $payments[$index]['name'] = $payments[$index-1]['name'] . ', ' . $name;
+                    $payments[$index]['price'] = $price;
+                    $payments[$index]['date'] = explode(' ', $date)[0];
+
+                    unset($payments[$index-1]);
+                } else {
+                    $payments[$index]['invoice_id'] = $invoice_id;
+                    $payments[$index]['name'] = $name;
+                    $payments[$index]['price'] = $price;
+                    $payments[$index]['date'] = explode(' ', $date)[0];
+                }
+            }
         }
+
+//        print '<pre>';
+//        print_r($payments);
+//        die();
 
         return $payments;
     }
