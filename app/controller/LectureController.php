@@ -53,17 +53,19 @@ class LectureController extends BaseController  {
                 foreach ($lectlist as $key =>$value){
                     $lecture[] = Lecture::getWere("ID = $value->lecture_id");
                     $lecture[$key]->order = $value->order_num;
+		    $video_ID=str_replace('https://www.youtube.com/embed/','',$lecture[$key]->video_url);
                 }
             }else{
                 $lecture[0] = Lecture::getWere("ID = $lectlist->lecture_id");
                 $lecture[0]->order = $lectlist->order_num;
+ 		$video_ID=str_replace('https://www.youtube.com/embed/','',$lecture[0]->video_url);
             }
             usort($lecture, array($this, "cmp"));
             $this->getCourses($userid);
         if($bool){         
             return $this->render('lecturesview',['lectures' => $lecture,'data' => $this->courses,'allcourse' => $this->allcourses,'value'=>"id$course_id",'menu'=>'collapseTwo']);
         }else{
-            return $this->render('lockLecturesview',['lectures' => $lecture,'email' =>  $user_email,'course_id'=>$course_id,'menu'=>'collapseTwo','value'=>"id$course_id",'data' => $this->courses,'allcourse' => $this->allcourses]);
+            return $this->render('lockLecturesview','video_id'=>$video_ID,['lectures' => $lecture,'email' =>  $user_email,'course_id'=>$course_id,'menu'=>'collapseTwo','value'=>"id$course_id",'data' => $this->courses,'allcourse' => $this->allcourses]);
         }
     }
     private function getCourses($id){
