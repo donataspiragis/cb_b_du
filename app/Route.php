@@ -34,7 +34,7 @@ class Route {
         'user@passwordReminder'=>['UserController','passwordReminder'],
         'user@passwordForget'=>['UserController','passwordReminderChangePassword'],
         'admin@lectureLikes'=>['videoStatisticsController','show'],
-
+        'course@list' => ['SelectCourseController','selectCourseForEditing'],
 //        'buy@index' => ['BuyallController', 'index'],
         'course@index' => ['CourseController', 'index'],
         'course@create' => ['CourseController', 'create'],
