@@ -11,6 +11,7 @@ return function(ContainerConfigurator $configurator) {
         ->set('paysera.callbackurl','http://localhost'.App::INSTALL_FOLDER.'/order/callbackpaysera')
         ->set('mailchimp.key', '0972ea13026619b2bed23ae1d69f4adc-us4')
         ->set('list.id', '820bdf2654')
+->set('gmail.key','gmnbghchgaxfbfks')
 
     ;
 
@@ -32,7 +33,7 @@ return function(ContainerConfigurator $configurator) {
             '%paysera.callbackurl%'
         ]]);
     $services->set('mailchimp', 'App\Services\MailChimp')
-        ->args(['%mailchimp.key%','%list.id%'])
+        ->args(['%mailchimp.key%','%list.id%','%gmail.key%'])
         // ->args([])
     ;
 
