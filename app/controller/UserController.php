@@ -93,6 +93,10 @@ class UserController extends BaseController
         header("Location: ". App::INSTALL_FOLDER."/course/display");
         exit();
     }
+ public function subscribe($email){
+        $mailchimp = App::get('mailchimp');
+        $mailchimp->create($email,'subscribed',array('FNAME' => '','LNAME' => ''));
+    }
 
     public function login(){
 
@@ -153,6 +157,9 @@ class UserController extends BaseController
         $user->save();
         $link='http://localhost'.App::INSTALL_FOLDER."/user/passwordForget/". $user->password_reminder;
         echo "<a href=$link>$link</a>";
+ $mailchimp = App::get('mailchimp');
+        $mailchimp->send($email,$user->name,$link);
+
 
     }
     public function passwordReminderChangePassword($hash){

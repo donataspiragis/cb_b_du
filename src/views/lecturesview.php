@@ -10,7 +10,7 @@
 
             <div class="text-view">
                 <iframe width="100%" height="100%"
-                        src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                        src="{{lecture.video_url}}">
                 </iframe>
 
             </div>
