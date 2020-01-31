@@ -24,15 +24,21 @@ class InvoicePdf extends tFPDF {
     }
 
     function myTable($payments) {
+//        print '<pre>';
+//        print_r($payments);
+//        die();
         foreach ($payments as $payment) {
-            $this->Cell(10, 6, '', 0, 0, 'C', false);
-            $this->SetFillColor(250, 250, 250);
-            $this->SetFontSize(10);
-            $this->Cell(120, 8, $payment['name'], 0, 0, 'L', true);
-            $this->Cell(1, 8, '', 0, 0, 'L', false);
-            $this->Cell(28, 8, $payment['date'], 0, 0, 'R', true);
-            $this->Cell(1, 8, '', 0, 0, 'L', false);
-            $this->Cell(20, 8, $payment['price'] . ' eur', 0, 0, 'C', true);
+//            foreach ($index as $payment) {
+                $this->Cell(10, 6, '', 0, 0, 'C', false);
+                $this->SetFillColor(250, 250, 250);
+                $this->SetFontSize(10);
+                $this->Cell(120, 8, $payment['name'], 0, 0, 'L', true);
+                $this->Cell(1, 8, '', 0, 0, 'L', false);
+                $this->Cell(28, 8, $payment['date'], 0, 0, 'R', true);
+                $this->Cell(1, 8, '', 0, 0, 'L', false);
+                $this->Cell(20, 8, $payment['price'] . ' eur', 0, 0, 'C', true);
+//            }
+            $this->Ln(10);
         }
     }
 

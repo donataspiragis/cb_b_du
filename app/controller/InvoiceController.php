@@ -39,6 +39,10 @@ class InvoiceController extends BaseController  {
             !is_array($orders) ? $orders = [$orders] : false;
         }
 
+        if (!is_null($invc_id) && count($orders) > 1) {
+
+        }
+
         $payments = [];
 
         foreach ($orders as $index => $order) {
@@ -49,7 +53,8 @@ class InvoiceController extends BaseController  {
             $price = (Invoice::getWere("ID = $invoice_id"))->price;
             $date = (Invoice::getWere("ID = $invoice_id"))->created_on;
 
-            $payments[$invoice_id] = [
+            $payments[] = [
+                'invoice_id' => $invoice_id,
                 'name' => $name,
                 'price' => $price,
                 'date' => explode(' ', $date)[0]

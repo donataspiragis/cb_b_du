@@ -12,14 +12,14 @@
             <th>Data</th>
             <th>Sąskaita faktūra</th>
         </tr>
-        {% for index, payment in payments %}
+        {% for payment in payments %}
         <tr>
             <td>{{ payment.name }}</td>
             <td>{{ payment.price }} eur</td>
             <td>{{ payment.date }}</td>
             <td style="display: flex; justify-content: space-around;">
-                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/invoice/show/{{ index }}">Žiūrėti</a>
-                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/invoice/show/{{ index }}" download>Atsisiųsti</a>
+                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/invoice/show/{{ payment.invoice_id }}">Žiūrėti</a>
+                <a href="{{ constant('App\\App::INSTALL_FOLDER') }}/invoice/show/{{ payment.invoice_id }}" download>Atsisiųsti</a>
             </td>
         </tr>
         {% endfor %}
