@@ -156,7 +156,9 @@ $db->exec($sql);
 
 //BUY ALL TABLE FIRST AND LAST INSERT
     $sql = "INSERT INTO allbuy(`name`, `description`, `price`,  `created_on`)
-VALUES ('Pirk viska','Geriausia nuolaida','500', '2020-01-01')";
+
+VALUES ('Pirk viska','Geriausia nuolaida','500', '2020-01-31')";
+
     $db->exec($sql);
 
 

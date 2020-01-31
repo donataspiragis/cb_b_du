@@ -65,12 +65,7 @@ class OrderController extends BaseController  {
     }
 
     public function createall(){
-
-<<<<<<< Updated upstream
-        return $this->render('createall');
-=======
          return $this->render('createall',['value'=>'buyall']);
->>>>>>> Stashed changes
     }
 
     public function createallsave($id){
