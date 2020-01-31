@@ -1,6 +1,5 @@
 <?php
 namespace App\Controller;
-
 use App\App;
 use App\Controller\BaseController;
 use App\Model\Buyall;
@@ -267,6 +266,8 @@ class OrderController extends BaseController  {
 
         if($info['status'] == "1")
         {
+            $hash = $user->password;
+            $hash = str_replace('/', '', $hash);
             $hash = $user->password;
             $hash = str_replace('/', '', $hash);
 

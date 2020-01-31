@@ -119,11 +119,9 @@ class CourseController extends BaseController  {
         save_file($_FILES['cover_photo']);
     }
 
-    public function index() {
 
-    }
+   public function  display(){
 
-    public function  display(){
         session_start();
         if($_SESSION['userId'] != null){
             $id = $_SESSION['userId'];
@@ -177,6 +175,6 @@ class CourseController extends BaseController  {
 //        $mailchimp->create($email,'subscribed',array('FNAME' => 'Misha','LNAME' => 'Rudrastyh'));
     }
 
-
+    public function index() {}
 }
 
