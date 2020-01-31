@@ -68,7 +68,7 @@ class LectureController extends BaseController  {
     }
     private function getCourses($id){
         $coursesarr ="";
-       
+       $allcourse=[];
         $boughtAny = false;
         $orders = Order::getWere("user_id = $id");
         if(is_object($orders)){
