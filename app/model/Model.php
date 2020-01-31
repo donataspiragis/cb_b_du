@@ -114,9 +114,11 @@ class Model {
     protected function updateData(){
         $keys='';
         foreach ($this->atributes as $key=>$value){
+
 //            if($key != 'ID') {
                 $keys .= ",`$key`=:$key";
 //            }
+
             if($key == "edited_on"){
                 $this->atributes["edited_on"] = self::carbonTime();
             }

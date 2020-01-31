@@ -21,11 +21,11 @@
                     <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/logof">Atsijungti</a>
+                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/user/logout">Atsijungti</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/auth/profile">Profilis</a>
+                    <a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/user/profile">Profilis</a>
                 </li>
             </ul>
         </div>
@@ -35,6 +35,8 @@
 
 
 <main class="d-flex p-2 bd-highlight justify-content-center">
+<input type="text" name="id" id="getval" value="{{value}}" style="display: none;">
+<input type="text" name="id" id="getval2" value="{{menu}}" style="display: none;">
     <div class="row" style="padding-top: 60px; width: 100%">
         <div class="col-lg-2 col-md-4 col-sm-12">
             <div class="card" >
@@ -42,15 +44,15 @@
                     <div id="accordion">
                         <h5 class="card-title"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">Statistika</h5>
                         <ul class="nav flex-column">
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="#">Video statistika</a>
+                                    <a class="nav-link text-dark"id="videostat" href="{{ constant('App\\App::INSTALL_FOLDER') }}/admin/lectureLikes">Video statistika</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/info/collect">Mokiniai + informacija</a>
+                                    <a class="nav-link text-dark" id="mokinfo" href="{{ constant('App\\App::INSTALL_FOLDER') }}/info/collect">Mokiniai + informacija</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/statistics">Apyvarta</a>
+                                    <a class="nav-link text-dark" id="apyvarta" href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/statistics">Apyvarta</a>
                                 </li>
                             </div>
 
@@ -60,13 +62,16 @@
                         <ul class="nav flex-column">
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="#">Patalpinti naują video</a>
+                                    <a class="nav-link text-dark"id="naujavid" href="https://www.youtube.com/">Patalpinti naują video</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/create">Sukurti naują kursą</a>
+                                    <a class="nav-link text-dark" id="newcourse"href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/create">Sukurti naują kursą</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="#">Redaguoti esamą kursą</a>
+                                    <a class="nav-link text-dark" id="editcourse"href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/create">Redaguoti esamą kursą</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" id="buyall"href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/createall">Sukurti Pirkti Viską</a>
                                 </li>
                             </div>
 
@@ -97,6 +102,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{{ constant('App\\App::INSTALL_FOLDER') }}/js/main.js" defer></script>
 </body>
 
 </html>

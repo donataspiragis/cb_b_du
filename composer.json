@@ -7,7 +7,9 @@
       "App\\Model\\": "app/model",
       "App\\Objects\\": "app/objects",
       "App\\View\\": "app/view",
-"App\\Services\\": "app/services",
+      "App\\Pdf\\": "app/objects/fpdf",
+      "App\\Pdf\\Unifont\\": "app/objects/fpdf/font/unifont",
+      "App\\Services\\": "app/services",
       "App\\": "app",
       "DataBase\\": "DataBase"
     }
@@ -20,6 +22,8 @@
     "madcoda/php-youtube-api": "1.2",
     "symfony/dependency-injection": "^5.0",
     "symfony/yaml": "^5.0",
-    "symfony/config": "^5.0"
+    "symfony/config": "^5.0",
+    "ext-iconv": "*",
+    "phpmailer/phpmailer": "^6.1"
   }
 }

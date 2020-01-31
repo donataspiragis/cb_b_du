@@ -1,8 +1,8 @@
 <?php
 namespace App\Controller;
-
 use App\App;
 use App\Controller\BaseController;
+use App\Model\Buyall;
 use App\Model\Course;
 use App\Model\Invoice;
 use App\Model\Offer;
@@ -40,7 +40,7 @@ class OrderController extends BaseController  {
 
 
         }
-        return $this->render('statistics', ['all' => $all,'amount' => $amount]);
+        return $this->render('statistics', ['all' => $all,'amount' => $amount,'value'=>"apyvarta",'menu'=>'collapseOne']);
     }
     private function monthsBack($backamount){
         $array = [];
@@ -64,20 +64,95 @@ class OrderController extends BaseController  {
         return $array;
     }
 
+    public function createall(){
+
+<<<<<<< Updated upstream
+        return $this->render('createall');
+=======
+         return $this->render('createall',['value'=>'buyall']);
+>>>>>>> Stashed changes
+    }
+
+    public function createallsave($id){
+
+        $all = Buyall::getWere('ID = 1 ');
+        $all->name = $_POST['name'];
+        $all->price = $_POST['price'];
+        $all->description = $_POST['description'];
+        $all->save();
+        header("Location: ". App::INSTALL_FOLDER."/order/statistics");
+    }
+
+    public function buyallview(){
+        $all = Buyall::getWere('ID = 1');
+        $info = '';
+        return $this->render('buyall', ['info' => $info, 'all' => $all]);
+    }
+
+    public function buyall($id){
+        $email = $_POST['email'];
+        $user=User::getAll();
+        foreach ($user as $u) {
+            if($u->email == $email) {
+                $info = 'Planavai pirkti viską bet pasiūlymas galioja tik naujiems vartotojams!';
+                return $this->render('buyall', ['info'=>$info]);
+            }
+        }
+
+        $amount_obj = Offer::getAll();
+        $alltable= Buyall::getWere('ID = 1');
+
+
+        $newUser= new User();
+        $newUser->name='laikinas';
+        $newUser->surname='laikinas';
+        $newUser->password=password_hash(rand(1,100), PASSWORD_DEFAULT);
+        $newUser->role=0;
+        $newUser->email = $email;
+        $newUser->created_on=Carbon::now();
+        $newUser->user_discount=20;
+        $newUser->save();
+
+        $invoice = new Invoice();
+        $invoice->price = $alltable->price * 100;
+        $invoice->created_on = Carbon::now();
+        $invoice->save();
+
+        $courses=Course::getAll();
+        if(is_object($courses)){
+            $order = new Order();
+            $order->user_id = $newUser->ID;
+            $offer= Offer::getWere('course_id = ' . $courses->ID  );
+            $order->offer_id = $offer->ID;
+            $order->course_id = $courses->ID;
+            $order->invoice_id = $invoice->ID;
+            $order->payment_status=0;
+            $order->save();
+        } else {
+        foreach ($courses as $course) {
+            $order = new Order();
+            $order->user_id = $newUser->ID;
+            $offer= Offer::getWere('course_id = ' . $course->ID  );
+            $order->offer_id = $offer->ID;
+            $order->course_id = $course->ID;
+            $order->invoice_id = $invoice->ID;
+            $order->payment_status=0;
+            $order->save();
+        }
+        }
+
+        $amount = $invoice->price;
+        $order_id_paysera = $order->ID . 'NOKOALL';
+        $servisas = App::get('paysera');
+        $servisas->pay($email, $amount, $order_id_paysera);
+    }
+
     public function payexisting(){
         $email = $_POST['email'];
         $c_id = $_POST['id'];
-
-
         $amount_obj = Offer::getWere('course_id =' . $c_id );
-        $amount = 0;
-        if($amount_obj->discount_offer > 0) {
-            $amount = $amount_obj->discount_offer;
-        }
-        else {
-            $amount = $amount_obj->price;
-        }
-        $amount = $amount * 100;
+        $amount = $amount_obj->price;
+        $amount = ($amount * 100) * 0.8;
 
         $user=User::getWere('email = ' .$email);
 
@@ -96,40 +171,52 @@ class OrderController extends BaseController  {
         $order->save();
 
         $ino = $invoice->ID;
-        $paytext = 'esu';
         $servisas = App::get('paysera');
-        $servisas->pay($email, $amount, $order->ID, $paytext);
+
+        $order_id_paysera = $order->ID . 'OKOO';
+        $servisas->pay($email, $amount, $order_id_paysera);
     }
 
     public function payload($id){
         $offer = Course::getWere('ID=' . $id );
         return $this->render('pay', ['id' => $id, 'offer' => $offer]);
+    }
+
+    public function d_payload($id){
+        $offer = Course::getWere('ID=' . $id );
+        return $this->render('payD', ['id' => $id, 'offer' => $offer]);
 
     }
 
     public function checkPrePayment($id){
         $email = $_POST['email'];
+        $old = $_POST['old'];
+        $amount_obj = Offer::getWere('course_id =' . $id);
         $user=User::getAll();
+
         foreach ($user as $u) {
             if($u->email == $email) {
-                return self::paid($id, 1, $email);
+                if($old == 'disc'){
+                    $amount =  $amount_obj->discount_offer * 100;
+                    return self::paid($id, 1, $email, $amount);
+                } else {
+                    $amount =  $amount_obj->price * 100;
+                    return self::paid($id, 1, $email, $amount);
+                }
             }
         }
-        return self::paid($id, 0, $email);
+
+        if($old == 'disc'){
+            $amount =  $amount_obj->discount_offer * 100;
+            return self::paid($id, 0, $email, $amount);
+        } else {
+            $amount =  $amount_obj->price * 100;
+            return self::paid($id, 0, $email, $amount);
+        }
+
     }
 
-    public function paid ($id, $status, $email){
-
-        $amount_obj = Offer::getWere('course_id =' . $id);
-        $amount = 0;
-        if($amount_obj->discount_offer > 0) {
-            $amount = $amount_obj->discount_offer;
-        }
-        else {
-            $amount = $amount_obj->price;
-        }
-        $amount = $amount * 100;
-
+    public function paid ($id, $status, $email, $amount){
 
         if($status == 0) {
             $newUser= new User();
@@ -156,6 +243,7 @@ class OrderController extends BaseController  {
             $order->payment_status=0;
             $order->save();
 
+            $order_id_paysera = $order->ID . 'NOKO';
         }
         else {
             $user=User::getWere('email = ' .$email);
@@ -174,50 +262,58 @@ class OrderController extends BaseController  {
             $order->payment_status=0;
             $order->save();
 
+            $order_id_paysera = $order->ID . 'OKOO';
         }
-        $ino = $invoice->ID;
-        $paytext = '';
+
+
         $servisas = App::get('paysera');
-        $servisas->pay($email, $amount, $order->ID, $paytext);
+        $servisas->pay($email, $amount, $order_id_paysera);
     }
 
 
     public function answer($data) {
 
         $info = WebToPay::checkResponse($_GET, ['projectid' => 146155, 'sign_password' => 'ce28c97dcd8381b7d5a093ffd1deae38']);
-        var_dump('<pre>');
-        var_dump($info);
-        die();
-        $user = User::getRaw('SELECT MAX(ID) FROM user' );
 
-        if ($info['paytext'] == 'esu'){
-            header("Location: " . App::INSTALL_FOLDER. "/course/display/"  );
-        } else {
+        $newold = substr($info['orderid'], -4);
+        $user = User::getWere('email = ' . $info['p_email'] );
+        $order = Order::getWere('ID = ' . $info['orderid']);
 
-            $user = User::getWere('email = ' . $info['p_email'] );
-            $order = Order::getWere('ID = ' . $info['orderid']);
-
-            $order->payment_status = 1;
-            $order->save();
-            $hash = $user->password;
-            $hash = str_replace('/', '', $hash);
-            header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
-        }
-
-
-        var_dump('<pre>');
-     var_dump($info);
-        die();
         if($info['status'] == "1")
         {
-            $user = User::getWere('email = ' . $info['p_email'] );
-            $order = Order::getWere('ID = ' . $info['orderid']);
-
-            $order->payment_status = 1;
-            $order->save();
             $hash = $user->password;
             $hash = str_replace('/', '', $hash);
-           header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
+            $hash = $user->password;
+            $hash = str_replace('/', '', $hash);
+
+            if($newold == 'NOKO'){
+                $order->payment_status = 1;
+                $order->save();
+                header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
+
+            }
+            else if ($newold == 'OKOO'){
+                $order->payment_status = 1;
+                $order->save();
+                header("Location: " . App::INSTALL_FOLDER. "/course/display/" );
+            } else if($newold = 'NOKOALL'){
+                $orders = Order::getWere('user_id = '. $user->ID );
+                if(is_object($orders)) {
+                    $orders->payment_status = 1;
+                    $orders->save();
+                } else {
+
+                foreach ($orders as $order) {
+                    $order->payment_status = 1;
+                    $order->save();
+                }
+                }
+
+                header("Location: " . App::INSTALL_FOLDER. "/user/registerNew/" . $hash );
+            }
+
+
+
         }
         else {
             $status = "Laukiame mokėjimo patvirtinimo ir išsiuntėme Jums prisijungimą";
@@ -231,9 +327,8 @@ class OrderController extends BaseController  {
     }
 
     public function callbackpaysera($data) {
-         return $this->render('callbackpaysera');
+        return $this->render('callbackpaysera');
     }
 
 }
-
 

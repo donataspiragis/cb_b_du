@@ -72,7 +72,7 @@ $sql = "CREATE TABLE `user` (
   `user_discount` int(11) NOT NULL
 )";
 $db->exec($sql);
-    $sql = "CREATE TABLE `all` (
+    $sql = "CREATE TABLE `allbuy` (
   `ID` int(11) NOT NULL,
     `name` varchar(26) NOT NULL,
   `description` LONGTEXT NOT NULL,
@@ -106,8 +106,7 @@ $sql = "ALTER TABLE `offer`
 ";
 $db->exec($sql);
 $sql = "ALTER TABLE `orders`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `invoice_id` (`invoice_id`);";
+  ADD PRIMARY KEY (`ID`);";
 $db->exec($sql);
 $sql = "ALTER TABLE `user`
   ADD PRIMARY KEY (`ID`);";
@@ -115,6 +114,10 @@ $db->exec($sql);
     $sql = "ALTER TABLE `invoices`
   ADD PRIMARY KEY (`ID`);";
     $db->exec($sql);
+    $sql = "ALTER TABLE `allbuy`
+  ADD PRIMARY KEY (`ID`);";
+    $db->exec($sql);
+
 
 $sql = "ALTER TABLE `courses`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
@@ -129,6 +132,8 @@ $sql .= "ALTER TABLE `orders`
 $sql .= "ALTER TABLE `user`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
     $sql .= "ALTER TABLE `invoices`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
+    $sql .= "ALTER TABLE `allbuy`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;";
 $db->exec($sql);
 
@@ -149,6 +154,10 @@ $sql = "ALTER TABLE `orders`
 ";
 $db->exec($sql);
 
+//BUY ALL TABLE FIRST AND LAST INSERT
+    $sql = "INSERT INTO allbuy(`name`, `description`, `price`,  `created_on`)
+VALUES ('Pirk viska','Geriausia nuolaida','500', '2020-01-01')";
+    $db->exec($sql);
 
 
 //    INSERT YOUR TABLES HERE
