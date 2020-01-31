@@ -11,14 +11,13 @@ class MailChimp
     private $list_id,$api_key,$gmail_key;
 
     public function __construct($api_key, $list_id,$gmail_key){
+	$this->api_key = $api_key;
         $this->list_id = $list_id;
-        $this->api_key = $api_key;
         $this->gmail_key = $gmail_key;
 	
 
     }
     public function create($email, $status, $merge_fields = array('FNAME' => '','LNAME' => '')){
-echo 'HII';
         $data = array(
             'apikey'        => $this->api_key,
             'email_address' => $email,
@@ -38,7 +37,7 @@ echo 'HII';
         curl_setopt($mch_api, CURLOPT_POSTFIELDS, json_encode($data) ); // send data in json
 
         $result = curl_exec($mch_api);
-        return $result;
+        //return $result;
 
     }
 

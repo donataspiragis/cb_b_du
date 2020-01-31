@@ -11,7 +11,7 @@
         <div class="center">
 
             <div class="text-view">
-            <img style = "width:100%; height:100%;" src="http://img.youtube.com/vi/{{video_id}}/sddefault.jpg" alt="">
+            <img style = "width:100%; height:100%;" src="http://img.youtube.com/vi/{{lecture.video_ID}}/sddefault.jpg" alt="">
             
 
             </div>
