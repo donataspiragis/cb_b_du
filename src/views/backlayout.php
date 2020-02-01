@@ -68,7 +68,7 @@
                                     <a class="nav-link text-dark" id="newcourse"href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/create">Sukurti naują kursą</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" id="editcourse"href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/create">Redaguoti esamą kursą</a>
+                                    <a class="nav-link text-dark" id="editcourse"href="{{ constant('App\\App::INSTALL_FOLDER') }}/course/list">Redaguoti esamą kursą</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" id="buyall"href="{{ constant('App\\App::INSTALL_FOLDER') }}/order/createall">Sukurti Pirkti Viską</a>

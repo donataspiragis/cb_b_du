@@ -7,14 +7,14 @@ use App\App;
 class InvoicePdf extends tFPDF {
 
     function Header() {
-        $this->Image(App::INSTALL_FOLDER . 'images/logo.png',12,10,30, 40);
-        $this->AddFont('Arial','', 'DejaVuSans.ttf', true);
+        $this->Image(App::INSTALL_FOLDER . '/images/logo.png',12,10,30, 40);
+//        $this->AddFont('Arial','', 'DejaVuSans.ttf', true);
         $this->SetFont('Arial','',15);
         $this->SetFontSize(20);
         $this->Cell(180,20,'CB B DU',0,0,'R', false);
         $this->Ln(20);
         $this->SetFontSize(12);
-        $this->Cell(180,20, 'Sąskaita faktūra',0,0,'R', false);
+        $this->Cell(180,20, 'Saskaita faktura',0,0,'R', false);
         $this->Ln(6);
         $this->SetFontSize(10);
         $this->Cell(180,20, 'Serija, numeris: BLA 666777',0,0,'R', false);

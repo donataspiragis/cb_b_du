@@ -11,6 +11,7 @@
 
 namespace App\Pdf;
 
+use App\App;
 use App\Pdf\Unifont\TTFontFile;
 
 define('tFPDF_VERSION','1.31');
@@ -483,7 +484,7 @@ function AddFont($family, $style='', $file='', $uni=false)
 		return;
 	if ($uni) {
 		if (defined("_SYSTEM_TTFONTS") && file_exists(_SYSTEM_TTFONTS.$file )) { $ttffilename = _SYSTEM_TTFONTS.$file ; }
-		else { $ttffilename = $this->fontpath.'unifont/'.$file ; }
+		else { $ttffilename = 'http://localhost/cb_b_du/app/objects/fpdf/font/unifont/'.$file ; }
 		$unifilename = $this->fontpath.'unifont/'.strtolower(substr($file ,0,(strpos($file ,'.'))));
 		$name = '';
 		$originalsize = 0;
@@ -1463,7 +1464,7 @@ protected function _parsejpg($file)
 protected function _parsepng($file)
 {
 	// Extract info from a PNG file
-	$f = fopen($file,'rb');
+	$f = fopen('http://localhost/' . $file,'rb');
 	if(!$f)
 		$this->Error('Can\'t open image file: '.$file);
 	$info = $this->_parsepngstream($f,$file);

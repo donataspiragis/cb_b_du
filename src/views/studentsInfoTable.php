@@ -52,7 +52,7 @@
             {% endfor %}
         </td>
         <td>{{ user.last_log }}</td>
-        <td><a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/user/subscribe/user.email">Išsiusti laišką</a></td>
+        <td><a class="nav-link" href="{{ constant('App\\App::INSTALL_FOLDER') }}/user/subscribe/{{user.email}}">Išsiusti laišką</a></td>
     </tr>
     {% endfor %}
 

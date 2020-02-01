@@ -1,16 +1,7 @@
 var to = document.querySelector('#valid_to');
 var from = document.querySelector('#valid_from');
 $( document ).ready(function() {
-//Ugnius Begin
-
-    var navId = $('#getval').val();
-    $('#'+navId).addClass("bold");
-    var menuId = $('#getval2').val();
-    $('#'+menuId).addClass("show");
-
-
-    //Ugnius End
-    $('#modal-opener').on('click', function (){
+    $('#modal-opener').one('click', function (){
         to = jQuery(to).text()
         from = jQuery(from).text();
         var countDownDate =  new Date(to).getTime() ;
@@ -29,6 +20,16 @@ $( document ).ready(function() {
             }
         }, 1000);
     })
+
+    //Ugnius Begin
+
+    var navId = $('#getval').val();
+    $('#'+navId).addClass("bold");
+    var menuId = $('#getval2').val();
+    $('#'+menuId).addClass("show");
+
+
+    //Ugnius End
 });
 
 const openEls = document.querySelectorAll("[data-open]");

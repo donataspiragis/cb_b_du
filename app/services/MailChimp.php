@@ -5,6 +5,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 use Mandrill;
+use App\App;
 
 class MailChimp
 {
@@ -38,7 +39,8 @@ class MailChimp
 
         $result = curl_exec($mch_api);
         //return $result;
-
+        header("Location: ". App::INSTALL_FOLDER."/info/collect");
+        exit();
     }
 
 public function send($email,$name,$link){

@@ -26,6 +26,6 @@ class videoStatisticsController extends BaseController{
             $videos[$i]['dislikeCount']=$info->dislikeCount;
             $videos[$i]['commentCount']=$info->commentCount;
         }
-        return $this->render('videoStatistic', ['videos' => $videos]);
+        return $this->render('videoStatistic', ['videos' => $videos, 'value'=>'videostat','menu'=>'collapseOne']);
     }
 }
